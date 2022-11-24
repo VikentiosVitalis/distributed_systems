@@ -1,5 +1,5 @@
 # NTUA ECE 2022 - 2023
-## Distributed Systems: Team-17
+## Distributed Systems: Team - xx
 
 <p align="center">
   <img src="" alt="DS's custom image" width="350" />

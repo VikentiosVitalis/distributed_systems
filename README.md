@@ -10,6 +10,6 @@ alt="DS's Custom Image" width="250" height="150" />
 
 This project was created by our team consisting of the members below:
 
-- [Mark Ramos](https://github.com/)
+- [Mark Ramos](https://github.com/MarkRamosS)
 - [Vikentios Vitalis](https://github.com/VikentiosVitalis)
 - [Giannis Lyras](https://github.com/ioannislyras98)

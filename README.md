@@ -1,5 +1,4 @@
-# NTUA ECE 2022 - 2023
-## Distributed Systems: Team - 17
+# NTUA ECE Distributed Systems
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/62433719/209676755-2f18ca15-2743-4383-920f-a25d3b962c3f.png"

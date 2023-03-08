@@ -1,5 +1,7 @@
-vm1: Dsiw8jZO73
-vm2: apk5vUG7n
-vm3: jDy7CmhGCZ
-vm4: Z85hCqorAn
-vm5: XaD8aTUwPZ
+83.212.81.180
+
+vm1: 9ttSEOcJwQ
+vm2: wnlz8PCJhP
+vm3: 0yYncr4vex
+vm4: COrLVUQo5h
+vm5: FGpo2MVXMO

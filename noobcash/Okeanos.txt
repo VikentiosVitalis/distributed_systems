@@ -1,7 +1,26 @@
 83.212.81.180
 
-vm1: 9ttSEOcJwQ
-vm2: wnlz8PCJhP
-vm3: 0yYncr4vex
-vm4: COrLVUQo5h
-vm5: FGpo2MVXMO
+vm1:
+192.168.0.3  
+ssh user@snf-35158.ok-kno.grnetcloud.net
+9ttSEOcJwQ
+
+vm2: 
+192.168.0.1 
+wnlz8PCJhP
+ssh user@snf-35159.ok-kno.grnetcloud.net
+
+vm3:
+192.168.0.5 
+0yYncr4vex
+ssh snf-35160.ok-kno.grnetcloud.net
+
+vm4: 
+192.168.0.4
+COrLVUQo5h
+ssh snf-35161.ok-kno.grnetcloud.net
+
+vm5: 
+192.168.0.2 
+FGpo2MVXMO
+ssh snf-35162.ok-kno.grnetcloud.net

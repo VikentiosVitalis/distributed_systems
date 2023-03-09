@@ -1,0 +1,21 @@
+from wallet import Wallet
+from transaction import Transaction
+
+class Node:
+    def __init__(self):
+        self.id = 0
+        self.wallet = Wallet()
+
+    def createTransaction(self, receiver, ammount):
+        print("Creating transaction.")
+        new_transaction = Transaction(self.get_addr(), receiver, ammount)
+        new_transaction.signature = self.wallet.sign(new_transaction.tid)
+        self.broadcast(new_transaction)
+
+    def broadcast(transaction):
+        # Does nothing yet
+        return 
+
+    def validateTransaction(self, transaction):
+        check = transaction.signature
+

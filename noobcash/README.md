@@ -13,13 +13,6 @@ A simple blockchain system
 
 Noobcash is a simple cryptocurrency system. It is a completely decentralized digital currency, without any need for central authority. The transactions made in the system are verified by a network of nodes and recorded in a public distributed ledger, the Noobcash Blockchain. The nodes in our system communicate via a peer-to-peer network using cryptography for the verification processes. 
 
-## Demo
-You can find an online demo of the project at the following address:
-
-<p align="center"> <a href="https://snf-12208.ok-kno.grnetcloud.net/" alt="Demo"> https://snf-12208.ok-kno.grnetcloud.net/ </a> </p>
-
-You will be able to access all of the nodes, in order for you to be able to check the system's status and validity at any point.
-
 > **_NOTE:_** In case more than one users are making transactions at the same time, you may notice different behaviour regarding a node's balance than expected. Be sure to check the node's transactions before reporting a problem. **You could also setup Noobcash locally for safer results.**
 
 ## Deliverables
@@ -129,21 +122,10 @@ We evaluate the performance and the scalability of Noobcash by running the syste
  </p>
 
 
-
-
-
 ## Project Structure
 
 - `src/`: Source code of the rest backend and cli client.
 - `test/`: Files regarding the evaluation of the system.
 - `webapp/`: Files about the web app.
 
-## Contributors
 
-Developed by
-
-<p align="center">
-    <a href="https://github.com/PanosAntoniadis"> <img src="etc/antoniadis.png" width="10%"></a>  <a href="https://github.com/Nick-Buzz"><img src="etc/bazotis.png" width="10%"></a>  <a href="https://github.com/ThanosM97"><img src="etc/masouris.png" width="10%"></a>
-<p>
-    
-as a semester project for the Distributed Systems course of NTUA ECE.

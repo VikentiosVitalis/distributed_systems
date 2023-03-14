@@ -24,3 +24,5 @@ vm5:
 192.168.0.2 
 FGpo2MVXMO
 ssh snf-35162.ok-kno.grnetcloud.net
+
+// scp -r ~/scripts user@snf-35162.ok-kno.grnetcloud.net

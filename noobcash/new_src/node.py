@@ -17,5 +17,11 @@ class Node:
         return 
 
     def validateTransaction(self, transaction):
-        check = transaction.signature
+        # Check signature
+        if not transaction.validTransaction():
+            return False
+        # Check money
+        amt = self.wallet.getBalance(transaction.sender)
+        return amt >= transaction.ammount
+
 

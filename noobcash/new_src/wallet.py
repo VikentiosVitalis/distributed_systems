@@ -36,5 +36,8 @@ class Wallet:
                 sum = sum + tr.ammount
         return sum
 
+    def addTransaction(self, transaction):
+        self.transactions.append(transaction)
+        return
 
 

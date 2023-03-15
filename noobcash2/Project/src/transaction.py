@@ -49,4 +49,3 @@ class Transaction:
     def hashing(self):
         string = self.convert_to_JSON()
         return SHA.new(string.encode())
-

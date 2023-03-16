@@ -23,7 +23,7 @@ start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4])
 def register():
     pub_key = request.json['pub_key']
     addr = request.json['addrr']
-    start.register_child(addr,pub_key)
+    start.addNode(addr,pub_key)
     response = { 'message': 'Node registered.' }
     return jsonify(response),200
 

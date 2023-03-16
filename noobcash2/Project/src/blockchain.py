@@ -83,5 +83,3 @@ class Blockchain:
             res[k] = i.convert_block()
             k += 1
         return res
-
-

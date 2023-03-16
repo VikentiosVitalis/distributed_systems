@@ -32,7 +32,7 @@ def register():
 @app.route('/child_inform', methods=['POST'])
 def info():
     res = request.get_json()
-    start.child_response(res['id'], res['ring'], res['public_keys'], res['genesisblock'])
+    start.child_response(res['ipList'])
     response = {'message': 'Node Informed'}
     return jsonify(response), 200
 

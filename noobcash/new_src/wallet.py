@@ -1,11 +1,12 @@
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
 from Crypto.Signature import PKCS1_v1_5
+from transaction import Transaction
 
 
 
 class Wallet:
-    def __init__(self):
+    def __init__(self, nodeNr):
         # Generate key
         key = RSA.generate(1024)
         # Get data from keys
@@ -14,7 +15,8 @@ class Wallet:
         self.publicKey = key.publickey().exportKey()
         # Transaction list
         self.transactions = []
-    
+        self.balance = 100*nodeNr
+
     def get_addr(self):
         return self.publicKey
     
@@ -26,6 +28,9 @@ class Wallet:
         ciphertext = signer.sign(tmp)
         return ciphertext
     
+    def getBalance(self, address):
+        return self.balance
+
     def getBalance(self, address):
         sum = 100
         for tr in self.transactions:

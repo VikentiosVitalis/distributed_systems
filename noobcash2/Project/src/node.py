@@ -28,8 +28,8 @@ class Node:
 
         # generate public and private key
         self.public_key, self.private_key = self.generate_wallet()
-        bootstrap_ip = 'http://127.0.0.1:'
-        #bootstrap_ip = 'http://192.168.0.1:'
+        #bootstrap_ip = 'http://127.0.0.1:'
+        bootstrap_ip = 'http://192.168.0.3:'
         self.all_nodes_chains = {}
         self.all_nodes_transactions = {}
         self.all_utxos = {}

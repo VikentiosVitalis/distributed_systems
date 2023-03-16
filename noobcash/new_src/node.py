@@ -5,9 +5,6 @@ import requests
 import json
 import threading
 
-mining = threading.Event()  # Switch between mining
-mining.clear()              # No mining at the start
-
 class Node: 
     def __init__(self, port, IP, nodeNr, bootstrap):
         self.port = port
@@ -23,10 +20,12 @@ class Node:
         self.id = 0
         self.nodesActive = 0
 
-        
+        mining = threading.Event()  # Switch between mining
+        mining.clear()              # No mining at the start
+
         self.childFlag = threading.Event()      # Flag that indicates that we have all nodes
         self.childFlag.clear()
-        print(self.childFlag.isSet())
+        
 
         waitThread = threading.Thread(target=self.waitThread)
         waitThread.start()
@@ -35,7 +34,6 @@ class Node:
 
         # Register new node
         if not self.bootstrap:
-            print("child joining")
             res = {'addrr': self.addr, 'pub_key': self.wallet.get_addr()}
             res = json.dumps(res)
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
@@ -91,7 +89,7 @@ class Node:
         ipList = json.dumps(ipList)
         print('IP list:', ipList)
         for tup in self.ipList[1:]:
-            requests.post(tup[1]+'child_inform', data=ipList,headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+            requests.post(tup[1]+'/child_inform', data=ipList,headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         return 
 
     def broadcastTransaction(self, transaction):

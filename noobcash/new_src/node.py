@@ -1,5 +1,6 @@
-from wallet import Wallet
-from transaction import Transaction
+from new_src.wallet import Wallet
+from new_src.transaction import Transaction
+from new_src.blockchain import Blockchain
 import requests
 import json
 import threading
@@ -22,13 +23,14 @@ class Node:
         self.id = 0
         self.nodesActive = 0
 
-        waitThread = threading.Thread(target=self.waitThread)
-        waitThread.start()
-
+        
         self.childFlag = threading.Event()      # Flag that indicates that we have all nodes
         self.childFlag.clear()
         print(self.childFlag.isSet())
-        
+
+        waitThread = threading.Thread(target=self.waitThread)
+        waitThread.start()
+
         self.buffer = []
 
         # Register new node

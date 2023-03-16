@@ -2,7 +2,7 @@ import json
 import requests
 from flask import Flask, jsonify, request, session, render_template
 import sys
-from src.node import Node, mine_not_active
+from new_src.node import Node
 from flask_cors import CORS
 
 app = Flask(__name__)

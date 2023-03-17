@@ -285,4 +285,4 @@ def webapp_transaction():
 
 
 if __name__ == '__main__':
-    app.run(host=sys.argv[2], port=int(sys.argv[1]), use_debug=False)
+    app.run(host=sys.argv[2], port=int(sys.argv[1]), use_reloader=False)

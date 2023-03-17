@@ -1,0 +1,66 @@
+Noobcash backend
+
+The logic of the blockchain is implemented in the Noobcash backend. 
+The basic components are the following:
+
+  Noobcash Block:
+    index: Number of Block (1,2,3...)
+    timestamp: Time of block creation
+    transactions: List of a transactions contained in a Block 
+    nonce: Proof-Of-Work' solution
+    current_hash: Current Block's plaintext which is now a unique hash digest that cannot be reverted to the origina plaintext
+    previous_hash: Previous Block's hash digest
+
+    The space of each block for transactions is limited by the constant capacity.
+
+  Noobcash Blockchain:
+    The list of blocks which are verified
+
+  Wallet:
+    A wallet is associated with a public/private key pair. 
+
+    The public key acts as an address of the wallet, which a process/user can share with anyone in order to get NBCs. 
+
+    The private key is used to sign transactions. With its used it is ensured that only the wallet owner can spend NBCs from the specific wallet. The sign_transaction function implements this functionality.
+
+    Anyone who knows the public key of a wallet can verify that a transaction was created by its owner.
+
+  Transaction:
+    Each transaction contains information for Noobcash Coins transfers from one wallet to another.
+
+    sender_address          = Wallet's public key NBCs are originated.
+    receiver_address        = Wallet's public key in which NBCs will be transferred.
+    amount                  = Exact number of NBCs.
+    transaction_id          = A transaction hash/ID is a unique identifier that serves as a proof that
+                              a transaction was validated and added to the blockhain.
+    transaction_inputs      = Contains information for the exchange history of NBCs in each transaction
+                              and it is constituted by the previousOutputId which is the TransactionOutputId
+                              from which the NBCs are originated.
+    transaction_outputs     = Contains a unique ID identifier, the transaction ID which is originated,
+                              the new owner of the NBCs' and the exact number of NBCs transferred.
+
+    A transaction can be created by the wallet owner from which NBCs will be transferred.
+    Each transaction gets broadcasted in all the blockhain members.
+    During the acceptance of a transaction from any node, the validate_transaction function
+    is called in order to verify its validity.
+
+Transaction Inputs/Transaction Outputs/Unspent Transactions
+Κάθε transaction περιέχει πληροφορία που δείχνει από ποιο/α προηγούμενο/α transaction προήλθαν 
+τα χρήματα που μεταφέρονται. Αυτή η πληροφορία περιέχεται στο transaction input. Επίσης, κάθε 
+transaction δημιουργεί outputs, που περιέχουν πληροφορία για το ποσό που έστειλε κάθε transaction
+στους εμπλεκόμενους. Στην περίπτωσή μας, θεωρούμε μόνο transactions που γίνονται ανάμεσα σε 2 
+wallets, επομένως κάθε transaction καταλήγει σε 2 transaction outputs: Ένα output για το 
+receiver_address wallet με το ποσό του transaction κι ένα output για τον sender, με τα ρεστα, το ποσό 
+δηλαδή που περίσσεψε. Μόνο unspent transaction outputs (UTXO), δηλαδή transaction outputs που 
+δεν έχουν ξοδευτεί ήδη, μπορούν να χρησιμοποίηθούν ως input σε άλλο transaction προκειμένου να 
+αποφευχθεί double spending. Επομένως πάντα χρειάζονται UTXOs για να γίνει ένα transaction.
+Σύμφωνα με τα παραπάνω, το Transaction Input αποτελείται απο τo πεδία previousOutputId που είναι 
+το id του Transaction Output από όπου προήλθε το ποσό που μεταφέρεται.
+Το Transaction Output περιλαμβάνει: ένα μοναδικό αναγνωριστικό id, το id του transaction από το 
+οποίο προέρχεται, τον recipient του transaction (τον νέο κάτοχο των coins) και το ποσό που 
+μεταφέρθηκε. 
+Τελικά το υπόλοιπο του wallet ενός χρήστη είναι το άθροισμα όλων των unspent transaction outputs
+που έχουν ως recipient το συγκεκριμένο wallet. 
+Για να μη χρειάζεται να διατρέχουμε όλο το blockchain για να ελέγξουμε αν τα inputs ενός transaction
+είναι πράγματι unspent transaction ouputs προηγούμενων, κάθε node κρατάει επιπλέον το σύνολο των 
+UTXOs για κάθε wallet. 

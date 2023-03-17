@@ -1,8 +1,9 @@
 ## [ECE @NTUA](https://www.ece.ntua.gr/en/undergraduate/info) [Distributed Systems](https://www.ece.ntua.gr/en/undergraduate/courses/3377)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/62433719/209676755-2f18ca15-2743-4383-920f-a25d3b962c3f.png"
-alt="DS's Custom Image" width="250" height="130" />
+  <img src="![logo](https://user-images.githubusercontent.com/62433719/225980748-0cc00e18-09fc-4791-8085-75a64b589a3e.png)
+"
+alt="DS's Custom Image" width="150" height="250" />
 </p>
 
 ## Description: 

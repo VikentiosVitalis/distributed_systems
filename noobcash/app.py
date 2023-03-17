@@ -31,7 +31,7 @@ def register():
 @app.route('/child_inform', methods=['POST'])
 def info():
     res = request.get_json()
-    start.child_response(res['id'], res['ring'], res['public_keys'], res['genesisblock'])
+    start.setIPList(res['ipList'])
     response = {'message': 'Node Informed'}
     return jsonify(response), 200
 
@@ -285,8 +285,4 @@ def webapp_transaction():
 
 
 if __name__ == '__main__':
-    app.run(host=sys.argv[2], port=int(sys.argv[1]))
-
-
-
-
+    app.run(host=sys.argv[2], port=int(sys.argv[1]), use_debug=False)

@@ -5,7 +5,7 @@
 alt="DS's Custom Image" width="250" height="130" />
 </p>
 
-## Description 
+## Description: 
 The task of this project is to create a Blockchain System. The user can interact with the system by using a simple CLI or the Webapp Interface. In Noobcash App you will register nodes and simulate a blockchain system, through processes of sending and receiving money (NBC Coins), consensus, proof of work, mining etc. At the start of the system the first node to register should be the bootstrap node who will create the genesis block. After all the "children" nodes have registered the bootstrap node will transfer to each one of them 100 NBC. Let the transactions begin!
 
 ## Built With:

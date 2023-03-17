@@ -1,3 +1,9 @@
+# Transaction Output:
+#   It is consisted by a unique identifier of the transactions (tid), 
+#   the id of transaction which it is originated, 
+#   the new owner of the NBCs (recipient),
+#   the amount transferred.
+
 class TransactionOutput:
     """
     A transaction output of a noobcash transaction.
@@ -9,13 +15,12 @@ class TransactionOutput:
         unspent (boolean): false if this output has been used as input in a transaction.
     """
 
-    def __init__(self, transaction_id, recipient, amount):
+    def __init__(self, tid, recipient, amount):
         """Inits a TransactionOutput."""
-        self.transaction_id = transaction_idverify
+        self.tid = tid
         self.recipient = recipient
         self.amount = amount
         self.unspent = True
- 
 
     @classmethod
     def fromdict(cls, output_dict):

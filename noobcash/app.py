@@ -18,7 +18,7 @@ if len(sys.argv) != 5:
 
 start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4])
 
-#  bootstrap node registers child in the blockchain
+# Bootstrap node registers child in the blockchain
 @app.route('/bootstrap_register', methods=['POST'])
 def register():
     pub_key = request.json['pub_key']
@@ -27,7 +27,7 @@ def register():
     response = { 'message': 'Node registered.' }
     return jsonify(response),200
 
-#  send all children info about the id, ring, public keys, genesis block
+# Send all children info about the id, ring, public keys, genesis block
 @app.route('/child_inform', methods=['POST'])
 def info():
     res = request.get_json()
@@ -58,7 +58,7 @@ def mining():
 
 @app.route('/consensus', methods=['POST'])
 def consensus():
-    # consensus begin
+    # Consensus begin
     res = request.get_json()
     addrr = res['address']
     msg = {'pub_key': start.public_key, 'chain': start.chain.convert_b(), 'trans_dict': start.transactions_dictionary, 'utxos': start.unspent_coins}
@@ -80,12 +80,14 @@ def cons_data():
 
 @app.route('/alltrans', methods=['POST'])
 def cons():
-    # consensus done, begin transactions from files
-    #start.file_runs.set()
+    # Consensus done, begin transactions from files
+    # start.file_runs.set()
     response = {'message': 'File Transactions Completed'}
     print("COMPLETED ALL TRANSACTIONS")
     return jsonify(response), 200
 
+
+# Only for Command-Line Interface (CLI)
 @app.route('/create_transaction', methods=['POST'])
 def newtrans():
     res = request.get_json()
@@ -112,14 +114,14 @@ def newtrans():
         return jsonify(response), 400
 
     else:
-        if not mine_not_active.isSet():
-            mine_not_active.wait()
-        start.create_transaction(int(address), int(coins))
+        if not start.mining.isSet():
+            start.mining.wait()
+        start.createTransaction(int(address), int(coins))
 
         response = { 'message': "Transaction Completed" }
     return jsonify(response), 200
 
-#================== CLI COMMANDS ================
+# ================== CLI COMMANDS ================== #
 
 @app.route('/view_transactions', methods=['GET'])
 def get_trans():
@@ -140,13 +142,13 @@ def get_bal():
     }
     return jsonify(response), 200
 
-# ============ FRONTEND =============
+# ============ FRONTEND ============= #
 
 # Home page
 @app.route('/', methods=['GET'])
 def home():
     # Keep track of current page
-    #session['viewing'] = 'home'
+    # session['viewing'] = 'home'
     bal = start.wallet_balance()
 
     data = {
@@ -161,7 +163,7 @@ def home():
     }
     return render_template('homepage.html', data=data)
 
-# view latest transaction
+# View latest transaction
 @app.route('/view', methods=['GET'])
 def viewpage():
 
@@ -171,33 +173,6 @@ def viewpage():
     receiv = []
     sender = []
     bal = start.wallet_balance()
-    # for tr in start.chain.blocks_list[-1].transactions:
-    #
-    #    if str(tr) == '{':
-    #        data = {
-    #            'ADDRESS': 'http://' + str(start.ip) + ':' + str(start.port),
-    #            'NO_OF_NODES': len(set(start.ring)),
-    #            'ID': start.ID,
-    #            'SENDER': start.public_key,
-    #            'OTHERSK': start.public_keys,
-    #            'KEY_ID': KEY_ID,
-    #            'bal': bal
-    #
-    #        }
-    #        return  render_template('homepage.html',data = data)
-    #    else:
-    #        coins.append(tr['coins'])
-    #        inputs.append(tr['inputs'])
-    #        outputs.append(tr['outputs'])
-    #        receiv.append(tr['receiver'])
-    #        sender.append(tr['sender'])
-    #
-    #        data = {
-    #              'coins': coins,
-    #             'inputs': inputs,
-    #             'outputs': outputs,
-    #             'receiver': receiv,
-    #             'sender': sender,}
     res1 = start.chain.blocks_list[-1].transactions
     return render_template('viewpage.html', data=start.chain.blocks_list[-1].transactions)
 
@@ -254,35 +229,6 @@ def webapp_transaction():
             print(f'Error: {response.text}')
     response = {'message': 'OKEIII'}
     return jsonify(response), 200
-
-# @app.route('/search_by_key', methods=['POST'])
-# def search_by_key():
-#     res = request.get_json()
-#     key = res['key']
-#     if('-----BEGIN PUBLIC KEY-----' in key and '-----END PUBLIC KEY-----' in key):
-#         x = key.split('-----BEGIN PUBLIC KEY-----')[1]
-#         x = x.split('-----END PUBLIC KEY-----')[0]
-#         x = x.replace('\\n', '\n ')
-#         x = x.replace(' ', '')
-#         res = '-----BEGIN PUBLIC KEY-----' + x + '-----END PUBLIC KEY-----'
-#         id = start.public_keys.index(res)
-#         print(id)
-#         KEY_ID = id
-#         data = {
-#             'ADDRESS': 'http://' + str(start.ip) + ':' + str(start.port),
-#             'NO_OF_NODES': len(set(start.ring)),
-#             'ID': start.ID,
-#             'SENDER': start.public_key,
-#             'OTHERSK': start.public_keys,
-#             'KEY_ID': str(KEY_ID)
-#         }
-#         print(data)
-#         return render_template('homepage.html', data=data)
-#     else:
-#         response = 'This is not a valid public key.'
-#         return jsonify(response), 400
-
-
 
 if __name__ == '__main__':
     app.run(host=sys.argv[2], port=int(sys.argv[1]), use_reloader=False)

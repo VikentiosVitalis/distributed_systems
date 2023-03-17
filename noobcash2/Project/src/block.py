@@ -22,7 +22,7 @@ class Block:
         res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), transactions = self.transactions,nonce = self.nonce, current_hash = self.current_hash,previous_hash=self.previous_hash ), sort_keys=True)
         return (res)
 
-    # =================== Mining Process =================
+    # =================== Mining Process ================= #
 
     def hashing(self):
         '''

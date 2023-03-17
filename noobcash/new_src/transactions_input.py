@@ -1,3 +1,8 @@
+# Transaction Input:
+#   Contains information for the history of NBCs transferred (previous transactions) and the destination block.
+#   It is consisted by PreviousOutputId field, which is the Transaction Output from which the amount of NBCs
+#   is originated.
+
 class TransactionInput:
     """
     The transaction input of a noobcash transaction.

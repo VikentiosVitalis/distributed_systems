@@ -44,23 +44,28 @@ The basic components are the following:
     During the acceptance of a transaction from any node, the validate_transaction function
     is called in order to verify its validity.
 
-Transaction Inputs/Transaction Outputs/Unspent Transactions
-Κάθε transaction περιέχει πληροφορία που δείχνει από ποιο/α προηγούμενο/α transaction προήλθαν 
-τα χρήματα που μεταφέρονται. Αυτή η πληροφορία περιέχεται στο transaction input. Επίσης, κάθε 
-transaction δημιουργεί outputs, που περιέχουν πληροφορία για το ποσό που έστειλε κάθε transaction
-στους εμπλεκόμενους. Στην περίπτωσή μας, θεωρούμε μόνο transactions που γίνονται ανάμεσα σε 2 
-wallets, επομένως κάθε transaction καταλήγει σε 2 transaction outputs: Ένα output για το 
-receiver_address wallet με το ποσό του transaction κι ένα output για τον sender, με τα ρεστα, το ποσό 
-δηλαδή που περίσσεψε. Μόνο unspent transaction outputs (UTXO), δηλαδή transaction outputs που 
-δεν έχουν ξοδευτεί ήδη, μπορούν να χρησιμοποίηθούν ως input σε άλλο transaction προκειμένου να 
-αποφευχθεί double spending. Επομένως πάντα χρειάζονται UTXOs για να γίνει ένα transaction.
-Σύμφωνα με τα παραπάνω, το Transaction Input αποτελείται απο τo πεδία previousOutputId που είναι 
-το id του Transaction Output από όπου προήλθε το ποσό που μεταφέρεται.
-Το Transaction Output περιλαμβάνει: ένα μοναδικό αναγνωριστικό id, το id του transaction από το 
-οποίο προέρχεται, τον recipient του transaction (τον νέο κάτοχο των coins) και το ποσό που 
-μεταφέρθηκε. 
-Τελικά το υπόλοιπο του wallet ενός χρήστη είναι το άθροισμα όλων των unspent transaction outputs
-που έχουν ως recipient το συγκεκριμένο wallet. 
-Για να μη χρειάζεται να διατρέχουμε όλο το blockchain για να ελέγξουμε αν τα inputs ενός transaction
-είναι πράγματι unspent transaction ouputs προηγούμενων, κάθε node κρατάει επιπλέον το σύνολο των 
-UTXOs για κάθε wallet. 
+    Transaction Input:
+      Contains information for the history of NBCs transferred (previous transactions) and the destination block.
+      It is consisted by PreviousOutputId field, which is the Transaction Output from which the amount of NBCs
+      is originated.
+
+
+    Transaction Output:
+      It is consisted by a unique identifier, the id of transaction which it is originated, the new owner of the NBCs (recipient) and the amount transferred.
+
+    Unspent Transactions:
+      Every transaction creates outputs which include information for the amount of NBCs which each transaction sent 
+      in its participants. 
+    
+      In our case, we assume transactions made only between 2 wallets, so each transaction 
+      concludes in two transaction outputs. 
+       One output for the receiver_address wallet with the amount of NBCs
+       One output for the sender_address with the remaining amount of NBCs.
+
+      Only unspent transactions outputs (UTXOs) can be used as inputs for next transactions.
+      In this way double spending is prevented. Consequently, UTXOs are necessary for a transaction to be made.
+
+      The ending amount of a wallet is the summary of all UTXOs which have as recipient the specific wallet.
+
+      In order not to run through the whole blockchain to check if the inputs of a transaction are indeed UTXOs,
+      every node has the current summary of UTXOs for every wallet.

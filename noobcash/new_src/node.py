@@ -1,6 +1,7 @@
 from new_src.wallet import Wallet
 from new_src.transaction import Transaction
 from new_src.blockchain import Blockchain
+import time
 import requests
 import json
 import threading
@@ -21,6 +22,8 @@ class Node:
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
         self.nodesActive = 0
+        self.buffer = []
+
 
         self.mining = threading.Event()  # Switch between mining
         self.mining.clear()              # No mining at the start
@@ -29,7 +32,6 @@ class Node:
         waitThread = threading.Thread(target=self.waitThread)
         waitThread.start()
 
-        self.buffer = []
 
         if self.bootstrap:
             # Flag that indicates that we have all nodes
@@ -51,20 +53,26 @@ class Node:
         return True
 
     def setIPList(self, ipList):
-        print(ipList)
         self.ipList = ipList
+        for tup in ipList:
+            if tup[2] == self.wallet.get_addr():
+                self.id = tup[0]
+        print('My id:', self.id)
         return
 
     def createTransaction(self, receiver, ammount):
         print("Creating transaction.")
+        now = time.time()
         # Create transaction
         new_transaction = Transaction(self.get_addr(), receiver, ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
-        # Broadcast it
-        self.broadcast(new_transaction)
-        # Add to wallet
-        self.wallet.addTransaction(new_transaction)
+        self.broadcastTransaction(new_transaction)
+        now = time.time() - now
+        fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
+        fd.write(str(now) + ' \n')
+        fd.close()
+        return new_transaction
 
     def waitThread(self):
         while True:
@@ -102,14 +110,16 @@ class Node:
     def validateTransaction(self, transaction):
         # Check signature
         if not transaction.verifySignature():
-            return 'Signature verification failed'
+            return 'Signature verification failed.'
         if transaction.sender == transaction.receiver:
             return 'Sending yourself money is forbidden.'
-        # Keep going here...
-
-        # Check mone
+        # Check money
         amt = self.wallet.getBalance(transaction.sender)
-        return amt >= transaction.amount
+        if amt < transaction.amount: 
+            return 'Account balance too low.'
+        if amt < 0: 
+            return 'Negative Coins.'
+        return 'Accepted.'
 
     def resolveConflict(self):
         # Resolve some conflict

@@ -1,6 +1,8 @@
 from Crypto.Signature import PKCS1_v1_5
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
+from new_src.transactions_input import TransactionInput
+from new_src.transactions_output import TransactionOutput
 import Crypto
 import json
 
@@ -33,8 +35,10 @@ class Transaction:
         else:
             self.tid = Crypto.Random.get_random_bytes(128)
         self.signature = signature
-        self.transactionInputs = transactionInputs
-        self.transactionOutputs = transactionOutputs
+        trInput = TransactionInput(1)   # TRANS INPUT ? 
+        trOutput = TransactionOutput(self.tid, receiver, amount)
+        self.transactionInputs = trInput
+        self.transactionOutputs = trOutput
 
     # JavaScript Obejct Notation (JSON) is a lightweight
     # data-interchange format easily understood by humans and

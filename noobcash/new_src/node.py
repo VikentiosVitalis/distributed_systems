@@ -28,15 +28,16 @@ class Node:
         self.mining = threading.Event()  # Switch between mining
         self.mining.clear()              # No mining at the start
 
+        # Flag that indicates that we have all nodes
+        self.nodeFlag = threading.Event()
+        self.nodeFlag.clear()
+            
         
         waitThread = threading.Thread(target=self.waitThread)
         waitThread.start()
 
 
         if self.bootstrap:
-            # Flag that indicates that we have all nodes
-            self.nodeFlag = threading.Event()
-            self.nodeFlag.clear()
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
         else:
@@ -75,6 +76,7 @@ class Node:
         return new_transaction
 
     def waitThread(self):
+
         while True:
             # As long as we're mining, wait
             if self.mining.isSet():

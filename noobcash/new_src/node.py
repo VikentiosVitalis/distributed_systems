@@ -77,6 +77,7 @@ class Node:
 
     def waitThread(self):
         self.nodeFlag.wait()
+        return
         while True:
             # As long as we're mining, wait
             if self.mining.isSet():

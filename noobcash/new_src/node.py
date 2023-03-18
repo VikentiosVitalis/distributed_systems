@@ -76,7 +76,7 @@ class Node:
         return new_transaction
 
     def waitThread(self):
-
+        self.nodeFlag.wait()
         while True:
             # As long as we're mining, wait
             if self.mining.isSet():

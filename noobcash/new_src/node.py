@@ -55,7 +55,7 @@ class Node:
 
     def setIPList(self, ipList):
         self.ipList = ipList
-        self.id = self.getAddr(self.wallet.get_addr)
+        self.id = self.getAddr(self.wallet.get_addr())
         print('My id:', self.id)
         return
 

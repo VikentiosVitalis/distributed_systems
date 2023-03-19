@@ -47,7 +47,7 @@ class Node:
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
 
     def addNode(self, IP, addr):
-        self.ipList.append((self.nodesActive+1, IP, addr))
+        self.ipList.append((self.nodesActive + 1, IP, addr))
         self.nodesActive += 1
         if self.nodesActive >= self.nodeNr:
             self.nodeFlag.set()
@@ -60,13 +60,25 @@ class Node:
                 self.id = tup[0]
         print('My id:', self.id)
         return
+
     def getBalance(self):
-        return self.wallet.getBalance()
-    def createTransaction(self, receiver, ammount):
+        return self.wallet.getMyBalance()
+
+    def getAddr(self, id):
+        return self.ipList[id][2]
+
+    def getID(self, addr):
+        for i in self.ipList:
+            if i[2] == addr:
+                return i[0]
+        print('Error: Not existand address.')
+        return self.ipList[0][2]
+
+    def createTransaction(self, receiverID, ammount):
         print("Creating transaction.")
         now = time.time()
         # Create transaction
-        new_transaction = Transaction(self.get_addr(), receiver, ammount)
+        new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
@@ -79,13 +91,6 @@ class Node:
     def waitThread(self):
         self.nodeFlag.wait()
         return
-        while True:
-            # As long as we're mining, wait
-            if self.mining.isSet():
-                self.mining.wait()
-            if len(self.buffer) > 0 and (not self.mining.isSet()):
-                buffer_itm = self.buffer.pop(0)
-                continue
 
     def broadcastNodes(self):
         self.nodeFlag.wait()

@@ -15,10 +15,10 @@ class TransactionOutput:
         unspent (boolean): false if this output has been used as input in a transaction.
     """
 
-    def __init__(self, tid, recipient, amount):
+    def __init__(self, tid, receiver, amount):
         """Inits a TransactionOutput."""
         self.tid = tid
-        self.recipient = recipient
+        self.receiver = receiver
         self.amount = amount
         self.unspent = True
 
@@ -30,6 +30,14 @@ class TransactionOutput:
         amount = int(output_dict["amount"])
         return cls(transaction_id, recipient, amount)
 
+    def todict(self):
+        return {
+                    'tid':self.tid,
+                    'receiver':self.receiver,
+                    'amount':self.amount,
+                    'unspent':self.unspent
+                }
     def __str__(self):
         """Returns a string as a representation of a TransactionOutput object"""
         return str(self.__dict__)
+

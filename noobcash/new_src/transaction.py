@@ -49,8 +49,8 @@ class Transaction:
             'receiver': self.receiver,
             'sender': self.sender,
             'amount': self.amount,
-            'inputs': self.transactionInputs,
-            'outputs': self.transactionOutputs,
+            'inputs': self.transactionInputs.toJSON(),
+            'outputs': self.transactionOutputs.__str__(),
             'signature': self.signature,
             'tid': self.tid
         }
@@ -80,7 +80,8 @@ class Transaction:
         return cipher.verify(tmp, self.signature)
 
     # The sign_transaction function signs each transaction with wallet's private key
-    def sign_transaction(): return
+    def sign_transaction(self): 
+        return
 
     # Hashing is the process of transforming any given key or string of
     # characters into another value.

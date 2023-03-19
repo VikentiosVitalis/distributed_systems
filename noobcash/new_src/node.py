@@ -49,7 +49,7 @@ class Node:
     def addNode(self, IP, addr):
         self.ipList.append((self.nodesActive+1, IP, addr))
         self.nodesActive += 1
-        if self.nodesActive == self.nodeNr:
+        if self.nodesActive >= self.nodeNr:
             self.nodeFlag.set()
         return True
 
@@ -60,7 +60,8 @@ class Node:
                 self.id = tup[0]
         print('My id:', self.id)
         return
-
+    def getBalance(self):
+        return self.wallet.getBalance()
     def createTransaction(self, receiver, ammount):
         print("Creating transaction.")
         now = time.time()
@@ -87,18 +88,19 @@ class Node:
                 continue
 
     def broadcastNodes(self):
-        self.nodeFlag.wait()
-        print('Sharing children IDs')
-        # Broadcast Nodes to everyone
-        ipList = {
-            'ipList': self.ipList
-        }
-        ipList = json.dumps(ipList)
-        print('IP list:', ipList)
-        for tup in self.ipList[1:]:
-            requests.post(tup[1]+'/child_inform', data=ipList,
-                          headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
-        return
+        while True:
+            self.nodeFlag.wait()
+            print('Sharing children IDs')
+            # Broadcast Nodes to everyone
+            ipList = {
+                'ipList': self.ipList
+            }
+            ipList = json.dumps(ipList)
+            print('IP list:', ipList)
+            for tup in self.ipList[1:]:
+                requests.post(tup[1]+'/child_inform', data=ipList,
+                              headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+            self.nodeFlag.clear()
 
     def broadcastTransaction(self, transaction):
         # Broadcast Transaction to everyone

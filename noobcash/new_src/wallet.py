@@ -26,7 +26,7 @@ class Wallet:
         ciphertext = signer.sign(tmp)
         return ciphertext
     
-    def getBalance(self, address):
+    def getBalance(self):
         return self.balance
 
     def getBalance(self, address):

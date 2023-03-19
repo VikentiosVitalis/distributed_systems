@@ -97,7 +97,7 @@ def newtrans():
     print ("Send coins at node: ",address)
     print("COINS = ", coins)
 
-    if int(address) == start.ID:
+    if int(address) == start.id:
         response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
         return jsonify(response), 400
     elif not address.isnumeric() or int(address) < 0 or int(address) > start.children:
@@ -108,8 +108,8 @@ def newtrans():
         response = { 'message': "Invalid Amount Given." }
         return jsonify(response), 400
 
-    elif int(coins) > start.wallet_balance():
-        print(start.wallet_balance())
+    elif int(coins) > start.getBalance():
+        print(start.getBalance())
         response = { 'message': "You are out of coins" }
         return jsonify(response), 400
 
@@ -210,7 +210,7 @@ def webapp_transaction():
         response = 'You can not send money to yourself.'
         return jsonify(response), 400
 
-    elif start.ID != int(sender):
+    elif start.id != int(sender):
         response = 'This is not your ID.'
         return jsonify(response), 400
 

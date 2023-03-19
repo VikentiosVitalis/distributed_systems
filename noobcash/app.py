@@ -99,18 +99,22 @@ def newtrans():
 
     if int(address) == start.id:
         response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
+        print(response['message'])    
         return jsonify(response), 400
     elif not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr:
         response = { 'message': 'Invalid ID. Provide and ID between 0 and ' + str(start.nodeNr) }
+        print(response['message'])    
         return jsonify(response), 400
 
     elif not coins.isnumeric() or int(coins) <= 0:
         response = { 'message': "Invalid Amount Given." }
+        print(response['message'])    
         return jsonify(response), 400
 
     elif int(coins) > start.getBalance():
         print(start.getBalance())
         response = { 'message': "You are out of coins" }
+        print(response['message'])    
         return jsonify(response), 400
 
     else:

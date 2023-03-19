@@ -108,7 +108,7 @@ class Node:
         print("Broadcasting Transaction: ", transaction.tid)
         tmp = json.loads(transaction.toJSON())
         for ip in self.ipList:
-            if ip[1] != self.fullAddr:
+            if ip[0] != self.id:
                 requests.post(ip[1] + "/broadcast", json=tmp, headers={
                               'Content-type': 'application/json', 'Accept': 'text/plain'})
         return

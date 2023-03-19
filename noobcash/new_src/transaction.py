@@ -36,7 +36,11 @@ class Transaction:
             self.tid = Crypto.Random.get_random_bytes(128)
         self.signature = signature
         trInput = TransactionInput(1)   # TRANS INPUT ? 
+        if transactionInputs != None:
+            trInput.previous_output_id = transactionInputs
         trOutput = TransactionOutput(self.tid, receiver, amount)
+#        if transactionOutputs != None:
+
         self.transactionInputs = trInput
         self.transactionOutputs = trOutput
 

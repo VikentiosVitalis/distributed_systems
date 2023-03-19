@@ -22,13 +22,11 @@ class TransactionOutput:
         self.amount = amount
         self.unspent = True
 
-    @classmethod
-    def fromdict(cls, output_dict):
-        """Inits a TransactionOutput object given a dictionary."""
-        transaction_id = output_dict["transaction_id"]
-        recipient = output_dict["recipient"]
-        amount = int(output_dict["amount"])
-        return cls(transaction_id, recipient, amount)
+    def fromdict(output_dict):
+        self.tid = output_dict['tid']
+        self.receiver = receiver
+        self.amount = amount
+        self.unspent = True
 
     def todict(self):
         return {

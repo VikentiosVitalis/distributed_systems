@@ -52,7 +52,7 @@ class Transaction:
             'inputs': self.transactionInputs.toJSON(),
             'outputs': self.transactionOutputs.__str__(),
             'signature': self.signature,
-            'tid': self.tid.encode('ISO-8859-1')
+            'tid': self.tid.decode('ISO-8859-1')
         }
         string = json.dumps(tr, sort_keys=True)
         return string

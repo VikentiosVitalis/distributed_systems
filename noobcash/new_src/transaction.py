@@ -51,11 +51,11 @@ class Transaction:
             'amount':  self.amount,
             'inputs':  self.transactionInputs.toJSON(),
             'outputs': self.transactionOutputs.__str__(),
-            'signature': self.signature,
+            'signature': self.signature.decode('ISO-8859-1'),
             'tid': self.tid.decode('ISO-8859-1')
         }
-        for i in tr.keys():
-            print(type(tr[i]), i, tr[i])
+        #for i in tr.keys():
+        #    print(type(tr[i]), i, tr[i])
         string = json.dumps(tr, sort_keys=True)
         return string
 

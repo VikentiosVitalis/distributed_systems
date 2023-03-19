@@ -17,7 +17,7 @@ class Node:
         self.bootstrapAddr = 'http://192.168.0.3:5000'
         self.bootstrap = (bootstrap.lower() == 'true')              # Boolean
 
-        self.nodeNr = nodeNr
+        self.nodeNr = int(nodeNr)
         self.wallet = Wallet(nodeNr)
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0

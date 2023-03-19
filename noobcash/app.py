@@ -97,9 +97,12 @@ def newtrans():
     print ("Send coins at node: ",address)
     print("COINS = ", coins)
 
+    print(int(address) == start.id)
     print(not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr)
-    print(int(coins) > start.getBalance())
     print(not coins.isnumeric() or int(coins) <= 0)
+    print(int(coins) > start.getBalance())
+
+
     if int(address) == start.id:
         response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
         print(response['message'])    
@@ -119,7 +122,6 @@ def newtrans():
         response = { 'message': "You are out of coins" }
         print(response['message'])    
         return jsonify(response), 400
-
     else:
         print('Creating Transaction ', end="")
         if not start.mining.isSet():
@@ -128,6 +130,7 @@ def newtrans():
         start.createTransaction(int(address), int(coins))
 
         response = { 'message': "Transaction Completed" }
+    print('Nothing happened')
     return jsonify(response), 200
 
 # ================== CLI COMMANDS ================== #

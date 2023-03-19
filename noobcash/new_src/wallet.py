@@ -13,7 +13,7 @@ class Wallet:
         self.publicKey = key.publickey().exportKey().decode('ISO-8859-1')
         # Transaction list
         self.transactions = []
-        self.balance = 100*nodeNr
+        self.balance = 100*int(nodeNr)
 
     def get_addr(self):
         return self.publicKey

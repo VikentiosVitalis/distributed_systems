@@ -55,9 +55,7 @@ class Node:
 
     def setIPList(self, ipList):
         self.ipList = ipList
-        for tup in ipList:
-            if tup[2] == self.wallet.get_addr():
-                self.id = tup[0]
+        self.id = self.getID
         print('My id:', self.id)
         return
 
@@ -71,7 +69,7 @@ class Node:
         for i in self.ipList:
             if i[2] == addr:
                 return i[0]
-        print('Error: Not existand address.')
+        print('Error: Not existant address.')
         return self.ipList[0][2]
 
     def createTransaction(self, receiverID, ammount):

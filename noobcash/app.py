@@ -97,6 +97,9 @@ def newtrans():
     print ("Send coins at node: ",address)
     print("COINS = ", coins)
 
+    print(not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr)
+    print(int(coins) > start.getBalance())
+    print(not coins.isnumeric() or int(coins) <= 0)
     if int(address) == start.id:
         response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
         print(response['message'])    

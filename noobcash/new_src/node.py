@@ -107,7 +107,7 @@ class Node:
         # Broadcast Transaction to everyone
         print("Broadcasting Transaction: ", transaction.tid)
         tmp = json.loads(transaction.toJSON())
-        print(tmp)
+        print(tmp.loads(tmp, indent=1))
         for ip in self.ipList:
             if ip[0] != self.id:
                 requests.post(ip[1] + "/broadcast", json=tmp, headers={

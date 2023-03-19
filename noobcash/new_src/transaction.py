@@ -47,13 +47,15 @@ class Transaction:
     def toJSON(self):
         tr = {
             'receiver': self.receiver,
-            'sender': self.sender,
-            'amount': self.amount,
-            'inputs': self.transactionInputs.toJSON(),
+            'sender':  self.sender,
+            'amount':  self.amount,
+            'inputs':  self.transactionInputs.toJSON(),
             'outputs': self.transactionOutputs.__str__(),
             'signature': self.signature,
             'tid': self.tid.decode('ISO-8859-1')
         }
+        for i in tr.keys():
+            print(type(tr[i]), i, tr[i])
         string = json.dumps(tr, sort_keys=True)
         return string
 

@@ -97,16 +97,25 @@ def newtrans():
     print ("Send coins at node: ",address)
     print("COINS = ", coins)
 
-    print(int(address) == start.id)
-    print(not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr)
-    print(not coins.isnumeric() or int(coins) <= 0)
-    print(int(coins) > start.getBalance())
+    print('Creating Transaction ', end="")
+    #if not start.mining.isSet():
+    #    start.mining.wait()
+    print('now.')
+    start.createTransaction(int(address), int(coins))
+
+    response = { 'message': "Transaction Completed" }
+    print('Nothing happened')
+    return jsonify(response), 200
+    #print(int(address) == start.id)
+    #print(not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr)
+    #print(not coins.isnumeric() or int(coins) <= 0)
+    #print(int(coins) > start.getBalance())
 
 
-    if int(address) == start.id:
-        response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
-        print(response['message'])    
-        return jsonify(response), 400
+    #if int(address) == start.id:
+    #    response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
+    #    print(response['message'])    
+    #    return jsonify(response), 400
     #elif not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr:
     #    response = { 'message': 'Invalid ID. Provide and ID between 0 and ' + str(start.nodeNr) }
     #    print(response['message'])    
@@ -122,16 +131,7 @@ def newtrans():
     #    response = { 'message': "You are out of coins" }
     #    print(response['message'])    
     #    return jsonify(response), 400
-    else:
-        print('Creating Transaction ', end="")
-        if not start.mining.isSet():
-            start.mining.wait()
-        print('now.')
-        start.createTransaction(int(address), int(coins))
-
-        response = { 'message': "Transaction Completed" }
-    print('Nothing happened')
-    return jsonify(response), 200
+    #else:
 
 # ================== CLI COMMANDS ================== #
 

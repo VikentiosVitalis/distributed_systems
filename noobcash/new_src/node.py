@@ -81,9 +81,9 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
-        fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
-        fd.write(str(now) + ' \n')
-        fd.close()
+        #fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
+        #fd.write(str(now) + ' \n')
+        #fd.close()
         return new_transaction
 
     def waitThread(self):

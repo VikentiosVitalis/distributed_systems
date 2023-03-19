@@ -88,19 +88,17 @@ class Node:
                 continue
 
     def broadcastNodes(self):
-        while True:
-            self.nodeFlag.wait()
-            print('Sharing children IDs')
-            # Broadcast Nodes to everyone
-            ipList = {
-                'ipList': self.ipList
-            }
-            ipList = json.dumps(ipList)
-            print('IP list:', ipList)
-            for tup in self.ipList[1:]:
-                requests.post(tup[1]+'/child_inform', data=ipList,
-                              headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
-            self.nodeFlag.clear()
+        self.nodeFlag.wait()
+        print('Sharing children IDs')
+        # Broadcast Nodes to everyone
+        ipList = {
+            'ipList': self.ipList
+        }
+        ipList = json.dumps(ipList)
+        print('IP list:', ipList)
+        for tup in self.ipList[1:]:
+            requests.post(tup[1]+'/child_inform', data=ipList,
+                          headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
 
     def broadcastTransaction(self, transaction):
         # Broadcast Transaction to everyone

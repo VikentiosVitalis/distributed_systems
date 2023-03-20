@@ -39,8 +39,3 @@ class Block:
         self.current_hash = self.hashing()
         return self
 
-
-
-
-
-

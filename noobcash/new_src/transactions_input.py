@@ -1,5 +1,5 @@
 # Transaction Input:
-#   Contains information for the history of NBCs transferred (previous transactions) and the destination block.
+#   Contains information about the history of NBCs transferred (previous transactions) and the destination block.
 #   It is consisted by PreviousOutputId field, which is the Transaction Output from which the amount of NBCs
 #   is originated.
 
@@ -17,4 +17,8 @@ class TransactionInput:
 
     def toJSON(self):
         return self.previous_output_id
+
+    def __str__(self):
+        """Returns a string as a representation of a TransactionOutput object"""
+        return str(self.__dict__)
 

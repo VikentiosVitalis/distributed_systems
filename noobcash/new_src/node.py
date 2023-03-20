@@ -1,6 +1,7 @@
 from new_src.wallet import Wallet
 from new_src.transaction import Transaction
 from new_src.blockchain import Blockchain
+from new_src.block import Block
 import time
 import requests
 import json
@@ -22,11 +23,13 @@ class Node:
             self.wallet = Wallet(nodeNr)
         else:
             self.wallet = Wallet(0)
+
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
         self.nodesActive = 0
         self.buffer = []
 
+        self.blockchain = Blockchain()
 
         self.mining = threading.Event()  # Switch between mining
         self.mining.clear()              # No mining at the start
@@ -39,10 +42,13 @@ class Node:
         waitThread = threading.Thread(target=self.waitThread)
         waitThread.start()
 
-
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
+            tr = self.createTransaction(self, 0, 5*self.nodeNr)
+            genBlock = Block(0, tr, 0, 1)
+            self.blockchain.addBlock(genBlock)
+
         else:
             res = {'addrr': self.addr, 'pub_key': self.wallet.get_addr()}
             res = json.dumps(res)

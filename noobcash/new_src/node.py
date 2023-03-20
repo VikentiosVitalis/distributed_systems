@@ -102,6 +102,7 @@ class Node:
         for tup in self.ipList[1:]:
             requests.post(tup[1]+'/child_inform', data=ipList,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+        return
 
     def broadcastTransaction(self, transaction):
         # Broadcast Transaction to everyone

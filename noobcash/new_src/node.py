@@ -45,7 +45,7 @@ class Node:
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
-            tr = self.createTransaction(self, 0, 5*self.nodeNr)
+            tr = self.createTransaction(0, 5*self.nodeNr)
             genBlock = Block(0, tr, 0, 1)
             self.blockchain.addBlock(genBlock)
 

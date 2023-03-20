@@ -40,7 +40,7 @@ def info():
 def broadcast():
     res = request.get_json()
     start.buffer.append([res['sender'], res['receiver'], res['amount'], res['inputs'],  res['outputs'], res['tid'], res['signature']])
-    print(f'Received message from {start.getID(res["sender"])}')
+    print(f'Received message from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}
     return jsonify(response), 200
 

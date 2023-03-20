@@ -70,6 +70,7 @@ class Node:
 
     def setGenesis(self, block):
         genesisblock = json.loads(block)
+        print("myb:",genesisblock)
         current_block = Block(genesisblock['index'], genesisblock['transactions'],genesisblock['nonce'], genesisblock['previous_hash'], genesisblock['timestamp'])
         self.blockchain.addBlock(current_block)
         self.wallet.addTransaction(genesisblock['transactions'])

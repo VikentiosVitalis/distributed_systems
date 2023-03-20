@@ -32,6 +32,7 @@ def register():
 def info():
     res = request.get_json()
     start.setIPList(res['ipList'])
+    start.setGenesis(res['genBlock'])
     response = {'message': 'Node Informed'}
     return jsonify(response), 200
 

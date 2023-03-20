@@ -68,6 +68,13 @@ class Node:
         print('My id:', self.id)
         return
 
+    def setGenesis(self, block):
+        genesisblock = json.loads(block)
+        current_block = Block(genesisblock['index'], genesisblock['transactions'],genesisblock['nonce'], genesisblock['previous_hash'], genesisblock['timestamp'])
+        self.blockchain.addBlock(current_block)
+        self.wallet.addTransaction(genesisblock['transactions'])
+
+
     def getBalance(self):
         return self.wallet.getMyBalance()
 
@@ -101,16 +108,24 @@ class Node:
 
     def broadcastNodes(self):
         self.nodeFlag.wait()
-        print('Sharing children IDs')
+        print('All nodes joined, sharing IDs')
+        time.sleep(2)
         # Broadcast Nodes to everyone
         ipList = {
-            'ipList': self.ipList
+            'ipList': self.ipList,
+            'genBlock':self.blockchain.genBlock().convert_block()
         }
         ipList = json.dumps(ipList)
         print('IP list:', ipList)
         for tup in self.ipList[1:]:
             requests.post(tup[1]+'/child_inform', data=ipList,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+        
+        time.sleep(2)
+        for tup in self.ipList[1:]:
+            if self.mining.isSet():
+                self.mining.wait()
+            self.createTransaction(tup[0], 100)
         return
 
     def broadcastTransaction(self, transaction):

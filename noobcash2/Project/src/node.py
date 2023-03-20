@@ -119,7 +119,7 @@ class Node:
         self.transactions_dictionary = {}
         for public_key in self.public_keys:
             self.transactions_dictionary[public_key] = []
-     # father sends 100 NBC to each child, if no mining is active
+        # father sends 100 NBC to each child, if no mining is active
         for c, ring in enumerate(self.ring[1:]):
             if not mine_not_active.isSet():
                 mine_not_active.wait()

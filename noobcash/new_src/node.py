@@ -18,7 +18,10 @@ class Node:
         self.bootstrap = (bootstrap.lower() == 'true')              # Boolean
 
         self.nodeNr = int(nodeNr)
-        self.wallet = Wallet(nodeNr)
+        if self.bootstrap:
+            self.wallet = Wallet(nodeNr)
+        else:
+            self.wallet = Wallet(0)
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
         self.nodesActive = 0
@@ -108,7 +111,7 @@ class Node:
         # Broadcast Transaction to everyone
         print("Broadcasting Transaction: ", transaction.tid)
         tmp = json.loads(transaction.toJSON())
-        print(tmp)
+        # print(tmp)
         for ip in self.ipList:
             if ip[0] != self.id:
                 requests.post(ip[1] + "/broadcast", json=tmp, headers={

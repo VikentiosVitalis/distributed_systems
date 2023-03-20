@@ -105,7 +105,6 @@ def newtrans():
     start.createTransaction(int(address), int(coins))
 
     response = { 'message': "Transaction Completed" }
-    print('Nothing happened')
     return jsonify(response), 200
     #print(int(address) == start.id)
     #print(not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr)

@@ -5,4 +5,7 @@ from new_src.block import Block
 
 class Blockchain:
     def __init__(self):
-        blockchain = []
+        self.blockchain = []
+
+    def addBlock(self, block):
+        self.blockchain.append(block)

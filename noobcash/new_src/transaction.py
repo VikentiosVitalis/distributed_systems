@@ -54,11 +54,11 @@ class Transaction:
             'inputs':  self.inputs.__str__(),
             'outputSender': self.outputSender.__str__(),
             'outputReceiver': self.outputReceiver.__str__(),
-            'signature': self.signature.encode('ISO-8859-1'),
-            'tid': self.tid.encode('ISO-8859-1')
+            'signature': self.signature.decode('ISO-8859-1'),
+            'tid': self.tid.decode('ISO-8859-1')
         }
-        #for i in tr.keys():
-        #    print(type(tr[i]), i, tr[i])
+        for i in tr.keys():
+            print(type(tr[i]), i, tr[i])
         string = json.dumps(tr, sort_keys=True)
         return string
 

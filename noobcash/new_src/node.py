@@ -120,7 +120,7 @@ class Node:
             
             if len(self.buffer) != 0 and notMining.isSet():
                 itm = self.buffer.pop()
-                
+
             
         
     def broadcastNodes(self):

@@ -69,6 +69,7 @@ class Node:
     def setGenesis(self, block):
         genesisblock = json.loads(block)
         t = genesisblock['transactions']
+        t = json.loads(t)
         print(t['sender'])
         print(t['outputSender'], type(t['outputSender']))
         print(t['outputSender']['tid'])

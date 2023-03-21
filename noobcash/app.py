@@ -165,7 +165,7 @@ def home():
     bal = start.getBalance()
 
     data = {
-        'ADDRESS': 'http://' + str(start.ip) +':' + str(start.port) ,
+        'ADDRESS': start.getFullAddr(),
         'NO_OF_NODES':  len(set(start.ring)),
         'ID': start.ID,
         'SENDER': start.public_key,

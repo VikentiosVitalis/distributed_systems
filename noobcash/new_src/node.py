@@ -68,17 +68,14 @@ class Node:
 
     def setGenesis(self, block):
         genesisblock = json.loads(block)
-        t = genesisblock['transactions']
-        t = json.loads(t)
-        print(t['sender'])
-        print(t['outputSender'], type(t['outputSender']))
-        r = json.loads(t["outputSender"])
-        print(r['tid'])
-        transaction = Transaction(t['sender'], t['receiver'],t['ammount'], t['inputs'], r['amount'], t['tid'], t['signature'])
+        t = json.loads(genesisblock['transactions'])    # Load the transaction
+        r = json.loads(t["outputSender"])               # Load sender to get the amount left
+        transaction = Transaction(t['sender'], t['receiver'],t['amount'], t['inputs'], r['amount'], t['tid'], t['signature'])
         current_block = Block(
-                genesisblock['index'], transaction,genesisblock['nonce'],
-                genesisblock['previous_hash'], genesisblock['timestamp'])
+                genesisblock['index'], transaction, genesisblock['nonce'],
+                genesisblock['previous_hash'])
         self.blockchain.addBlock(current_block)
+        print('Initialized.')
         self.wallet.addTransaction(transaction)
 
 

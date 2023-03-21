@@ -39,7 +39,8 @@ def info():
 @app.route('/broadcast', methods=['POST'])
 def broadcast():
     res = request.get_json()
-    start.buffer.append([res['sender'], res['receiver'], res['amount'], res['inputs'],  res['outputs'], res['tid'], res['signature']])
+    tmp = json.loads(res['outputSender'])
+    start.buffer.append([res['sender'], res['receiver'], res['amount'], res['inputs'], tmp['amount'], res['tid'], res['signature']])
     print(f'Received message from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}
     return jsonify(response), 200

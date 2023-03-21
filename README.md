@@ -12,21 +12,26 @@ between users are registered and consensus (agreement on any subject by a group 
 
 ## Built with:
 * Python 3.8
-* Flask
+* Flask 8.1.1
 * HTML/CSS
 * JQuery
 
 ## Set-up:
-Inside the folder noobcash:
-* pip install -r requirements.txt
-* npm install
+Inside the folder 'noobcash; install the necessary requirements:
+
+ `pip install -r requirements.txt`
+
+ `npm install`
 
 ## Run application:
 * bootstrap node: ``python <PORT> <IP> <Number of Children in the System> true``
  example: ``python 5000 127.0.0.1 2 true``
+
 * simple node: ``python <PORT> <IP> <Number of Children in the System> no``
  example: ``python 5001 127.0.0.1 2 false``
+
 * Open Web Interface: Open at your browser the IP and PORT the node is registered.
+
 * Run CLI: ``cli.py <PORT> <IP>``
 
 If you want to run the tests inside the folders 5nodes and 10nodes replace app.py with app_auto.py.

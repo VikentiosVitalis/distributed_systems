@@ -128,7 +128,7 @@ class Node:
                 # Insert to block
                 self.blockchain.insert(tr)
                 self.wallet.addTransaction(tr)
-                
+
         
     def broadcastNodes(self):
         self.nodeFlag.wait()
@@ -162,6 +162,15 @@ class Node:
                 requests.post(ip[1] + "/broadcast", json=tmp, headers={
                               'Content-type': 'application/json', 'Accept': 'text/plain'})
         return
+
+    def broadcastBlock(self, block, startTime):
+        tmp = {'lb': block.convert_block(), 'mt': startTime}
+        for ip in self.ipList:
+            if ip[0] != self.id:
+                requests.post(ip[1] + "/mine", json=tmp, headers={
+                              'Content-type': 'application/json', 'Accept': 'text/plain'})
+        return
+
 
     def validateTransaction(self, transaction):
         # Check signature

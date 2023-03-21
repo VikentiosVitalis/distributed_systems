@@ -31,11 +31,13 @@ class Blockchain:
             
     def mine(self, newBlock):
         print('Starting to mine.')
-        now = time.time()
+        begin = time.time()
         newBlock.mine_block(self.stopMine)
         if not self.stopMine.isSet():
             self.blockchain.append(newBlock)
-            
+            #fd = open('times/mining' + '.txt', 'a')
+            #fd.write(str(time.time() - float(begin)) + '\n')
+            #fd.close()
 
 
 

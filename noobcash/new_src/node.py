@@ -42,7 +42,7 @@ class Node:
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
-            tr = Transaction(self.wallet.getAddress(),self.wallet.getAddress(), 100*(self.nodeNr+1), [], 0)
+            tr = Transaction(self.wallet.get_addr(),self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             genBlock = Block(0, tr, 0, 1)
             self.blockchain.addBlock(genBlock)

@@ -34,15 +34,15 @@ class Node:
         # Flag that indicates that we have all nodes
         self.nodeFlag = threading.Event()
         self.nodeFlag.clear()
-            
-        
+
         waitThread = threading.Thread(target=self.waitThread)
         waitThread.start()
 
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
-            tr = Transaction(self.wallet.get_addr(),self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
+            tr = Transaction(self.wallet.get_addr(),
+                             self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             genBlock = Block(0, tr, 0, 1)
             self.blockchain.addBlock(genBlock)
@@ -70,10 +70,17 @@ class Node:
 
     def setGenesis(self, block):
         genesisblock = json.loads(block)
-        current_block = Block(genesisblock['index'], genesisblock['transactions'],genesisblock['nonce'], genesisblock['previous_hash'], genesisblock['timestamp'])
+        t = json.loads(genesisblock['transactions'])    # Load the transaction
+        # Load sender to get the amount left
+        r = json.loads(t["outputSender"])
+        transaction = Transaction(
+            t['sender'], t['receiver'], t['amount'], t['inputs'], r['amount'], t['tid'], t['signature'])
+        current_block = Block(
+            genesisblock['index'], transaction, genesisblock['nonce'],
+            genesisblock['previous_hash'])
         self.blockchain.addBlock(current_block)
-        self.wallet.addTransaction(genesisblock['transactions'])
-
+        print('Initialized.')
+        self.wallet.addTransaction(transaction)
 
     def getBalance(self):
         return self.wallet.getMyBalance()
@@ -93,15 +100,16 @@ class Node:
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
-        new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), prev_tr, ammount, amt)
+        new_transaction = Transaction(self.wallet.get_addr(
+        ), self.getAddr(receiverID), prev_tr, ammount, amt)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         self.wallet.addTransaction(new_transaction)
-        #fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
-        #fd.write(str(now) + ' \n')
-        #fd.close()
+        # fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
+        # fd.write(str(now) + ' \n')
+        # fd.close()
         return new_transaction
 
     def waitThread(self):
@@ -115,14 +123,14 @@ class Node:
         # Broadcast Nodes to everyone
         ipList = {
             'ipList': self.ipList,
-            'genBlock':self.blockchain.genBlock().convert_block()
+            'genBlock': self.blockchain.genBlock().convert_block()
         }
         ipList = json.dumps(ipList)
         print('IP list:', ipList)
         for tup in self.ipList[1:]:
             requests.post(tup[1]+'/child_inform', data=ipList,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
-        
+
         time.sleep(2)
         for tup in self.ipList[1:]:
             if self.mining.isSet():
@@ -149,9 +157,9 @@ class Node:
             return 'Sending yourself money is forbidden.'
         # Check money
         amt = self.wallet.getBalance(transaction.sender)
-        if amt < transaction.amount: 
+        if amt < transaction.amount:
             return 'Account balance too low.'
-        if amt < 0: 
+        if amt < 0:
             return 'Negative Coins.'
         return 'Accepted.'
 

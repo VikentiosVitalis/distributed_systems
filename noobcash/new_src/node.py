@@ -45,11 +45,13 @@ class Node:
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
+            # Create genesis transaction
             tr = Transaction(0, 0, 100*self.nodeNr, [], 0)
             tr.signature = self.wallet.sign(tr.tid)
+            self.wallet.addTransaction(tr)
+            # Create genesis block
             genBlock = Block(0, tr, 0, 1)
             self.blockchain.addBlock(genBlock)
-
         else:
             res = {'addrr': self.addr, 'pub_key': self.wallet.get_addr()}
             res = json.dumps(res)

@@ -101,7 +101,10 @@ class Node:
         new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), prev_tr, ammount, amt)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
+        # Broadcast and add to wallet
         self.broadcastTransaction(new_transaction)
+        self.wallet.addTransaction(new_transaction)
+
         now = time.time() - now
         #fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         #fd.write(str(now) + ' \n')

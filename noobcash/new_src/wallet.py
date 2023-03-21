@@ -51,6 +51,7 @@ class Wallet:
             tmp += tr.amount
             tr.unspent = False
         self.balance -= tmp
+        print(self.balance)
         return transactions, tmp
 
     def addTransaction(self, transaction):
@@ -63,6 +64,7 @@ class Wallet:
             self.balance += transaction.outputReceiver.amount
         # Add to transaction list
         self.transactions.append(transaction)
+        print(self.balance)
         return
 
 

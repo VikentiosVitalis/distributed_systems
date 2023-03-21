@@ -167,7 +167,7 @@ def home():
     data = {
         'ADDRESS': start.getFullAddr(),
         'NO_OF_NODES':  len(set(start.ipList)),
-        'ID': start.ID,
+        'ID': start.getID,
         'SENDER': start.public_key,
         'OTHERSK': start.public_keys,
         'KEY_ID': KEY_ID,

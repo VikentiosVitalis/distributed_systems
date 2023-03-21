@@ -1,3 +1,4 @@
+from Crypto import PublicKey
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
 from Crypto.Signature import PKCS1_v1_5
@@ -13,7 +14,8 @@ class Wallet:
         self.publicKey = key.publickey().exportKey().decode('ISO-8859-1')
         # Transaction list
         self.transactions = []
-        self.balance = 0
+        self.tr_dict = {}
+        self.balances = {}
         self.prevOutput = 0
         self.unspentOutputs = []
 
@@ -29,18 +31,13 @@ class Wallet:
         return ciphertext
     
     def getMyBalance(self):
-        return self.balance
+        return self.balances[self.publicKey]
 
     def getBalance(self, address):
-        for tr in self.transactions:
-            if tr.sender == address:
-                sum = sum - tr.ammount
-            if tr.receiver == address:
-                sum = sum + tr.ammount
-        return sum
+        return self.balances[address]
 
     def getMoney(self, amount):
-        if amount > self.balance:
+        if amount > self.getMyBalance():
             print("Not enough coins!")
             return []
         tmp = 0
@@ -50,21 +47,43 @@ class Wallet:
             transactions.append(tr.tid)
             tmp += tr.amount
             tr.unspent = False
-        self.balance -= tmp
-        print('Subtracted money to:', self.balance)
+        self.balances[self.publicKey] -= tmp
+        print('Subtracted money to:', self.getMyBalance())
         return transactions, tmp
+    
+    def setOutputs(self, ipList):
+        for tup in ipList:
+            self.balances[tup[2]] = 0
 
     def addTransaction(self, transaction):
+        for tid in transaction.inputs:
+            w = self.tr_dict[tid]
+            tr = self.transactions[w]
+            if tr.sender == transaction.sender:
+                if tr.outputSender.unspent == False:
+                    print("Transaction already used:", tr.tid)
+                    return
+                tr.outputSender.unspent = False
+            else:
+                if tr.outputReceiver.unspent == False:
+                    print("Transaction already used:", tr.tid)
+                    return
+                tr.outputReceiver.unspent = False
+
         # If this wallet is in the transaction add the money to my list
         if transaction.sender == self.publicKey and transaction.outputSender.amount > 0:
             self.unspentOutputs.append(transaction.outputSender)
-            self.balance += transaction.outputSender.amount
         if transaction.receiver == self.publicKey and transaction.outputReceiver.amount > 0:
             self.unspentOutputs.append(transaction.outputReceiver)
-            self.balance += transaction.outputReceiver.amount
+
+        self.balances[transaction.receiver] += transaction.outputReceiver.amount
+        self.balances[transaction.sender] -= transaction.outputReceiver.amount
+
         # Add to transaction list
         self.transactions.append(transaction)
-        print('Added money to:', self.balance)
+        self.tr_dict[transaction.tid] = len(self.transactions) - 1
+
+        print('Added money to:', self.getMyBalance())
         return
 
 

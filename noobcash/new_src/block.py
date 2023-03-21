@@ -32,7 +32,8 @@ class Block:
         self.dif = dif
 
     def convert_block(self):
-        res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), transactions = self.transactions.toJSON(),nonce = self.nonce, current_hash = self.current_hash,previous_hash=self.previous_hash ), sort_keys=True)
+        res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), 
+            transactions = self.transactions.toJSON(), nonce = self.nonce, current_hash = self.current_hash,previous_hash=self.previous_hash ), sort_keys=True)
         return (res)
 
     # =================== Mining Process ================= #

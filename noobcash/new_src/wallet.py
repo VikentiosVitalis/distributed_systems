@@ -4,6 +4,16 @@ from Crypto.Hash import SHA256
 from Crypto.Signature import PKCS1_v1_5
 from new_src.transaction import Transaction
 from new_src.transactions_output import TransactionOutput
+
+# Wallet:
+#   A wallet is associated with a public/private key pair. 
+#
+#   The public key acts as an address of the wallet, which a process/user can share with anyone in order to get NBCs. 
+#
+#   The private key is used to sign transactions. With its use it is ensured that only the wallet owner can spend    #   NBCs from the specific wallet. The sign_transaction function implements this functionality.
+# 
+#   Anyone who knows the public key of a wallet can verify that a transaction was created by its owner.
+
 class Wallet:
     def __init__(self):
         # Generate key
@@ -14,7 +24,7 @@ class Wallet:
         self.publicKey = key.publickey().exportKey().decode('ISO-8859-1')
         # Transaction list
         self.transactions = []
-        self.tr_dict = {}
+        self.tr_dict = {} # tid : transaction index in transactions
         self.balances = {}
         self.balances[self.publicKey] = 0
         self.prevOutput = 0
@@ -39,7 +49,7 @@ class Wallet:
 
     def getMoney(self, amount):
         if amount > self.getMyBalance():
-            print("Not enough coins!")
+            print("Not enough coins! ", self.getMyBalance())
             return []
         tmp = 0
         transactions = []
@@ -47,8 +57,6 @@ class Wallet:
             tr = self.unspentOutputs.pop(0)
             transactions.append(tr.tid)
             tmp += tr.amount
-        self.balances[self.publicKey] -= tmp
-        print('Subtracted money to:', self.getMyBalance())
         return transactions, tmp
     
     def setOutputs(self, ipList):

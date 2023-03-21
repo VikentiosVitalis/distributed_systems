@@ -55,7 +55,7 @@ class Transaction:
             'outputSender': self.outputSender.__str__(),
             'outputReceiver': self.outputReceiver.__str__(),
             'signature': self.signature.decode('ISO-8859-1'),
-            'tid': self.tid.decode('ISO-8859-1')
+            'tid': self.tid
         }
         for i in tr.keys():
             print(type(tr[i]), i, tr[i])

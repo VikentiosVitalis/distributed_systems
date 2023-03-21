@@ -51,20 +51,22 @@ class Wallet:
             tmp += tr.amount
             tr.unspent = False
         self.balance -= tmp
-        print(self.balance)
+        print('Subtracted money to:', self.balance)
         return transactions, tmp
 
     def addTransaction(self, transaction):
         # If this wallet is in the transaction add the money to my list
         if transaction.sender == self.publicKey and transaction.outputSender.amount > 0:
+            print('ll',transaction.outputSender.amount)
             self.unspentOutputs.append(transaction.outputSender)
             self.balance += transaction.outputSender.amount
         if transaction.receiver == self.publicKey and transaction.outputReceiver.amount > 0:
+            print('lr',transaction.outputSender.amount)
             self.unspentOutputs.append(transaction.outputReceiver)
             self.balance += transaction.outputReceiver.amount
         # Add to transaction list
         self.transactions.append(transaction)
-        print(self.balance)
+        print('Added money to:', self.balance)
         return
 
 

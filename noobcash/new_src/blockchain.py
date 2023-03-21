@@ -1,5 +1,5 @@
 from new_src.block import Block
-from new_src.node import notMining
+import new_src.node as node
 import time
 import threading
 # Noobcash Blockchain:
@@ -21,7 +21,7 @@ class Blockchain:
     def insert(self, transaction):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:
-            notMining.clear()
+            node.notMining.clear()
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []
             self.stopMine.clear()

@@ -162,7 +162,7 @@ def get_bal():
 def home():
     # Keep track of current page
     # session['viewing'] = 'home'
-    bal = start.wallet_balance()
+    bal = start.getBalance()
 
     data = {
         'ADDRESS': 'http://' + str(start.ip) +':' + str(start.port) ,

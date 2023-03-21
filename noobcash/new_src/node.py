@@ -73,7 +73,7 @@ class Node:
         print(genesisblock['transactions'])
         t = json.loads(genesisblock['transactions'][0])    # Load the transaction
         transaction = Transaction(
-            t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'])
+            t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'].encode('ISO-8859-1'))
         current_block = Block(
             genesisblock['index'], [transaction], genesisblock['nonce'],
             genesisblock['previous_hash']

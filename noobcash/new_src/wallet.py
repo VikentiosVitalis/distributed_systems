@@ -61,7 +61,7 @@ class Wallet:
             self.unspentOutputs.append(transaction.outputSender)
             self.balance += transaction.outputSender.amount
         if transaction.receiver == self.publicKey and transaction.outputReceiver.amount > 0:
-            print('lr',transaction.outputSender.amount)
+            print('lr',transaction.outputReceiver.amount)
             self.unspentOutputs.append(transaction.outputReceiver)
             self.balance += transaction.outputReceiver.amount
         # Add to transaction list

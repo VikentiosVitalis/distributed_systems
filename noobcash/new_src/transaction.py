@@ -51,7 +51,7 @@ class Transaction:
             'receiver': self.receiver,
             'sender':  self.sender,
             'amount':  self.amount,
-            'inputs':  self.inputs.toJSON(),
+            'inputs':  self.inputs.__str__(),
             'outputSender': self.outputSender.__str__(),
             'outputReceiver': self.outputReceiver.__str__(),
             'signature': self.signature.decode('ISO-8859-1'),

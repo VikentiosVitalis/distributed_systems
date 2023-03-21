@@ -25,15 +25,19 @@ Inside the folder 'noobcash; install the necessary requirements:
  `npm install`
 
 ## Run application:
-* bootstrap node: ``python <PORT> <IP> <Number of Children in the System> true``
- example: ``python 5000 127.0.0.1 2 true``
+Bootstrap node:
 
-* simple node: ``python <PORT> <IP> <Number of Children in the System> no``
- example: ``python 5001 127.0.0.1 2 false``
+``python <PORT> <IP> <Number of Children in the System> true``
 
-* Open Web Interface: Open at your browser the IP and PORT the node is registered.
+Simple node: 
 
-* Run CLI: ``cli.py <PORT> <IP>``
+``python <PORT> <IP> <Number of Children in the System> no``
+
+Open Web Interface: Open at your browser the IP and PORT the node is registered.
+
+Run CLI: 
+
+``cli.py <PORT> <IP>``
 
 If you want to run the tests inside the folders 5nodes and 10nodes replace app.py with app_auto.py.
 

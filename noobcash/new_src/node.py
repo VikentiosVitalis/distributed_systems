@@ -101,7 +101,7 @@ class Node:
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
         new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), 
-                                      ammount, prev_tr, amt)
+                                      ammount, prev_tr, amt-ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)

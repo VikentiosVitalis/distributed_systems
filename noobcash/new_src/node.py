@@ -108,6 +108,7 @@ class Node:
         #fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         #fd.write(str(now) + ' \n')
         #fd.close()
+        print(self.validateTransaction(new_transaction))
         return new_transaction
 
     def waitThread(self):

@@ -56,7 +56,7 @@ class Wallet:
             self.balances[tup[2]] = 0
 
     def addTransaction(self, transaction):
-        print(transaction.inputs.previous_output_id)
+        print('prev trans:',transaction.inputs.previous_output_id)
         for tid in transaction.inputs.previous_output_id:
             w = self.tr_dict[tid]
             tr = self.transactions[w]
@@ -76,8 +76,9 @@ class Wallet:
             self.unspentOutputs.append(transaction.outputSender)
         if transaction.receiver == self.publicKey and transaction.outputReceiver.amount > 0:
             self.unspentOutputs.append(transaction.outputReceiver)
-        self.balances[transaction.receiver] += transaction.outputReceiver.amount
         
+        self.balances[transaction.receiver] += transaction.outputReceiver.amount
+        # Only false for bootstrap
         if transaction.sender != transaction.receiver:
             self.balances[transaction.sender] -= transaction.outputReceiver.amount
 

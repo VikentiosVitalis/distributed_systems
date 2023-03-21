@@ -100,8 +100,8 @@ class Node:
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
-        new_transaction = Transaction(self.wallet.get_addr(
-        ), self.getAddr(receiverID), prev_tr, ammount, amt)
+        new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), 
+                                      ammount, prev_tr, amt)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
@@ -140,7 +140,7 @@ class Node:
 
     def broadcastTransaction(self, transaction):
         # Broadcast Transaction to everyone
-        print("Broadcasting Transaction: ", transaction.tid)
+        print("Broadcasting Transaction.")
         tmp = json.loads(transaction.toJSON())
         # print(tmp)
         for ip in self.ipList:

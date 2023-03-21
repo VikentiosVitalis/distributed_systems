@@ -120,6 +120,7 @@ class Node:
         self.nodeFlag.wait()
         print('All nodes joined, sharing IDs')
         time.sleep(2)
+        self.wallet.setOutputs(self.ipList)
         # Broadcast Nodes to everyone
         ipList = {
             'ipList': self.ipList,

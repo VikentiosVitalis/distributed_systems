@@ -8,6 +8,9 @@ wget https://github.com/VikentiosVitalis/distributed_systems/archive/master.zip
 pip3.8 install -r requirements.txt
 
 python3.8 app.py 5000 83.212.81.180 2 true
+python3.8 distributed_systems-main/noobcash/app.py 5000 83.212.81.180 4 true
+
+./update.sh
 
 python3.8 cli.py 5000 192.168.0.3
 

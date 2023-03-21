@@ -13,9 +13,9 @@ between users are registered and consensus (agreement on any subject by a group 
 ## Built with:
 * Python 3.8
 * Flask 8.1.1
-* HTML
-* CSS
-* JQuery
+* HTML5
+* CSS3
+* Django 4.1.7
 
 ## Set-up:
 Inside the folder 'noobcash; install the necessary requirements:

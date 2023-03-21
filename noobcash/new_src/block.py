@@ -20,7 +20,7 @@ class Block:
     def __init__(self, index, transactions, nonce, previous_hash, timestamp=time.time()):
         # Blocks's info
         self.index = index
-        self.transactions = transactions
+        self.transactions = [tr.toJSON() for tr in transactions]
         self.nonce = nonce                      # Proof-Of-Work solution
         self.previous_hash = previous_hash      # Previous plaintext which is now a unique hash digest that
                                                 # cannot be reverted to the original plaintext
@@ -33,7 +33,7 @@ class Block:
 
     def convert_block(self):
         res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), 
-            transactions = self.transactions.toJSON(), nonce = self.nonce, current_hash = self.current_hash,previous_hash=self.previous_hash ), sort_keys=True)
+            transactions = self.transactions, nonce = self.nonce, current_hash = self.current_hash,previous_hash=self.previous_hash ), sort_keys=True)
         return (res)
 
     # =================== Mining Process ================= #

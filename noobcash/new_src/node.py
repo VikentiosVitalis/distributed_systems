@@ -69,6 +69,7 @@ class Node:
     def setGenesis(self, block):
         genesisblock = json.loads(block)
         t = genesisblock['transactions']
+        print(t)
         transaction = Transaction(t['sender'], t['receiver'],t['ammount'], t['inputs'], t['outputSender']['amount'], t['tid'], t['signature'])
         current_block = Block(
                 genesisblock['index'], transaction,genesisblock['nonce'],
@@ -95,7 +96,7 @@ class Node:
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount) # Get previous transactions as well as the money total amount that they contain
-        new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), prev_tr, ammount, amt)
+        new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), prev_tr, ammount, amt - ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         # Broadcast and add to wallet

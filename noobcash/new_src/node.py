@@ -70,9 +70,9 @@ class Node:
         genesisblock = json.loads(block)
         t = genesisblock['transactions']
         t = json.loads(t)
-        r = json.loads(t["outputSender"])
         print(t['sender'])
         print(t['outputSender'], type(t['outputSender']))
+        r = json.loads(t["outputSender"].replace("\"", "'"))
         print(r['tid'])
         transaction = Transaction(t['sender'], t['receiver'],t['ammount'], t['inputs'], r['amount'], t['tid'], t['signature'])
         current_block = Block(

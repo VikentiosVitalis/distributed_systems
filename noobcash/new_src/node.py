@@ -56,6 +56,7 @@ class Node:
 
     def addNode(self, IP, addr):
         self.ipList.append((self.nodesActive + 1, IP, addr))
+        self.wallet.balances[addr] = 0
         self.nodesActive += 1
         if self.nodesActive >= self.nodeNr:
             self.nodeFlag.set()
@@ -120,7 +121,6 @@ class Node:
         self.nodeFlag.wait()
         print('All nodes joined, sharing IDs')
         time.sleep(2)
-        self.wallet.setOutputs(self.ipList)
         # Broadcast Nodes to everyone
         ipList = {
             'ipList': self.ipList,

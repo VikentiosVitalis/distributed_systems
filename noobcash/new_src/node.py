@@ -43,7 +43,7 @@ class Node:
             tr = Transaction(self.wallet.get_addr(),
                              self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
-            genBlock = Block(0, tr, 0, 1)
+            genBlock = Block(0, [tr], 0, 1)
             self.blockchain.addBlock(genBlock)
             self.wallet.addTransaction(tr)
 
@@ -70,7 +70,8 @@ class Node:
 
     def setGenesis(self, block):
         genesisblock = json.loads(block)
-        t = json.loads(genesisblock['transactions'])    # Load the transaction
+        print(block['transactions'])
+        t = json.loads(genesisblock['transactions'][0])    # Load the transaction
         transaction = Transaction(
             t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'])
         current_block = Block(
@@ -114,7 +115,6 @@ class Node:
 
     def waitThread(self):
         self.nodeFlag.wait()
-        return
         while True:
             if not notMining.isSet():
                 notMining.wait()
@@ -123,7 +123,11 @@ class Node:
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
                 tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature)
-
+                # If invalid ignore block
+                if self.validateTransaction(tr) == False: continue
+                # Insert to block
+                self.blockchain.insert(tr)
+                self.wallet.addTransaction(tr)
                 
         
     def broadcastNodes(self):

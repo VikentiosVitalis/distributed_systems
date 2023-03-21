@@ -36,17 +36,17 @@ This project was created by our team consisting of the members below:
 
 <p align="center">
     <a href="https://github.com/MarkRamosS">
-     <!--  Mark Ramos  -->
+      <!--  Mark Ramos  -->
       <img src="/noobcash/static/mark.png" width="10%">
     </a>  
 
    <a href="https://github.com/VikentiosVitalis">
-     <!--  Vikentios Vitalis -->
+      <!--  Vikentios Vitalis -->
       <img src="/noobcash/static/vikentios.png" width="10%">
     </a>  
 
    <a href="https://github.com/ioannislyras98">
-     <!--  Giannis Lyras -->
+      <!--  Giannis Lyras -->
       <img src="/noobcash/static/giannis.png" width="10%">
     </a>  
 <p>

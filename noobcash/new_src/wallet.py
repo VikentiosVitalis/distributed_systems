@@ -70,13 +70,11 @@ class Wallet:
             tr = self.transactions[w]
             if tr.sender == transaction.sender:
                 if tr.outputSender.unspent == False:
-                    print("Transaction already used:", tr.tid)
-                    return
+                    print("Transaction already used:", tr.tid)    
                 tr.outputSender.unspent = False
             else:
                 if tr.outputReceiver.unspent == False:
                     print("Transaction already used:", tr.tid)
-                    return
                 tr.outputReceiver.unspent = False
 
         # If this wallet is in the transaction add the money to my list

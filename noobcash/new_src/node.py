@@ -72,7 +72,7 @@ class Node:
         t = json.loads(t)
         print(t['sender'])
         print(t['outputSender'], type(t['outputSender']))
-        r = json.loads(t["outputSender"].replace("\"", "'"))
+        r = json.loads(t["outputSender"])
         print(r['tid'])
         transaction = Transaction(t['sender'], t['receiver'],t['ammount'], t['inputs'], r['amount'], t['tid'], t['signature'])
         current_block = Block(

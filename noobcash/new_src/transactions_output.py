@@ -1,3 +1,4 @@
+import json
 # Transaction Output:
 #   It is consisted by a unique identifier of the transactions (tid), 
 #   the id of transaction which it is originated, 
@@ -30,5 +31,5 @@ class TransactionOutput:
 
     def __str__(self):
         """Returns a string as a representation of a TransactionOutput object"""
-        return str(self.__dict__)
+        return json.dumps(self.__dict__)
 

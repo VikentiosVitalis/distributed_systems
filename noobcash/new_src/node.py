@@ -124,9 +124,11 @@ class Node:
                 print('Reading transaction.')
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
-                tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature)
+                tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
                 # If invalid ignore block
-                if self.validateTransaction(tr) == False: continue
+                if self.validateTransaction(tr) != 'Accepted.': 
+                    print(self.validateTransaction(tr))
+                    continue
                 # Insert to block
                 self.blockchain.insert(tr)
                 self.wallet.addTransaction(tr)

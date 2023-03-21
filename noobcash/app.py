@@ -156,7 +156,7 @@ def get_bal():
     return jsonify(response), 200
 
 # ============ FRONTEND ============= #
-
+ 
 # Home page
 @app.route('/', methods=['GET'])
 def home():

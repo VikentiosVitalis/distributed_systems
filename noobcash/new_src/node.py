@@ -119,6 +119,7 @@ class Node:
                 notMining.wait()
             
             if len(self.buffer) != 0 and notMining.isSet():
+                itm = self.buffer.pop()
                 
             
         

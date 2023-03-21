@@ -105,6 +105,7 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
+        print(self.validateTransaction(new_transaction))
         self.wallet.addTransaction(new_transaction)
         # fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         # fd.write(str(now) + ' \n')
@@ -113,14 +114,17 @@ class Node:
 
     def waitThread(self):
         self.nodeFlag.wait()
+        return
         while True:
             if not notMining.isSet():
                 notMining.wait()
             
             if len(self.buffer) != 0 and notMining.isSet():
                 itm = self.buffer.pop()
+                sender, receiver, amt, inputs, amtLeft, tid, signature = itm
+                tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature)
 
-            
+                
         
     def broadcastNodes(self):
         self.nodeFlag.wait()

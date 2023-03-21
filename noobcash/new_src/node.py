@@ -75,7 +75,8 @@ class Node:
             t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'])
         current_block = Block(
             genesisblock['index'], transaction, genesisblock['nonce'],
-            genesisblock['previous_hash'])
+            genesisblock['previous_hash']
+        )
         self.blockchain.addBlock(current_block)
         print('Initialized.')
         self.wallet.addTransaction(transaction)
@@ -112,6 +113,7 @@ class Node:
 
     def waitThread(self):
         self.nodeFlag.wait()
+        return
         while True:
             if not notMining.isSet():
                 notMining.wait()

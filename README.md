@@ -35,7 +35,7 @@ If you want to run the tests inside the folders 5nodes and 10nodes replace app.p
 This project was created by our team consisting of the members below:
 
 <p align="center">
-    <a> <img src="/noobcash/static/mark.png" href="https://github.com/MarkRamosS" width="10%"> </a>  
+    <a> Mark Ramos <img src="/noobcash/static/mark.png" href="https://github.com/MarkRamosS" width="10%"> </a>  
     <a> <img src="/noobcash/static/vikentios.png" href="https://github.com/VikentiosVitalis" width="10%"></a>  
     <a> <img src="/noobcash/static/giannis.png" href="https://github.com/ioannislyras98" width="10%"></a>
 <p>

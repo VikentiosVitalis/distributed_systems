@@ -38,6 +38,9 @@ class Blockchain:
             #fd = open('times/mining' + '.txt', 'a')
             #fd.write(str(time.time() - float(begin)) + '\n')
             #fd.close()
+            print('Time taken:', time.time()-begin)
+            node.broadcast(newBlock, time.time())
+
 
 
 

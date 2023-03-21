@@ -81,6 +81,7 @@ class Node:
         self.blockchain.addBlock(current_block)
         print('Initialized.')
         self.wallet.addTransaction(transaction)
+        self.nodeFlag.set()
 
     def getBalance(self):
         return self.wallet.getMyBalance()
@@ -120,6 +121,7 @@ class Node:
                 notMining.wait()
             
             if len(self.buffer) != 0 and notMining.isSet():
+                print('Reading transaction.')
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
                 tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature)
@@ -164,6 +166,7 @@ class Node:
         return
 
     def broadcastBlock(self, block, startTime):
+        print('Broadcasting Block.')
         tmp = {'lb': block.convert_block(), 'mt': startTime}
         for ip in self.ipList:
             if ip[0] != self.id:

@@ -16,6 +16,7 @@ class Wallet:
         self.transactions = []
         self.tr_dict = {}
         self.balances = {}
+        self.balances[self.publicKey] = 0
         self.prevOutput = 0
         self.unspentOutputs = []
 

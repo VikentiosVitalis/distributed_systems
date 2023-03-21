@@ -7,6 +7,8 @@ import requests
 import json
 import threading
 
+notMining = threading.Event()
+notMining.set()
 
 class Node:
     def __init__(self, port, IP, nodeNr, bootstrap):
@@ -115,8 +117,11 @@ class Node:
 
     def waitThread(self):
         self.nodeFlag.wait()
-        return
-
+        while True:
+            if not notMining.isSet():
+                notMining.wait()
+            
+        
     def broadcastNodes(self):
         self.nodeFlag.wait()
         print('All nodes joined, sharing IDs')
@@ -134,7 +139,7 @@ class Node:
 
         time.sleep(2)
         for tup in self.ipList[1:]:
-            if self.mining.isSet():
+            if self.notMining.isSet():
                 self.mining.wait()
             self.createTransaction(tup[0], 100)
         return

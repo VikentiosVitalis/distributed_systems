@@ -10,18 +10,18 @@ Blockchain is the technology used by most cryptocurrencies and in reality it's a
 Task of this a project is to create the "Noobcash", a simple blockchain system in which transactions
 between users are registered and consensus (agreement on any subject by a group of participants) is certified with Proof-of-Work (a decentralized consensus mechanism that requires network members to expend effort in solving an encrypted hexadecimal number).
 
-## Built With:
+## Built with:
 * Python 3.8
 * Flask
 * HTML/CSS
 * JQuery
 
-## Set Up:
+## Set-up:
 Inside the folder noobcash:
 * pip install -r requirements.txt
 * npm install
 
-## Run Application:
+## Run application:
 * bootstrap node: ``python <PORT> <IP> <Number of Children in the System> true``
  example: ``python 5000 127.0.0.1 2 true``
 * simple node: ``python <PORT> <IP> <Number of Children in the System> no``
@@ -36,3 +36,9 @@ This project was created by our team consisting of the members below:
 - [Mark Ramos](https://github.com/MarkRamosS)
 - [Vikentios Vitalis](https://github.com/VikentiosVitalis)
 - [Ioannis Lyras](https://github.com/ioannislyras98)
+
+<p align="center">
+    <a href="https://github.com/MarkRamosS"> <img src="static/mark.png" width="10%"></a>  
+    <a href="https://github.com/VikentiosVitalis"><img src="etc/vikentios2" width="10%"></a>  
+    <a href="https://github.com/ioannislyras98"><img src="etc/giannis.png" width="10%"></a>
+<p>

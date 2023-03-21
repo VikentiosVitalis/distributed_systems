@@ -33,7 +33,9 @@ class Blockchain:
         print('Starting to mine.')
         now = time.time()
         newBlock.mine_block(self.stopMine)
-        if not 
+        if not self.stopMine.isSet():
+            self.blockchain.append(newBlock)
+            
 
 
 

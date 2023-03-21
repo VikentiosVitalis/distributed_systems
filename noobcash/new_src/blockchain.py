@@ -25,7 +25,7 @@ class Blockchain:
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []
             self.stopMine.clear()
-            mine = threading.Thread(name='mine', target=self.startMining, args=(newBlock,))
+            mine = threading.Thread(name='mine', target=self.mine, args=(newBlock,))
             mine.start()
 
             

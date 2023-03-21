@@ -88,7 +88,6 @@ class Node:
 
     def getAddr(self, id):
         return self.ipList[id][2]
-    
 
     def getID(self, addr):
         for i in self.ipList:

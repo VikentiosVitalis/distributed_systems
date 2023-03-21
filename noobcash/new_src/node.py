@@ -70,7 +70,7 @@ class Node:
         genesisblock = json.loads(block)
         t = genesisblock['transactions']
         t = json.loads(t)
-        r = json.loads(t['outputSender'])
+        r = json.loads(t["outputSender"])
         print(t['sender'])
         print(t['outputSender'], type(t['outputSender']))
         print(r['tid'])

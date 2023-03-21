@@ -19,11 +19,7 @@ class Node:
         self.bootstrap = (bootstrap.lower() == 'true')              # Boolean
 
         self.nodeNr = int(nodeNr)
-        if self.bootstrap:
-            self.wallet = Wallet(nodeNr)
-        else:
-            self.wallet = Wallet(0)
-
+        self.wallet = Wallet()
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
         self.nodesActive = 0
@@ -37,8 +33,7 @@ class Node:
         # Flag that indicates that we have all nodes
         self.nodeFlag = threading.Event()
         self.nodeFlag.clear()
-            
-        
+
         waitThread = threading.Thread(target=self.waitThread)
         waitThread.start()
 

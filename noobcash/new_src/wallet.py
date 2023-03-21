@@ -4,7 +4,7 @@ from Crypto.Signature import PKCS1_v1_5
 from new_src.transaction import Transaction
 from new_src.transactions_output import TransactionOutput
 class Wallet:
-    def __init__(self, nodeNr):
+    def __init__(self):
         # Generate key
         key = RSA.generate(1024)
         # Get data from keys
@@ -13,7 +13,7 @@ class Wallet:
         self.publicKey = key.publickey().exportKey().decode('ISO-8859-1')
         # Transaction list
         self.transactions = []
-        self.balance = 100*int(nodeNr)
+        self.balance = 0
         self.prevOutput = 0
         self.unspentOutputs = []
 

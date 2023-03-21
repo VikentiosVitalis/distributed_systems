@@ -118,6 +118,9 @@ class Node:
             if not notMining.isSet():
                 notMining.wait()
             
+            if len(self.buffer) != 0 and notMining.isSet():
+                
+            
         
     def broadcastNodes(self):
         self.nodeFlag.wait()

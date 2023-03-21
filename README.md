@@ -38,7 +38,7 @@ This project was created by our team consisting of the members below:
 - [Ioannis Lyras](https://github.com/ioannislyras98)
 
 <p align="center">
-    <a href="https://github.com/MarkRamosS"> <img src="/noobacash/static/mark.png" width="10%"></a>  
-    <a href="https://github.com/VikentiosVitalis"><img src="/noobacash/static/vikentios2" width="10%"></a>  
-    <a href="https://github.com/ioannislyras98"><img src="/noobacash/static/giannis.png" width="10%"></a>
+    <a> <img src="/noobacash/static/mark.png" href="https://github.com/MarkRamosS" width="10%"> </a>  
+    <a> <img src="/noobacash/static/vikentios2" href="https://github.com/VikentiosVitalis" width="10%"></a>  
+    <a> <img src="/noobacash/static/giannis.png" href="https://github.com/ioannislyras98" width="10%"></a>
 <p>

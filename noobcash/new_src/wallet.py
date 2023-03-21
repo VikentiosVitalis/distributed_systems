@@ -56,6 +56,7 @@ class Wallet:
             self.balances[tup[2]] = 0
 
     def addTransaction(self, transaction):
+        print(transaction.inputs.previous_output_id)
         for tid in transaction.inputs.previous_output_id:
             w = self.tr_dict[tid]
             tr = self.transactions[w]

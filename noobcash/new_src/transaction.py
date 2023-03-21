@@ -35,7 +35,7 @@ class Transaction:
         if tid != None:
             self.tid = tid           # tid = Transaction ID
         else:
-            self.tid = Crypto.Random.get_random_bytes(128)
+            self.tid = Crypto.Random.get_random_bytes(128).decode('ISO-8859-1')
         
         self.signature = signature
         self.outputSender = TransactionOutput(self.tid, sender, amtLeft)
@@ -74,7 +74,7 @@ class Transaction:
         # Load tid to SHA256
 
         tmp = SHA256.new()
-        tmp.update(self.tid)
+        tmp.update(self.tid.encode('ISO-8859-1'))
 
         # Cipher is an algorithm for encrypting and decrypting data.
         # Cipher for verification

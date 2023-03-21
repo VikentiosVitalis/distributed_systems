@@ -23,7 +23,7 @@ class Wallet:
     def sign(self, message):
         # Sign message = sign message
         tmp = SHA256.new()
-        tmp.update(message)
+        tmp.update(message.encode('ISO-8859-1'))
         signer = PKCS1_v1_5.new(RSA.import_key(self._privateKey)) 
         ciphertext = signer.sign(tmp)
         return ciphertext

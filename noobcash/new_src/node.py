@@ -46,7 +46,7 @@ class Node:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
             # Create genesis transaction
-            tr = Transaction(0, 0, 100*(self.nodeNr+1), [], 0)
+            tr = Transaction(self.wallet.get_addr(), self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
             # Create genesis block

@@ -57,8 +57,8 @@ class Transaction:
             'signature': self.signature.decode('ISO-8859-1'),
             'tid': self.tid
         }
-        for i in tr.keys():
-            print(type(tr[i]), i, tr[i])
+        #for i in tr.keys():
+        #    print(type(tr[i]), i, tr[i])
         string = json.dumps(tr, sort_keys=True)
         return string
 

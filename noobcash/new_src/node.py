@@ -69,7 +69,9 @@ class Node:
     def setGenesis(self, block):
         genesisblock = json.loads(block)
         t = genesisblock['transactions']
-        print(t)
+        print(t['sender'])
+        print(t['outputSender'], type(t['outputSender']))
+        print(t['outputSender']['tid'])
         transaction = Transaction(t['sender'], t['receiver'],t['ammount'], t['inputs'], t['outputSender']['amount'], t['tid'], t['signature'])
         current_block = Block(
                 genesisblock['index'], transaction,genesisblock['nonce'],

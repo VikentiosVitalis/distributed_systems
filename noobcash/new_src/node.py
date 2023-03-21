@@ -71,7 +71,7 @@ class Node:
     def setGenesis(self, block):
         genesisblock = json.loads(block)
         print(genesisblock['transactions'])
-        t = json.loads(genesisblock['transactions'])    # Load the transaction
+        t = json.loads(genesisblock['transactions'][0])    # Load the transaction
         transaction = Transaction(
             t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'])
         current_block = Block(

@@ -36,6 +36,6 @@ This project was created by our team consisting of the members below:
 
 <p align="center">
     <a> <img src="/noobcash/static/mark.png" href="https://github.com/MarkRamosS" width="10%"> </a>  
-    <a> <img src="/noobcash/static/vikentios2.png" href="https://github.com/VikentiosVitalis" width="10%"></a>  
+    <a> <img src="/noobcash/static/vikentios.png" href="https://github.com/VikentiosVitalis" width="10%"></a>  
     <a> <img src="/noobcash/static/giannis.png" href="https://github.com/ioannislyras98" width="10%"></a>
 <p>

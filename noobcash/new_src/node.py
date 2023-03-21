@@ -71,10 +71,8 @@ class Node:
     def setGenesis(self, block):
         genesisblock = json.loads(block)
         t = json.loads(genesisblock['transactions'])    # Load the transaction
-        # Load sender to get the amount left
-        r = json.loads(t["outputSender"])
         transaction = Transaction(
-            t['sender'], t['receiver'], t['amount'], t['inputs'], r['amount'], t['tid'], t['signature'])
+            t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'])
         current_block = Block(
             genesisblock['index'], transaction, genesisblock['nonce'],
             genesisblock['previous_hash'])

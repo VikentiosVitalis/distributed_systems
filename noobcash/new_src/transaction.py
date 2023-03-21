@@ -52,8 +52,7 @@ class Transaction:
             'sender':  self.sender,
             'amount':  self.amount,
             'inputs':  self.inputs.previous_output_id,
-            'outputSender': self.outputSender.__str__(),
-            'outputReceiver': self.outputReceiver.__str__(),
+            'amtLeft': self.outputSender.amount,
             'signature': self.signature.decode('ISO-8859-1'),
             'tid': self.tid
         }

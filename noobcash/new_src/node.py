@@ -30,9 +30,6 @@ class Node:
 
         self.blockchain = Blockchain()
 
-        self.mining = threading.Event()  # Switch between mining
-        self.mining.clear()              # No mining at the start
-
         # Flag that indicates that we have all nodes
         self.nodeFlag = threading.Event()
         self.nodeFlag.clear()
@@ -139,8 +136,8 @@ class Node:
 
         time.sleep(2)
         for tup in self.ipList[1:]:
-            if self.notMining.isSet():
-                self.mining.wait()
+            if notMining.isSet():
+                notMining.wait()
             self.createTransaction(tup[0], 100)
         return
 

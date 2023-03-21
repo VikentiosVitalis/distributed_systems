@@ -47,7 +47,6 @@ class Wallet:
             tr = self.unspentOutputs.pop(0)
             transactions.append(tr.tid)
             tmp += tr.amount
-            tr.unspent = False
         self.balances[self.publicKey] -= tmp
         print('Subtracted money to:', self.getMyBalance())
         return transactions, tmp

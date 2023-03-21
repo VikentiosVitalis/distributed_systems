@@ -26,23 +26,21 @@ import json
 # is called in order to verify its validity.
 
 class Transaction:
-    def __init__(self, sender, receiver, amount, tid=None, signature=None, transactionInputs=None, transactionOutputs=None):
+    def __init__(self, sender, receiver, amount, trInputs, amtLeft, tid=None, signature=None):
         self.receiver = receiver     # Address of receiver
         self.sender = sender         # Address of sender
         self.amount = amount         # The amount which will be transferred
+        self.inputs = TransactionInput(trInputs)
+
         if tid != None:
             self.tid = tid           # tid = Transaction ID
         else:
             self.tid = Crypto.Random.get_random_bytes(128)
+        
         self.signature = signature
-        trInput = TransactionInput(1)   # TRANS INPUT ? 
-        if transactionInputs != None:
-            trInput.previous_output_id = transactionInputs
-        trOutput = TransactionOutput(self.tid, receiver, amount)
-#        if transactionOutputs != None:
+        self.outputSender = TransactionOutput(self.tid, sender, amtLeft)
+        self.outputReceiver = TransactionOutput(self.tid, receiver, amount)
 
-        self.transactionInputs = trInput
-        self.transactionOutputs = trOutput
 
     # JavaScript Obejct Notation (JSON) is a lightweight
     # data-interchange format easily understood by humans and
@@ -53,8 +51,9 @@ class Transaction:
             'receiver': self.receiver,
             'sender':  self.sender,
             'amount':  self.amount,
-            'inputs':  self.transactionInputs.toJSON(),
-            'outputs': self.transactionOutputs.__str__(),
+            'inputs':  self.inputs.toJSON(),
+            'outputSender': self.outputSender.__str__(),
+            'outputReceiver': self.outputReceiver.__str__(),
             'signature': self.signature.decode('ISO-8859-1'),
             'tid': self.tid.decode('ISO-8859-1')
         }

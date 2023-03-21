@@ -22,19 +22,12 @@ class TransactionOutput:
         self.amount = amount
         self.unspent = True
 
-    def fromdict(output_dict):
+    def fromdict(self, output_dict):
         self.tid = output_dict['tid']
-        self.receiver = receiver
-        self.amount = amount
+        self.receiver = output_dict['receiver']
+        self.amount = output_dict['amount']
         self.unspent = True
 
-    def todict(self):
-        return {
-                    'tid':self.tid,
-                    'receiver':self.receiver,
-                    'amount':self.amount,
-                    'unspent':self.unspent
-                }
     def __str__(self):
         """Returns a string as a representation of a TransactionOutput object"""
         return str(self.__dict__)

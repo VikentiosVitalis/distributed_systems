@@ -2,6 +2,7 @@ from Crypto.Signature import PKCS1_v1_5
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
 import Crypto
+from new_src.transactions_output import TransactionOutput
 
 key = RSA.generate(1024)
 
@@ -22,3 +23,15 @@ print(txt)
 cipher2 = PKCS1_v1_5.new(RSA.import_key(y))
 tst = cipher2.verify(tmp, txt)
 print(tst)
+
+
+tr = TransactionOutput(1, 1, 1)
+print(tr.unspent)
+ff = []
+tmp = []
+ff.append(tr)
+tmp.append(tr)
+xx = ff.pop(0)
+xx.unspent = False
+print(xx.unspent, tmp[0].unspent, tr.unspent)
+

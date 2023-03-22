@@ -206,8 +206,6 @@ class Node:
         return 'Accepted.'
 
     def validateBlock(self, block, creationTime):
-        if consFlag.isSet():
-            consFlag.wait()
         self.blockchain.stopMine.set()
 
         block = json.loads(block)
@@ -219,10 +217,12 @@ class Node:
             print(tmp)
             print(block['current_hash'])
             return False
-
+        
+        if consFlag.isSet():
+            consFlag.wait()
         if block['previous_hash'] != self.blockchain.getLastHash():
-            self.currentBlock = newBlock
             consFlag.set()
+            self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
             consFlag.clear()

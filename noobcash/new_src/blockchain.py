@@ -22,6 +22,12 @@ class Blockchain:
     def getLastHash(self):
         return self.blockchain[-1].current_hash
 
+    def convert_chain(self):
+        res = []
+        for bl in self.blockchain:
+            res.append(bl.convert_block())
+        return res
+
     def insert(self, transaction, ipList, id):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:

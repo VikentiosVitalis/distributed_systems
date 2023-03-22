@@ -170,12 +170,19 @@ class Node:
         print("Broadcasting Transaction.")
         tmp = json.loads(transaction.toJSON())
         # print(tmp)
-        for ip in self.ipList:
-            if ip[0] != self.id:
-                requests.post(ip[1] + "/broadcast", json=tmp, headers={
+        for tup in self.ipList:
+            if tup[0] != self.id:
+                requests.post(tup[1] + "/broadcast", json=tmp, headers={
                               'Content-type': 'application/json', 'Accept': 'text/plain'})
         return
 
+    def broadcastConsensus(self):
+        print('We\'re consensing!')
+        tmp = {'address': self.getFullAddr()}
+        for tup in self.ipList:
+            if tup[0] != self.id:
+                requests.post(tup[1] + "/consensus", json=tmp, headers={
+                              'Content-type': 'application/json', 'Accept': 'text/plain'})
 
     def validateTransaction(self, transaction):
         # Check signature
@@ -192,12 +199,21 @@ class Node:
         return 'Accepted.'
 
     def validateBlock(self, block, creationTime):
+        if consFlag.isSet():
+            consFlag.wait()
         block = json.loads(block)
-        if block['previous_hash'] == self.blockchain.getLastHash():
+        if block['previous_hash'] != self.blockchain.getLastHash():
+            
             self.blockchain.stopMine()
+            consFlag.set()
+            self.broadcastConsensus()
+            self.resolveConflict()
+
+            consFlag.clear()
             return True
         return False
 
     def resolveConflict(self):
         # Resolve some conflict
+
         return

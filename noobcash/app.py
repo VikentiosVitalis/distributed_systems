@@ -62,8 +62,8 @@ def mining():
 def consensus():
     # Consensus begin
     res = request.get_json()
-    addrr = res['address']
-    msg = {'pub_key': start.public_key, 'chain': start.chain.convert_b(), 'trans_dict': start.transactions_dictionary, 'utxos': start.unspent_coins}
+    addrr = res['address'] ## , 'trans_dict': start.transactions_dictionary, 'utxos': start.unspent_coins
+    msg = {'pub_key': start.getAddr(), 'chain': start.blockchain.convert_chain()}
     requests.post(addrr + '/all_nodes_consensus', json=msg,headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
     response = {'message': 'Consensus done'}
     return jsonify(response), 200

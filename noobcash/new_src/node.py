@@ -71,6 +71,9 @@ class Node:
         print('My id:', self.id)
         return
 
+    def getSK(self):
+        return [i[2] for i in self.ipList]
+
     def setGenesis(self, block):
         genesisblock = json.loads(block)
         # print(genesisblock['transactions'])

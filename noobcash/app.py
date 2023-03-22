@@ -73,9 +73,7 @@ def consensus():
 def cons_data():
     res = request.get_json()
     start.all_nodes_chains[res['pub_key']] = res['chain']
-    start.all_nodes_transactions[res['pub_key']] = res['trans_dict']
-    start.all_utxos[res['pub_key']] = res['utxos']
-
+    
     print('NODE INFORMED: ', str(start.ID))
     response = {'message': 'Consensus Done'}
     return jsonify(response), 200
@@ -168,10 +166,10 @@ def home():
         'ADDRESS': start.getFullAddr(),
         'NO_OF_NODES':  len(set(start.ipList)),
         'ID': start.getID,
-        'SENDER': start.public_key,
-        'OTHERSK': start.public_keys,
+        'SENDER': start.getAddr(),
+        'OTHERSK': start.getSK(),
         'KEY_ID': KEY_ID,
-        'bal': bal,
+        'bal': start.getBalance(),
 
     }
     return render_template('homepage.html', data=data)

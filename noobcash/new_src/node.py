@@ -133,7 +133,7 @@ class Node:
                     print(self.validateTransaction(tr))
                     continue
                 # Insert to block
-                self.blockchain.insert(tr)
+                self.blockchain.insert(tr, self.ipList, self.id)
                 self.wallet.addTransaction(tr)
 
         
@@ -167,15 +167,6 @@ class Node:
         for ip in self.ipList:
             if ip[0] != self.id:
                 requests.post(ip[1] + "/broadcast", json=tmp, headers={
-                              'Content-type': 'application/json', 'Accept': 'text/plain'})
-        return
-
-    def broadcastBlock(self, block, startTime):
-        print('Broadcasting Block.')
-        tmp = {'lb': block.convert_block(), 'mt': startTime}
-        for ip in self.ipList:
-            if ip[0] != self.id:
-                requests.post(ip[1] + "/mine", json=tmp, headers={
                               'Content-type': 'application/json', 'Accept': 'text/plain'})
         return
 

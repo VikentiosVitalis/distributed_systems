@@ -76,7 +76,7 @@ def cons_data():
     tmp = json.loads(res['chain'][-1])
     if tmp['current_hash'] == start.currentBlock.previous_hash:
         start.allBlockchains[res['pub_key']].append(start.currentBlock.convert_block())
-    print('Received: ', )
+    print('Received: ')
     response = {'message': 'Consensus Done'}
     return jsonify(response), 200
 

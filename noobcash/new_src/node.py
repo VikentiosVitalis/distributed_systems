@@ -13,6 +13,8 @@ notMining.set()
 consFlag = threading.Event()
 consFlag.set()
 
+addLock = threading.Lock()
+
 class Node:
     def __init__(self, port, IP, nodeNr, bootstrap):
         self.port = port
@@ -216,18 +218,17 @@ class Node:
             print(tmp)
             print(block['current_hash'])
             return False
-        if consFlag.isSet():
-            consFlag.wait()
-        consFlag.set()
+        addLock.acquire()
         if block['previous_hash'] != self.blockchain.getLastHash():
             consFlag.set()
             self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
             consFlag.clear()
+            addLock.release()
             return True
         self.blockchain.blockchain.append(newBlock)
-        consFlag.clear()
+        addLock.release()
         return True
 
     def resolveConflict(self):

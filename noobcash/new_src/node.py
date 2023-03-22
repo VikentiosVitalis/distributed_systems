@@ -22,17 +22,19 @@ class Node:
         # Assuming bootstrap's always there
         self.bootstrapAddr = 'http://192.168.0.3:5000'
         self.bootstrap = (bootstrap.lower() == 'true')              # Boolean
-
+        # Money
         self.nodeNr = int(nodeNr)
         self.wallet = Wallet()
-
+        # For consensus
         self.allBlockchains = {}
-
+        self.currentBlock = None
+        # IPs
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
         self.nodesActive = 0
+        # Buffer to store incoming transactions
         self.buffer = []
-
+        #Blockchain
         self.blockchain = Blockchain()
 
         # Flag that indicates that we have all nodes
@@ -209,10 +211,15 @@ class Node:
         block = json.loads(block)
         newBlock = Block(0,0,0,0)
         newBlock.set(block)
-
-        if newBlock.hashing()
+        tmp = newBlock.hashing()
+        if tmp != block['current_hash']:
+            print('Invalid block with:')
+            print(tmp)
+            print(block['current_hash'])
+            return False
 
         if block['previous_hash'] != self.blockchain.getLastHash():
+            self.currentBlock = newBlock
             self.blockchain.stopMine()
             consFlag.set()
             self.broadcastConsensus()

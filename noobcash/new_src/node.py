@@ -246,5 +246,5 @@ class Node:
             block.set(b)
             blocks.append(block)
         self.blockchain.blockchain = blocks
-        print('Consensus reached for blockchain of length:', len(blocks))
+        print('Consensus reached for blockchain with length:', len(blocks))
         return

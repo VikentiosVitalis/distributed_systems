@@ -211,7 +211,7 @@ class Node:
         self.blockchain.stopMine.set()
 
         block = json.loads(block)
-        newBlock = Block(0,0,0,0)
+        newBlock = Block(0,[],0,0)
         newBlock.set(block)
         tmp = newBlock.hashing()
         if tmp != block['current_hash']:
@@ -241,7 +241,7 @@ class Node:
         blocks = []
         for newBlock in newChain:
             b = json.loads(newBlock)
-            block = Block(0,0,0,0)
+            block = Block(0,[],0,0)
             block.set(b)
             blocks.append(block)
         self.blockchain = blocks     

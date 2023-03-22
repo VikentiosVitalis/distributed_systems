@@ -127,7 +127,7 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
-        print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.', end="")
+        print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
         self.blockchain.insert(new_transaction, self.ipList, self.id)
         self.wallet.addTransaction(new_transaction)
         

@@ -19,6 +19,9 @@ class Blockchain:
     def addBlock(self, block):
         self.blockchain.append(block)
 
+    def getLastHash(self):
+        return self.blockchain[-1].current_hash
+
     def insert(self, transaction, ipList, id):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:
@@ -40,8 +43,6 @@ class Blockchain:
             #fd.close()
             print('Time taken:', time.time()-begin)
             self.broadcastBlock(newBlock, time.time(), ipList, id)
-
-
 
 
     def broadcastBlock(self, block, startTime, ipList, id):

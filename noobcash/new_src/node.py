@@ -185,6 +185,13 @@ class Node:
             return 'Negative Coins.'
         return 'Accepted.'
 
+    def validateBlock(self, block, creationTime):
+        block = json.loads(block)
+        if block['previous_hash'] == self.blockchain.getLastHash():
+            self.blockchain.stopMine()
+            return True
+        return False
+
     def resolveConflict(self):
         # Resolve some conflict
         return

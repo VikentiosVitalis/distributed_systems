@@ -10,6 +10,9 @@ import threading
 notMining = threading.Event()
 notMining.set()
 
+consFlag = threading.Event()
+consFlag.set()
+
 class Node:
     def __init__(self, port, IP, nodeNr, bootstrap):
         self.port = port
@@ -70,7 +73,7 @@ class Node:
 
     def setGenesis(self, block):
         genesisblock = json.loads(block)
-        print(genesisblock['transactions'])
+        # print(genesisblock['transactions'])
         t = json.loads(genesisblock['transactions'][0])    # Load the transaction
         transaction = Transaction(
             t['sender'], t['receiver'], t['amount'], t['inputs'], t['amtLeft'], t['tid'], t['signature'].encode('ISO-8859-1'))
@@ -122,12 +125,15 @@ class Node:
         while True:
             if not notMining.isSet():
                 notMining.wait()
+            if consFlag.isSet():
+                consFlag.wait()
             
             if len(self.buffer) != 0 and notMining.isSet():
-                print('Reading transaction.')
+                print(f'Reading transaction from', end="")
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
                 tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
+                print(f" {self.getID(sender)} to {self.getID(receiver)}.")
                 # If invalid ignore block
                 if self.validateTransaction(tr) != 'Accepted.': 
                     print(self.validateTransaction(tr))
@@ -147,7 +153,7 @@ class Node:
             'genBlock': self.blockchain.genBlock().convert_block()
         }
         ipList = json.dumps(ipList)
-        print('IP list:', ipList)
+        # print('IP list:', ipList)
         for tup in self.ipList[1:]:
             requests.post(tup[1]+'/child_inform', data=ipList,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})

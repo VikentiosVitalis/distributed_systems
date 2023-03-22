@@ -189,10 +189,10 @@ def viewpage():
 
 @app.route('/balance', methods=['GET'])
 def balancepage():
-    bal = start.wallet_balance()
+    bal = start.getBalance()
     data = {
         'bal': bal,
-        'id': str(start.ID)
+        'id': str(start.id)
     }
     return render_template('balancepage.html', data=data)
 

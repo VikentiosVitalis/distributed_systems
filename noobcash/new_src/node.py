@@ -187,7 +187,7 @@ class Node:
         return
 
     def broadcastConsensus(self):
-        print('Reaching consensus!')
+        print('We\'re consensing!')
         tmp = {'address': self.getFullAddr()}
         for tup in self.ipList:
             if tup[0] != self.id:
@@ -228,7 +228,9 @@ class Node:
             consFlag.clear()
             addLock.release()
             return True
+        bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
+        bcLock.release()
         addLock.release()
         return True
 
@@ -247,7 +249,6 @@ class Node:
             block.set(b)
             blocks.append(block)
         bcLock.acquire()
-        self.blockchain.blockchain = blocks
+        self.blockchain.blockchain = blocks 
         bcLock.release()
-        print('Consensus reached for blockchain with length:', len(blocks))
         return

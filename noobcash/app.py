@@ -63,9 +63,7 @@ def consensus():
     # Consensus begin
     res = request.get_json()
     addrr = res['address'] ## , 'trans_dict': start.transactions_dictionary, 'utxos': start.unspent_coins
-    addLock.acquire()
     msg = {'pub_key': start.getAddr(start.id), 'chain': start.blockchain.convert_chain()}
-    addLock.release()
     requests.post(addrr + '/all_nodes_consensus', json=msg,headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
     response = {'message': 'Consensus done'}
     return jsonify(response), 200
@@ -78,7 +76,7 @@ def cons_data():
     tmp = json.loads(res['chain'][-1])
     if tmp['current_hash'] == start.currentBlock.previous_hash:
         start.allBlockchains[res['pub_key']].append(start.currentBlock.convert_block())
-    #print('Received blockchain from: ', start.getID(res['pub_key']))
+    print('Received blockchain from: ', start.getID(res['pub_key']), 'of length:', len(res['chain']))
     response = {'message': 'Consensus Done'}
     return jsonify(response), 200
 

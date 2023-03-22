@@ -14,6 +14,7 @@ consFlag = threading.Event()
 consFlag.set()
 
 addLock = threading.Lock()
+bcLock = threading.Lock()
 
 class Node:
     def __init__(self, port, IP, nodeNr, bootstrap):
@@ -245,6 +246,8 @@ class Node:
             block = Block(0,[],0,0)
             block.set(b)
             blocks.append(block)
+        bcLock.acquire()
         self.blockchain.blockchain = blocks
+        bcLock.release()
         print('Consensus reached for blockchain with length:', len(blocks))
         return

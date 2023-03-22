@@ -207,6 +207,11 @@ class Node:
         if consFlag.isSet():
             consFlag.wait()
         block = json.loads(block)
+        newBlock = Block(0,0,0,0)
+        newBlock.set(block)
+
+        if newBlock.hashing()
+
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.blockchain.stopMine()
             consFlag.set()

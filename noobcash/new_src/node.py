@@ -208,7 +208,7 @@ class Node:
     def validateBlock(self, block, creationTime):
         if consFlag.isSet():
             consFlag.wait()
-        self.blockchain.stopMine()
+        self.blockchain.stopMine.set()
 
         block = json.loads(block)
         newBlock = Block(0,0,0,0)

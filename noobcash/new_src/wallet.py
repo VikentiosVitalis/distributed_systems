@@ -91,7 +91,7 @@ class Wallet:
         self.transactions.append(transaction)
         self.tr_dict[transaction.tid] = len(self.transactions) - 1
 
-        print('Added money to:', self.getMyBalance())
+        print('Current balance:', self.getMyBalance())
         return
 
 

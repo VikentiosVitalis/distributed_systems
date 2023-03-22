@@ -26,6 +26,8 @@ class Node:
         self.nodeNr = int(nodeNr)
         self.wallet = Wallet()
 
+        self.allBlockchains = {}
+
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
         self.nodesActive = 0
@@ -206,17 +208,17 @@ class Node:
             consFlag.wait()
         block = json.loads(block)
         if block['previous_hash'] != self.blockchain.getLastHash():
-            
             self.blockchain.stopMine()
             consFlag.set()
             self.broadcastConsensus()
             self.resolveConflict()
-
             consFlag.clear()
             return True
         return False
 
     def resolveConflict(self):
-        # Resolve some conflict
-
+        # Wait for all nodes to send their blockchains
+        while len(self.allBlockchains) != self.nodeNr:
+            continue
+        newChain = max(self.allBlockchains)
         return

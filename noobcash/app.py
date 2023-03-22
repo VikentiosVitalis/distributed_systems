@@ -72,7 +72,7 @@ def consensus():
 @app.route('/all_nodes_consensus', methods=['POST'])
 def cons_data():
     res = request.get_json()
-    start.all_nodes_chains[res['pub_key']] = res['chain']
+    start.allBlockchains[res['pub_key']] = res['chain']
     
     print('NODE INFORMED: ', str(start.ID))
     response = {'message': 'Consensus Done'}
@@ -184,8 +184,9 @@ def viewpage():
     receiv = []
     sender = []
     bal = start.getBalance()
-    res1 = start.chain.blocks_list[-1].transactions
-    return render_template('viewpage.html', data=start.chain.blocks_list[-1].transactions)
+    #res1 = start.chain.blocks_list[-1].transactions
+    tmp = start.blockchain.blockchain[-1].transactions
+    return render_template('viewpage.html', data=tmp)
 
 @app.route('/balance', methods=['GET'])
 def balancepage():

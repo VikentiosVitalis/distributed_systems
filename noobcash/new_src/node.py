@@ -226,7 +226,8 @@ class Node:
             self.resolveConflict()
             consFlag.clear()
             return True
-        return False
+        self.blockchain.
+        return True
 
     def resolveConflict(self):
         # Wait for all nodes to send their blockchains
@@ -242,5 +243,5 @@ class Node:
             block = Block(0,0,0,0)
             block.set(b)
             blocks.append(block)
-        self.blockchain        
+        self.blockchain = blocks     
         return

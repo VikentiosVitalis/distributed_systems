@@ -220,5 +220,12 @@ class Node:
         # Wait for all nodes to send their blockchains
         while len(self.allBlockchains) != self.nodeNr:
             continue
-        newChain = max(self.allBlockchains)
+        newChain = max(self.allBlockchains.values(), key=len)
+        # Reset dictionary
+        self.allBlockchains = {}
+
+        blocks = []
+        for newBlock in newChain:
+            b = json.loads(newBlock)
+            
         return

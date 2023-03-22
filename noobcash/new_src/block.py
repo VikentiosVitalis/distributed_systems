@@ -27,7 +27,11 @@ class Block:
         self.timestamp = timestamp
         self.current_hash = -1
 
-
+    def __init__(self, inp): # Init from json file
+        self.index = int(inp['index'])
+        self.transactions = [i for i in inp['transactions']]
+        self.nonce = nonce
+        
     def insertdif(self, dif):
         self.dif = dif
 

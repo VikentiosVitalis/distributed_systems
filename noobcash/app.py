@@ -2,7 +2,7 @@ import json
 import requests
 from flask import Flask, jsonify, request, session, render_template
 import sys
-from new_src.node import Node, notMining, consFlag
+from new_src.node import Node, notMining, consFlag, addLock
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -76,7 +76,7 @@ def cons_data():
     tmp = json.loads(res['chain'][-1])
     if tmp['current_hash'] == start.currentBlock.previous_hash:
         start.allBlockchains[res['pub_key']].append(start.currentBlock.convert_block())
-    print('Received blockchain from: ', start.getID(res['pub_key']))
+    print('Received blockchain from: ', start.getID(res['pub_key']), 'of length:', len(res['chain']))
     response = {'message': 'Consensus Done'}
     return jsonify(response), 200
 

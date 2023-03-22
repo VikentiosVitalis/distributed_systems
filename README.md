@@ -16,7 +16,7 @@ A CLI client placed in the cli.py file.
 A Web page plac in the frontend directory.
 
 ## Built with:
-The rest api is written in Python 3.8 using the following libraries:
+The REST API is written in Python 3.8 using the following libraries:
 * Flask 8.1.1
 * Flask-Cors 3.0.10
 * pycryptodome 3.17
@@ -28,14 +28,14 @@ The webapp is developed using Django 4.1.7 and:
 * HTML5
 * CSS3
 
-## Set-up/usage:
-Inside the folder 'noobcash; install the necessary requirements:
+## Usage:
+Inside the folder 'noobcash' install the necessary requirements:
 
  `pip install -r requirements.txt`
 
  `npm install`
 
-## Run application:
+## Execution:
 Bootstrap node:
 
 ``python <PORT> <IP> <Number of Children in the System> true``

@@ -207,7 +207,6 @@ class Node:
 
     def validateBlock(self, block, creationTime):
         self.blockchain.stopMine.set()
-
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
         newBlock.set(block)
@@ -217,7 +216,6 @@ class Node:
             print(tmp)
             print(block['current_hash'])
             return False
-        
         if consFlag.isSet():
             consFlag.wait()
         if block['previous_hash'] != self.blockchain.getLastHash():

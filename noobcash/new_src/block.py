@@ -27,7 +27,7 @@ class Block:
         self.timestamp = timestamp
         self.current_hash = -1
 
-    def rep(self, inp): # Init from json file
+    def set(self, inp): # Init from json file
         self.index = int(inp['index'])
         self.transactions = [i for i in inp['transactions']]
         self.nonce = inp['nonce']

@@ -227,5 +227,8 @@ class Node:
         blocks = []
         for newBlock in newChain:
             b = json.loads(newBlock)
-            
+            block = Block(0,0,0,0)
+            block.set(b)
+            blocks.append(block)
+        
         return

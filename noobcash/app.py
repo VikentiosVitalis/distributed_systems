@@ -73,7 +73,9 @@ def consensus():
 def cons_data():
     res = request.get_json()
     start.allBlockchains[res['pub_key']] = res['chain']
-    
+    tmp = json.loads(res['chain'][-1])
+    if tmp['current_hash'] == start.currentBlock.previous_hash:
+        start.allBlockchains[res['pub_key']].append(start.currentBlock.convert_block())
     print('NODE INFORMED: ', str(start.ID))
     response = {'message': 'Consensus Done'}
     return jsonify(response), 200

@@ -242,5 +242,5 @@ class Node:
             block = Block(0,0,0,0)
             block.set(b)
             blocks.append(block)
-        
+        self.blockchain        
         return

@@ -31,9 +31,9 @@ The webapp is developed using Django 4.1.7 and:
 ## Usage:
 Inside the folder 'noobcash' install the necessary requirements:
 
- `pip install -r requirements.txt`
+ ``pip install -r requirements.txt``
 
- `npm install`
+ ``npm install``
 
 ## Execution:
 Bootstrap node:
@@ -44,7 +44,7 @@ Simple node:
 
 ``python <PORT> <IP> <Number of Children in the System> no``
 
-Open Web Interface: Open at your browser the IP and PORT the node is registered.
+Web Interface: ``http://<IP>:<PORT>/``
 
 Run CLI: 
 
@@ -52,11 +52,12 @@ Run CLI:
 
 If you want to run the tests inside the folders 5nodes and 10nodes replace app.py with app_auto.py.
 
+
 ## Evaluation of the system:
 We evaluate the performance and the scalability of Noobcash by running the system in Okeanos and perform from each node 100 transcations to the system. The transactions are placed in /test/transactions path and the script for executing them in stored in the /test directory.
 
-## About us:
-This project was created by our team consisting of the members below:
+## Contributors:
+This project was created by:
 
 <p align="center">
     <a href="https://github.com/MarkRamosS">

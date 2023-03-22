@@ -24,7 +24,7 @@ class Node:
 
         # Assuming bootstrap's always there
         self.bootstrapAddr = 'http://192.168.0.3:5000'
-        self.bootstrap = (bootstrap.lower() == 'true')              # Boolean
+        self.bootstrap = (bootstrap.lower() == 'true') # Boolean
         # Money
         self.nodeNr = int(nodeNr)
         self.wallet = Wallet()
@@ -37,7 +37,7 @@ class Node:
         self.nodesActive = 0
         # Buffer to store incoming transactions
         self.buffer = []
-        #Blockchain
+        # Blockchain
         self.blockchain = Blockchain()
 
         # Flag that indicates that we have all nodes
@@ -124,7 +124,8 @@ class Node:
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         print(self.validateTransaction(new_transaction))
-        self.wallet.addTransaction(new_transaction)
+        tr = json.loads(new_transaction.toJSON())
+        self.buffer.append([tr['sender'], tr['receiver'], tr['amount'], tr['inputs'], tr['amtLeft'], tr['tid'], tr['signature']])
         # fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         # fd.write(str(now) + ' \n')
         # fd.close()

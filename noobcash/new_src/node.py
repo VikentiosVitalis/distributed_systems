@@ -113,6 +113,10 @@ class Node:
         return self.ipList[0][2]
 
     def createTransaction(self, receiverID, ammount):
+        if not notMining.isSet():
+            notMining.wait()
+        if consFlag.isSet():
+            consFlag.wait()
         print("Creating transaction.")
         now = time.time()
         # Create transaction
@@ -123,9 +127,9 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
-        print(self.validateTransaction(new_transaction))
-        tr = json.loads(new_transaction.toJSON())
-        self.buffer.append([tr['sender'], tr['receiver'], tr['amount'], tr['inputs'], tr['amtLeft'], tr['tid'], tr['signature']])
+        print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.', end="")
+
+        
         # fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         # fd.write(str(now) + ' \n')
         # fd.close()

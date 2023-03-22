@@ -48,7 +48,7 @@ def broadcast():
 @app.route('/mine', methods=['POST'])
 def mining():
     res = request.get_json()
-    if start.validate_block(res['lb'], res['mt']):
+    if start.validateBlock(res['lb'], res['mt']):
         notMining.set()
         response = { 'message': 'Current block successfully inserted.' }
         return jsonify(response), 201

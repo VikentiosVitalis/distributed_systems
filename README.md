@@ -1,7 +1,7 @@
 ## [ECE @NTUA](https://www.ece.ntua.gr/en/undergraduate/info) [Distributed Systems](https://www.ece.ntua.gr/en/undergraduate/courses/3377)
 
 <p align="center">
-  <img src="noobcash/etc/logo.png" alt="DS's Custom Image" width="380" height="300" />
+  <img src="noobcash/static/blockchain-logo.png" alt="DS's Custom Image" width="380" height="300" />
 </p>
 
 ## Description: 

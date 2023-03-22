@@ -218,6 +218,7 @@ class Node:
             return False
         if consFlag.isSet():
             consFlag.wait()
+        consFlag.set()
         if block['previous_hash'] != self.blockchain.getLastHash():
             consFlag.set()
             self.currentBlock = newBlock
@@ -226,6 +227,7 @@ class Node:
             consFlag.clear()
             return True
         self.blockchain.blockchain.append(newBlock)
+        consFlag.clear()
         return True
 
     def resolveConflict(self):

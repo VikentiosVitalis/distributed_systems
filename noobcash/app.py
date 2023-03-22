@@ -183,7 +183,7 @@ def viewpage():
     outputs = []
     receiv = []
     sender = []
-    bal = start.wallet_balance()
+    bal = start.getBalance()
     res1 = start.chain.blocks_list[-1].transactions
     return render_template('viewpage.html', data=start.chain.blocks_list[-1].transactions)
 

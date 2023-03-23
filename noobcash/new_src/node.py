@@ -121,7 +121,7 @@ class Node:
         if minings.isSet():
             minings.wait()
         #valLock.acquire()
-        print("Creating transaction.")
+        # print("Creating transaction.")
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
@@ -153,11 +153,11 @@ class Node:
                 valLock.acquire()
                 print(ctr)
                 ctr+=1
-                print(f'Reading transaction from', end="")
+                #print(f'Reading transaction from', end="")
                 tr = self.buffer.pop(0)
                 #sender, receiver, amt, inputs, amtLeft, tid, signature = itm
                 #tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
-                print(f" {self.getID(tr.sender)} -> {self.getID(tr.receiver)}.")
+                #print(f" {self.getID(tr.sender)} -> {self.getID(tr.receiver)}.")
                 # If invalid ignore block
                 if self.validateTransaction(tr) != 'Accepted.':
                     print(self.validateTransaction(tr))
@@ -220,7 +220,7 @@ class Node:
             return 'Negative Coins.'
         return 'Accepted.'
 
-    def validateBlock(self, block, creationTime):
+    def validateBlock(self, block):
         self.blockchain.stopMine.set()
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
@@ -232,23 +232,16 @@ class Node:
             print(block['current_hash'])
             return False
         valLock.acquire()
-        #print('hk;',newBlock.current_hash)
-        #print('pk;',newBlock.previous_hash)
-        #print('lk;',self.blockchain.getLastHash())
-        print('Validating.')
-        print(len(self.buffer))
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
-            print('Current length:',len(self.blockchain.blockchain))
             print('Validate chain',self.validateChain())
             valLock.release()
             return True
         bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
         bcLock.release()
-        print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
         valLock.release()
         return True

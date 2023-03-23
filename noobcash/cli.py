@@ -1,3 +1,4 @@
+import time
 import sys
 import requests
 import json
@@ -43,16 +44,18 @@ print("DDOS Attack started")
 ll = []
 
 for i, ip in enumerate(ipList):
-    f = open(f"distributed_systems-main/noobcash/test/5nodes/transactions{str(i)}.txt", "r")
+    f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(i)}.txt", "r")
     lines = f.readlines()
     ll.append(lines)
 
 responses = {}
 
 for lctr in range(len(ll[0])):
+    print(lctr)
     for i, ip in enumerate(ipList):
         receiver, amount = ll[i][lctr][2:].split()
         payload = {'address': receiver, 'coins': amount}
+        payload = json.dumps(payload)
         response = requests.post(ip + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         if response.text not in responses:
             responses[response.text] = 1

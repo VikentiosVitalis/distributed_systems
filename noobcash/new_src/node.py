@@ -152,7 +152,7 @@ class Node:
                 print(ctr)
                 ctr+=1
                 print(f'Reading transaction from', end="")
-                itm = self.buffer.pop()
+                itm = self.buffer.pop(0)
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
                 tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
                 print(f" {self.getID(sender)} -> {self.getID(receiver)}.")

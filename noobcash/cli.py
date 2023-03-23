@@ -27,7 +27,7 @@ if len(sys.argv) < 3 or len(sys.argv) > 3:
     print("Invalid inputs! Please Type the command as: python cli.py <PORT> <IP>")
     sys.exit(0)
 
-print("\n\n\n WELCOME TO NOOBCASH !!!\n\n\n")
+print("\n\n\n Welcome to Noobcash!\n\n\n")
 
 while (1):
     print("Enter a desired action! Type help if want to know the available actions!")

@@ -141,7 +141,7 @@ def get_trans():
 @app.route('/show_balance', methods=['GET'])
 def get_bal():
     for i in start.ipList:
-        print(f'Balance of {i[0]}: {start.getBalanceOf(i[2])}')
+        print(f'Balance of {i[0]}: {start.getBalanceOf(i[0])}')
     response = {
         'Current Balance': start.getBalance()
     }

@@ -214,7 +214,6 @@ class Node:
 
     def validateBlock(self, block, creationTime):
         self.blockchain.stopMine.set()
-        print('Validating.')
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
         newBlock.set(block)
@@ -226,6 +225,7 @@ class Node:
             valFlag.clear()
             return False
         valLock.acquire()
+        print('Validating.')
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
             self.broadcastConsensus()

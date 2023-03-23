@@ -135,7 +135,7 @@ class Node:
         print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
         self.blockchain.insert(new_transaction, self.ipList, self.id)
         valLock.release()
-        
+
         fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         fd.write(str(now) + ' \n')
         fd.close()

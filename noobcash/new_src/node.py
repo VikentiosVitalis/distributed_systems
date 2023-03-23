@@ -265,8 +265,9 @@ class Node:
             block.set(b)
             blocks.append(block)
             for i in block.transactions:
-                if i['tid'] in self.wallet.tr_dict: continue
-                tr = Transaction(i['sender'], i['receiver'], i['amount'], i['inputs'], i['amtLeft'],i['tid'],i['signature'].encode('ISO-8859-1'))
+                if json.loads(i)['tid'] in self.wallet.tr_dict: continue
+                rr = json.loads(i)['tid']
+                tr = Transaction(rr['sender'], rr['receiver'], rr['amount'], rr['inputs'], rr['amtLeft'],rr['tid'],rr['signature'].encode('ISO-8859-1'))
                 self.wallet.addTransaction(tr)
         #bcLock.acquire()
         self.blockchain.blockchain = blocks

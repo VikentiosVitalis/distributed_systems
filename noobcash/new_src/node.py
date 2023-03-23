@@ -234,6 +234,7 @@ class Node:
         #print('pk;',newBlock.previous_hash)
         #print('lk;',self.blockchain.getLastHash())
         print('Validating.')
+        print(len(self.buffer))
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
             self.broadcastConsensus()
@@ -247,7 +248,6 @@ class Node:
         bcLock.release()
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
-        print(len(self.buffer))
         valLock.release()
         return True
 

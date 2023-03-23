@@ -40,7 +40,7 @@ def info():
 def broadcast():
     res = request.get_json()
     start.buffer.append([res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature']])
-    #print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
+    print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}
     return jsonify(response), 200
 
@@ -103,11 +103,11 @@ def newtrans():
         response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
         print(response['message'])
         return jsonify(response), 400
-    if not receiver.isnumeric() or int(receiver) < 0 or int(receiver) > len(start.ipList):
+    if not receiver.isnumeric() or int(receiver) < 0 or int(receiver) >= len(start.ipList):
         response = {'message' : 'Invalid receiver'}
         print(response['message'])
         return jsonify(response), 400
-    if not sender.isnumeric() or int(sender) < 0 or int(sender) > len(start.ipList):
+    if not sender.isnumeric() or int(sender) < 0 or int(sender) >= len(start.ipList):
         response = {'message' : 'Invalid sender'}
         print(response['message'])
         return jsonify(response), 400
@@ -141,7 +141,7 @@ def get_trans():
 @app.route('/show_balance', methods=['GET'])
 def get_bal():
     for i in start.ipList:
-        print(f'Balance of {i}: {start.getBalanceOf(i)}')
+        print(f'Balance of {i[1]}: {start.getBalanceOf(i)}')
     response = {
         'Current Balance': start.getBalance()
     }

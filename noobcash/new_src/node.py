@@ -142,12 +142,15 @@ class Node:
         return new_transaction
 
     def waitThread(self):
+        ctr = 0
         self.nodeFlag.wait()
         while True:
             if minings.isSet():
                 minings.wait()
             if len(self.buffer) != 0 and not minings.isSet():
                 valLock.acquire()
+                print(ctr)
+                ctr+=1
                 print(f'Reading transaction from', end="")
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm

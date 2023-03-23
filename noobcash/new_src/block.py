@@ -25,7 +25,7 @@ class Block:
         self.previous_hash = previous_hash      # Previous plaintext which is now a unique hash digest that
                                                 # cannot be reverted to the original plaintext
         self.timestamp = timestamp
-        self.current_hash = -1
+        self.current_hash = '-1'
 
     def set(self, inp): # Init from json file
         self.index = int(inp['index'])

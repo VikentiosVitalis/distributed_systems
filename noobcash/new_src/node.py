@@ -55,9 +55,9 @@ class Node:
             tr = Transaction(self.wallet.get_addr(),
                              self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
+            self.wallet.addTransaction(tr)
             genBlock = Block(0, [tr], 0, 1)
             self.blockchain.addBlock(genBlock)
-            self.wallet.addTransaction(tr)
 
         else:
             res = {'addrr': self.addr, 'pub_key': self.wallet.get_addr()}
@@ -94,8 +94,8 @@ class Node:
             genesisblock['previous_hash']
         )
         self.blockchain.addBlock(current_block)
-        print('Initialized.')
         self.wallet.addTransaction(transaction)
+        print('Initialized.')
         self.nodeFlag.set()
 
     def getBalance(self):
@@ -129,11 +129,11 @@ class Node:
                                       ammount, prev_tr, amt-ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
+        self.wallet.addTransaction(new_transaction)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
         self.blockchain.insert(new_transaction, self.ipList, self.id)
-        self.wallet.addTransaction(new_transaction)
         valLock.release()
         
         # fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')

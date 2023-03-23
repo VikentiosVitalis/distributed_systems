@@ -31,7 +31,7 @@ class Blockchain:
     def insert(self, transaction, ipList, id):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:
-            node.mining.set()
+            node.minings.set()
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []
             self.stopMine.clear()
@@ -50,6 +50,7 @@ class Blockchain:
             #fd.write(str(time.time() - float(begin)) + '\n')
             #fd.close()
             print('Time taken:', time.time()-begin)
+            node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
         else:
             print('Stopped mine.')

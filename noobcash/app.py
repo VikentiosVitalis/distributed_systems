@@ -111,7 +111,7 @@ def newtrans():
         response = {'message' : 'Invalid sender'}
         print(response['message'])
         return jsonify(response), 400
-    if not coins.isnumeric() or int(coins) <= 0 or int(coins) > start.getBalanceOf(sender):
+    if not coins.isnumeric() or int(coins) <= 0 or int(coins) > start.getBalanceOf(int(sender)):
         response = { 'message': "Invalid Amount Given." }
         print(response['message'])    
         return jsonify(response), 400

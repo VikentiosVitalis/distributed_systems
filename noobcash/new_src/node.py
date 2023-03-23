@@ -149,7 +149,7 @@ class Node:
         while True:
             if minings.isSet():
                 minings.wait()
-            if len(self.buffer) != 0 and not minings.isSet():
+            if len(self.buffer) != 0:
                 valLock.acquire()
                 ctr+=1
                 tr = self.buffer.pop(0)

@@ -131,6 +131,8 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         # Broadcast
         self.broadcastTransaction(new_transaction)
+        # Add to wallet
+        self.wallet.addTransaction(new_transaction)
         #print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
         #self.blockchain.insert(new_transaction, self.ipList, self.id)
         #valLock.release()

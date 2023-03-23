@@ -7,8 +7,10 @@ import requests
 import json
 import threading
 
-notMining = threading.Event()
-notMining.set()
+mining = threading.Event()
+mining.set()
+
+valLock = threading.Lock()
 
 consFlag = threading.Event()
 consFlag.set()
@@ -113,10 +115,9 @@ class Node:
         return self.ipList[0][2]
 
     def createTransaction(self, receiverID, ammount):
-        if not notMining.isSet():
-            notMining.wait()
-        if consFlag.isSet():
-            consFlag.wait()
+        if mining.isSet():
+            mining.wait()
+        valLock.acquire()
         print("Creating transaction.")
         now = time.time()
         # Create transaction
@@ -130,6 +131,7 @@ class Node:
         print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
         self.blockchain.insert(new_transaction, self.ipList, self.id)
         self.wallet.addTransaction(new_transaction)
+        valLock.release()
         
         # fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         # fd.write(str(now) + ' \n')
@@ -139,12 +141,10 @@ class Node:
     def waitThread(self):
         self.nodeFlag.wait()
         while True:
-            if not notMining.isSet():
-                notMining.wait()
-            if consFlag.isSet():
-                consFlag.wait()
-            
-            if len(self.buffer) != 0 and notMining.isSet():
+            if mining.isSet():
+                mining.wait()
+            if len(self.buffer) != 0 and not mining.isSet():
+                valLock.acquire()
                 print(f'Reading transaction from', end="")
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
@@ -157,8 +157,8 @@ class Node:
                 # Insert to block
                 self.blockchain.insert(tr, self.ipList, self.id)
                 self.wallet.addTransaction(tr)
+                valLock.release()
 
-        
     def broadcastNodes(self):
         self.nodeFlag.wait()
         print('All nodes joined, sharing IDs')
@@ -224,26 +224,26 @@ class Node:
             print('Invalid block with:')
             print(tmp)
             print(block['current_hash'])
+            valFlag.clear()
             return False
-        addLock.acquire()
+        valLock.acquire()
         if block['previous_hash'] != self.blockchain.getLastHash():
-            consFlag.set()
             self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
-            consFlag.clear()
-            addLock.release()
+            valLock.release()
             return True
         bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
         bcLock.release()
-        addLock.release()
+        valLock.release()
         return True
 
     def resolveConflict(self):
         # Wait for all nodes to send their blockchains
         while len(self.allBlockchains) != self.nodeNr:
             continue
+        print('len:',len(self.allBlockchains))
         newChain = max(self.allBlockchains.values(), key=len)
         # Reset dictionary
         self.allBlockchains = {}

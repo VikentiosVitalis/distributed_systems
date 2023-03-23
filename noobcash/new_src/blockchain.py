@@ -31,7 +31,7 @@ class Blockchain:
     def insert(self, transaction, ipList, id):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:
-            node.notMining.clear()
+            node.mining.set()
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []
             self.stopMine.clear()
@@ -43,13 +43,16 @@ class Blockchain:
         begin = time.time()
         newBlock.mine_block(self.stopMine)
         if not self.stopMine.isSet():
+            node.bcLock.acquire()
             self.blockchain.append(newBlock)
+            node.bcLock.release()
             #fd = open('times/mining' + '.txt', 'a')
             #fd.write(str(time.time() - float(begin)) + '\n')
             #fd.close()
             print('Time taken:', time.time()-begin)
             self.broadcastBlock(newBlock, time.time(), ipList, id)
-
+        else:
+            print('Stopped mine.')
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('Broadcasting Block.')

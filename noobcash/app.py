@@ -2,7 +2,7 @@ import json
 import requests
 from flask import Flask, jsonify, request, session, render_template
 import sys
-from new_src.node import Node, notMining, consFlag, addLock, bcLock
+from new_src.node import Node, mining, bcLock
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -49,12 +49,12 @@ def broadcast():
 def mining():
     res = request.get_json()
     if start.validateBlock(res['lb'], res['mt']):
-        notMining.set()
+        mining.set()
         response = { 'message': 'Current block successfully inserted.' }
         return jsonify(response), 201
     else:
-        notMining.set()
         response = {'message': 'Current block was not inserted.' }
+        mining.set()
         return jsonify(response), 400
 
 

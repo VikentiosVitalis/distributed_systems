@@ -136,7 +136,7 @@ class Node:
         self.blockchain.insert(new_transaction, self.ipList, self.id)
         valLock.release()
 
-        fd = open('~/distributed_systems-main/noobcash/times/transactions_t' + str(self.id) +  '.txt', 'a')
+        fd = open('times/transactions_t' + str(self.id) +  '.txt', 'a')
         fd.write(str(now) + ' \n')
         fd.close()
         return new_transaction

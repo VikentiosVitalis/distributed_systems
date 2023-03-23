@@ -52,7 +52,7 @@ class Blockchain:
             node.bcLock.release()
             node.valLock.release()
             
-            fd = open('~/distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
+            fd = open('times/mining' + '.txt', 'a')
             fd.write(str(time.time() - float(begin)) + '\n')
             fd.close()
             node.minings.clear()

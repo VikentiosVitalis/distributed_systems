@@ -247,6 +247,7 @@ class Node:
         bcLock.release()
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
+        print(len(self.buffer))
         valLock.release()
         return True
 

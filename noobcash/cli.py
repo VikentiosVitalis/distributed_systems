@@ -23,6 +23,13 @@ IP = str(sys.argv[2])
 URL = 'http://' + str(IP) + ':' + str(PORT) + "/"
 
 
+ipList = [
+    
+]
+
+
+
+
 if len(sys.argv) < 3 or len(sys.argv) > 3:
     print("Invalid inputs! Please Type the command as: python cli.py <PORT> <IP>")
     sys.exit(0)

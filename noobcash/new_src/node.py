@@ -8,7 +8,7 @@ import json
 import threading
 
 minings = threading.Event()
-minings.set()
+minings.clear()
 
 valLock = threading.Lock()
 

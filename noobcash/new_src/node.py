@@ -120,7 +120,7 @@ class Node:
     def createTransaction(self, receiverID, ammount):
         if minings.isSet():
             minings.wait()
-        valLock.acquire()
+        #valLock.acquire()
         print("Creating transaction.")
         now = time.time()
         # Create transaction
@@ -129,13 +129,13 @@ class Node:
                                       ammount, prev_tr, amt-ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
-        self.wallet.addTransaction(new_transaction)
+        # Broadcast
         self.broadcastTransaction(new_transaction)
+        #print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
+        #self.blockchain.insert(new_transaction, self.ipList, self.id)
+        #valLock.release()
+        self.buffer.append(new_transaction)
         now = time.time() - now
-        print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
-        self.blockchain.insert(new_transaction, self.ipList, self.id)
-        valLock.release()
-
         fd = open('distributed_systems-main/noobcash/times/transactions_t' + str(self.id) +  '.txt', 'a')
         fd.write(str(now) + ' \n')
         fd.close()
@@ -152,12 +152,12 @@ class Node:
                 print(ctr)
                 ctr+=1
                 print(f'Reading transaction from', end="")
-                itm = self.buffer.pop(0)
-                sender, receiver, amt, inputs, amtLeft, tid, signature = itm
-                tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
-                print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
+                tr = self.buffer.pop(0)
+                #sender, receiver, amt, inputs, amtLeft, tid, signature = itm
+                #tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
+                print(f" {self.getID(tr.sender)} -> {self.getID(tr.receiver)}.")
                 # If invalid ignore block
-                if self.validateTransaction(tr) != 'Accepted.': 
+                if self.validateTransaction(tr) != 'Accepted.':
                     print(self.validateTransaction(tr))
                     continue
                 # Insert to block

@@ -3,6 +3,7 @@ import requests
 from flask import Flask, jsonify, request, session, render_template
 import sys
 from new_src.node import Node, minings, bcLock
+from new_src.transaction import Transaction
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -39,8 +40,9 @@ def info():
 @app.route('/broadcast', methods=['POST'])
 def broadcast():
     res = request.get_json()
-    start.buffer.append([res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature']])
-    print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
+    tr = Transaction(res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature'])
+    start.buffer.append(tr)
+    #print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}
     return jsonify(response), 200
 

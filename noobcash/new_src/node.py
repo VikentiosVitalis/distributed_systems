@@ -8,7 +8,7 @@ import json
 import threading
 
 minings = threading.Event()
-minings.clear()
+minings.set()
 
 valLock = threading.Lock()
 
@@ -149,7 +149,7 @@ class Node:
                 itm = self.buffer.pop()
                 sender, receiver, amt, inputs, amtLeft, tid, signature = itm
                 tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
-                print(f" {self.getID(sender)} to {self.getID(receiver)}.")
+                print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
                 # If invalid ignore block
                 if self.validateTransaction(tr) != 'Accepted.': 
                     print(self.validateTransaction(tr))
@@ -214,6 +214,7 @@ class Node:
 
     def validateBlock(self, block, creationTime):
         self.blockchain.stopMine.set()
+        print('Validating.')
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
         newBlock.set(block)
@@ -230,18 +231,19 @@ class Node:
             self.broadcastConsensus()
             self.resolveConflict()
             valLock.release()
+            print('Current length:',len(self.blockchain.blockchain))
             return True
         bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
         bcLock.release()
         valLock.release()
+        print('Current length:',len(self.blockchain.blockchain))
         return True
 
     def resolveConflict(self):
         # Wait for all nodes to send their blockchains
         while len(self.allBlockchains) != self.nodeNr:
             continue
-        print('len:',len(self.allBlockchains))
         newChain = max(self.allBlockchains.values(), key=len)
         # Reset dictionary
         self.allBlockchains = {}

@@ -43,6 +43,7 @@ class Blockchain:
         begin = time.time()
         newBlock.mine_block(self.stopMine)
         if not self.stopMine.isSet():
+            node.valLock.acquire()
             node.bcLock.acquire()
             self.blockchain.append(newBlock)
             node.bcLock.release()
@@ -51,6 +52,7 @@ class Blockchain:
             #fd.close()
             node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
+            node.valLock.release()
         else:
             print('Stopped mine.')
 

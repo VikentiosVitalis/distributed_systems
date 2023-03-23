@@ -216,7 +216,6 @@ class Node:
         return 'Accepted.'
 
     def validateBlock(self, block):
-        self.blockchain.stopMine.set()
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
         newBlock.set(block)
@@ -227,11 +226,12 @@ class Node:
             print(block['current_hash'])
             return False
         valLock.acquire()
+        self.blockchain.stopMine.set()
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
-            print('Validate chain',self.validateChain())
+            print('Validate chain',self.validateChain(), 'Blen:',len(self.blockchain.blockchain), 'len:', len(self.buffer))
             valLock.release()
             return True
         bcLock.acquire()

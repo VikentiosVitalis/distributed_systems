@@ -123,7 +123,7 @@ def newtrans():
     #if not start.mining.isSet():
     #    start.mining.wait()
     print('now.')
-    start.createTransaction(int(receiver), int(coins))
+    start.createTransaction(int(sender), int(receiver), int(coins))
 
 
     response = { 'message': "Transaction Completed" }

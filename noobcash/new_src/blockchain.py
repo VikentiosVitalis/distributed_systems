@@ -55,7 +55,7 @@ class Blockchain:
             print('Stopped mine.')
 
     def broadcastBlock(self, block, startTime, ipList, id):
-        print('Broadcasting Block.')
+        print('...................................Broadcasting Block...................................................')
         tmp = {'lb': block.convert_block(), 'mt': startTime}
         for ip in ipList:
             if ip[0] !=  id:

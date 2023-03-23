@@ -11,9 +11,9 @@ Task of this a project is to create the "Noobcash", a simple blockchain system i
 between users are registered and consensus (agreement on any subject by a group of participants) is certified with Proof-of-Work (a decentralized consensus mechanism that requires network members to expend effort in solving an encrypted hexadecimal number).
 
 ## Deliverables:
-A REST API that implements the functionality of Noobcash and is placed in the new_src directory.
-A CLI client placed in the cli.py file.
-A Web page plac in the frontend directory.
+REST API that implements the functionality of Noobcash and it is placed in the new_src directory.
+CLI client placed in the cli.py file.
+Web page placed in the frontend directory.
 
 ## Built with:
 The REST API is written in Python 3.8 using the following libraries:

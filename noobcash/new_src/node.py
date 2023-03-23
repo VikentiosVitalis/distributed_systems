@@ -264,11 +264,11 @@ class Node:
             block = Block(0,[],0,0)
             block.set(b)
             blocks.append(block)
-            for i in block.transactions:
-                # if json.loads(i)['tid'] in self.wallet.tr_dict: continue
-                rr = json.loads(i)
-                tr = Transaction(rr['sender'], rr['receiver'], rr['amount'], rr['inputs'], rr['amtLeft'],rr['tid'],rr['signature'].encode('ISO-8859-1'))
-                self.wallet.addTransaction(tr)
+            #for i in block.transactions:
+            #    # if json.loads(i)['tid'] in self.wallet.tr_dict: continue
+            #    rr = json.loads(i)
+            #    tr = Transaction(rr['sender'], rr['receiver'], rr['amount'], rr['inputs'], rr['amtLeft'],rr['tid'],rr['signature'].encode('ISO-8859-1'))
+            #    self.wallet.addTransaction(tr)
         #bcLock.acquire()
         self.blockchain.blockchain = blocks
         #bcLock.release()

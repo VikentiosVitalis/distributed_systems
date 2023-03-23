@@ -39,10 +39,11 @@ while (1):
     if choice.startswith('t'):
         params = choice.split()
 
-        ADR = params[1]
-        COINS = params[2]
+        sender = params[1]
+        receiver = params[2]
+        coins = params[3]
 
-        payload = {'address': params[1], 'coins': params[2]}
+        payload = {'sender': sender, 'address': receiver, 'coins': coins}
         payload = json.dumps(payload)
 
         response = requests.post(URL + "create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})

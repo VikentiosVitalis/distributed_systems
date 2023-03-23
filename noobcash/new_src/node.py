@@ -101,6 +101,9 @@ class Node:
     def getBalance(self):
         return self.wallet.getMyBalance()
 
+    def getBalanceOf(self, id):
+        return self.wallet.getBalance(self.ipList[id][2])
+
     def getAddr(self, id):
         return self.ipList[id][2]
     
@@ -114,7 +117,7 @@ class Node:
         print('Error: Not existant address.')
         return self.ipList[0][2]
 
-    def createTransaction(self, receiverID, ammount):
+    def createTransaction(self, senderID, receiverID, ammount):
         if minings.isSet():
             minings.wait()
         valLock.acquire()
@@ -122,7 +125,7 @@ class Node:
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
-        new_transaction = Transaction(self.wallet.get_addr(), self.getAddr(receiverID), 
+        new_transaction = Transaction(self.getAddr(senderID), self.getAddr(receiverID), 
                                       ammount, prev_tr, amt-ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
@@ -176,7 +179,7 @@ class Node:
 
         time.sleep(2)
         for tup in self.ipList[1:]:
-            self.createTransaction(tup[0], 100)
+            self.createTransaction(self.id, tup[0], 100)
         return
 
     def broadcastTransaction(self, transaction):

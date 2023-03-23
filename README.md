@@ -25,8 +25,8 @@ The REST API is written in Python 3.8 using the following libraries:
 
 The webapp is developed using Django 4.1.7 and:
 * Python 3.8
-* HTML5
-* CSS3
+* HTML 5
+* CSS 3
 
 ## Usage:
 Inside the folder 'noobcash' install the necessary requirements:

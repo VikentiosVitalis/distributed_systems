@@ -95,48 +95,40 @@ def cons():
 @app.route('/create_transaction', methods=['POST'])
 def newtrans():
     res = request.get_json()
-    address = res['address']
+    sender = res['sender']
+    receiver = res['address']
     coins = res['coins']
 
-    print ("Send coins at node: ",address)
+    if sender == receiver:
+        response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
+        print(response['message'])
+        return jsonify(response), 400
+    if not receiver.isnumeric() or int(receiver) < 0 or int(receiver) > len(start.ipList):
+        response = {'message' : 'Invalid receiver'}
+        print(response['message'])
+        return jsonify(response), 400
+    if not sender.isnumeric() or int(sender) < 0 or int(sender) > len(start.ipList):
+        response = {'message' : 'Invalid sender'}
+        print(response['message'])
+        return jsonify(response), 400
+    if not coins.isnumeric() or int(coins) <= 0 or int(coins) > start.getBalanceOf(sender):
+        response = { 'message': "Invalid Amount Given." }
+        print(response['message'])    
+        return jsonify(response), 400
+    
+    
     print("COINS = ", coins)
 
     print('Creating Transaction ', end="")
     #if not start.mining.isSet():
     #    start.mining.wait()
     print('now.')
-    start.createTransaction(int(address), int(coins))
+    start.createTransaction(int(receiver), int(coins))
+
 
     response = { 'message': "Transaction Completed" }
     return jsonify(response), 200
-    #print(int(address) == start.id)
-    #print(not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr)
-    #print(not coins.isnumeric() or int(coins) <= 0)
-    #print(int(coins) > start.getBalance())
 
-
-    #if int(address) == start.id:
-    #    response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
-    #    print(response['message'])    
-    #    return jsonify(response), 400
-    #elif not address.isnumeric() or int(address) < 0 or int(address) > start.nodeNr:
-    #    response = { 'message': 'Invalid ID. Provide and ID between 0 and ' + str(start.nodeNr) }
-    #    print(response['message'])    
-    #    return jsonify(response), 400
-
-    #elif not coins.isnumeric() or int(coins) <= 0:
-    #    response = { 'message': "Invalid Amount Given." }
-    #    print(response['message'])    
-    #    return jsonify(response), 400
-
-    #elif int(coins) > start.getBalance():
-    #    print(start.getBalance())
-    #    response = { 'message': "You are out of coins" }
-    #    print(response['message'])    
-    #    return jsonify(response), 400
-    #else:
-
-# ================== CLI COMMANDS ================== #
 
 @app.route('/view_transactions', methods=['GET'])
 def get_trans():

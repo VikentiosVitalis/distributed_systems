@@ -61,7 +61,7 @@ class Blockchain:
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('...................................Broadcasting Block...................................................')
-#        tmp = {'lb': block.convert_block(), 'mt': startTime}
+        tmp = {'lb': block.convert_block(), 'mt': startTime}
 #        print('hk;',block.current_hash)
 #        print('pk;',block.previous_hash)
 #        print('hs;',block.hashing())

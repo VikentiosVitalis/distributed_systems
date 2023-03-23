@@ -151,13 +151,8 @@ class Node:
                 minings.wait()
             if len(self.buffer) != 0 and not minings.isSet():
                 valLock.acquire()
-                print(ctr)
                 ctr+=1
-                #print(f'Reading transaction from', end="")
                 tr = self.buffer.pop(0)
-                #sender, receiver, amt, inputs, amtLeft, tid, signature = itm
-                #tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
-                #print(f" {self.getID(tr.sender)} -> {self.getID(tr.receiver)}.")
                 # If invalid ignore block
                 if self.validateTransaction(tr) != 'Accepted.':
                     print(self.validateTransaction(tr))
@@ -242,7 +237,7 @@ class Node:
         bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
         bcLock.release()
-        print('Validate chain',self.validateChain())
+        print('Validate chain',self.validateChain(), 'Blen:',len(self.blockchain.blockchain), 'len:', len(self.buffer))
         valLock.release()
         return True
 

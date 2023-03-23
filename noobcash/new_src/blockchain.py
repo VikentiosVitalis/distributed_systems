@@ -47,9 +47,7 @@ class Blockchain:
             if  self.stopMine.isSet():
                 node.valLock.release()
                 return
-            node.bcLock.acquire()
             self.blockchain.append(newBlock)
-            node.bcLock.release()
             node.valLock.release()
             #fd = open('times/mining' + '.txt', 'a')
             #fd.write(str(time.time() - float(begin)) + '\n')

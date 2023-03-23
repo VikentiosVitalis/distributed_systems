@@ -265,7 +265,7 @@ class Node:
             block.set(b)
             blocks.append(block)
             for i in block.transactions:
-                if json.loads(i)['tid'] in self.wallet.tr_dict: continue
+                # if json.loads(i)['tid'] in self.wallet.tr_dict: continue
                 rr = json.loads(i)['tid']
                 tr = Transaction(rr['sender'], rr['receiver'], rr['amount'], rr['inputs'], rr['amtLeft'],rr['tid'],rr['signature'].encode('ISO-8859-1'))
                 self.wallet.addTransaction(tr)

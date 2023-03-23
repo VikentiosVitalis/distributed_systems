@@ -83,10 +83,6 @@ class Transaction:
         # Verify
         return cipher.verify(tmp, self.signature)
 
-    # The sign_transaction function signs each transaction with wallet's private key
-    def sign_transaction(self): 
-        return
-
     # Hashing is the process of transforming any given key or string of
     # characters into another value.
     # In encryption, hashing turns a plaintext into a unique hash digest

@@ -63,6 +63,7 @@ class Blockchain:
         print('...................................Broadcasting Block...................................................')
         tmp = {'lb': block.convert_block(), 'mt': startTime}
         print('hk;',block.current_hash)
+        print('pk;',block.previous_hash)
         for ip in ipList:
             if ip[0] !=  id:
                 requests.post(ip[1] + "/mine", json=tmp, headers={

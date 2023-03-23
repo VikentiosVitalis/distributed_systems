@@ -63,9 +63,9 @@ def consensus():
     # Consensus begin
     res = request.get_json()
     addrr = res['address'] ## , 'trans_dict': start.transactions_dictionary, 'utxos': start.unspent_coins
-    bcLock.acquire()
+    #bcLock.acquire()
     msg = {'pub_key': start.getAddr(start.id), 'chain': start.blockchain.convert_chain()}
-    bcLock.release()
+    #bcLock.release()
     requests.post(addrr + '/all_nodes_consensus', json=msg,headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
     response = {'message': 'Consensus done'}
     return jsonify(response), 200

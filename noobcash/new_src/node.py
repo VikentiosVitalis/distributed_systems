@@ -239,9 +239,9 @@ class Node:
             print('Validate chain',self.validateChain())
             valLock.release()
             return True
-        bcLock.acquire()
+        #bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
-        bcLock.release()
+        #bcLock.release()
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
         valLock.release()
@@ -261,9 +261,9 @@ class Node:
             block = Block(0,[],0,0)
             block.set(b)
             blocks.append(block)
-        bcLock.acquire()
+        #bcLock.acquire()
         self.blockchain.blockchain = blocks
-        bcLock.release()
+        #bcLock.release()
         return
 
     def validateChain(self):

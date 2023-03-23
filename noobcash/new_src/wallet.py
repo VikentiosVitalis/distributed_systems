@@ -64,7 +64,8 @@ class Wallet:
             self.balances[tup[2]] = 0
 
     def addTransaction(self, transaction):
-        #if transaction.tid in self.tr_dict: return # No duplicates
+        if transaction.tid in self.tr_dict: 
+            return # No duplicates
 
         for tid in transaction.inputs.previous_output_id:
             w = self.tr_dict[tid]

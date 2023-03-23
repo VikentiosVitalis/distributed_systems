@@ -40,7 +40,7 @@ def info():
 @app.route('/broadcast', methods=['POST'])
 def broadcast():
     res = request.get_json()
-    tr = Transaction(res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature'])
+    tr = Transaction(res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature'].encode('ISO-8859-1'))
     start.buffer.append(tr)
     #print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}

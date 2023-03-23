@@ -176,8 +176,6 @@ class Node:
 
         time.sleep(2)
         for tup in self.ipList[1:]:
-            if notMining.isSet():
-                notMining.wait()
             self.createTransaction(tup[0], 100)
         return
 

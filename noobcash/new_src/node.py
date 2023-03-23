@@ -225,6 +225,9 @@ class Node:
             valFlag.clear()
             return False
         valLock.acquire()
+        print('hk;',newBlock.current_hash)
+        print('pk;',newBlock.previous_hash)
+        print('lk;',self.blockchain.getLastHash())
         print('Validating.')
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock

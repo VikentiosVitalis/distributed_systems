@@ -44,7 +44,7 @@ class Blockchain:
         newBlock.mine_block(self.stopMine)
         if not self.stopMine.isSet():
             node.valLock.acquire()
-            if not self.stopMine.isSet():
+            if  self.stopMine.isSet():
                 node.valLock.release()
                 return
             node.bcLock.acquire()

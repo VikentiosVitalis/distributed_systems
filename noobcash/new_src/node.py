@@ -222,7 +222,6 @@ class Node:
             print('Invalid block with:')
             print(tmp)
             print(block['current_hash'])
-            valFlag.clear()
             return False
         valLock.acquire()
         print('hk;',newBlock.current_hash)

@@ -51,9 +51,10 @@ class Blockchain:
             self.blockchain.append(newBlock)
             node.bcLock.release()
             node.valLock.release()
-            #fd = open('times/mining' + '.txt', 'a')
-            #fd.write(str(time.time() - float(begin)) + '\n')
-            #fd.close()
+            
+            fd = open('times/mining' + '.txt', 'a')
+            fd.write(str(time.time() - float(begin)) + '\n')
+            fd.close()
             node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
         else:

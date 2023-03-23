@@ -30,7 +30,7 @@ class Block:
     def set(self, inp): # Init from json file
         self.index = int(inp['index'])
         self.transactions = [i for i in inp['transactions']]
-        self.nonce = inp['nonce']
+        self.nonce = int(inp['nonce'])
         self.previous_hash = inp['previous_hash']
         self.current_hash = inp['current_hash']
         self.timestamp = float(inp['timestamp'])
@@ -40,11 +40,18 @@ class Block:
 
     def convert_block(self):
         res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), 
-            transactions = self.transactions, nonce = self.nonce,
-            previous_hash=self.previous_hash), sort_keys=True)
+            transactions = self.transactions, nonce = self.nonce, 
+            current_hash = self.current_hash, previous_hash=self.previous_hash), sort_keys=True)
         return (res)
 
     # =================== Mining Process ================= #
+    
+    def convert_block(self):
+        res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), 
+            transactions = self.transactions, nonce = self.nonce, 
+            current_hash = self.current_hash, previous_hash=self.previous_hash), sort_keys=True)
+        return (res)
+
 
     def hashing(self):
         '''

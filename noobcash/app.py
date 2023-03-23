@@ -140,12 +140,10 @@ def get_trans():
 
 @app.route('/show_balance', methods=['GET'])
 def get_bal():
-    bal = start.getBalance()
-    x = len(start.chain.blocks_list)
-    y = len(start.buffer)
-    print('The balance is: ',x,y)
+    for i in start.ipList:
+        print(f'Balance of {i}: {start.getBalanceOf(i)}')
     response = {
-        'Current Balance': bal
+        'Current Balance': start.getBalance()
     }
     return jsonify(response), 200
 

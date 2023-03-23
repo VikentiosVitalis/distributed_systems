@@ -102,7 +102,7 @@ class Node:
         return self.wallet.getMyBalance()
 
     def getBalanceOf(self, id):
-        return self.wallet.getBalance(self.ipList[id][2])
+        return self.wallet.getBalance(self.ipList[int(id)][2])
 
     def getAddr(self, id):
         return self.ipList[id][2]

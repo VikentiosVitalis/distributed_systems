@@ -43,15 +43,15 @@ print("DDOS Attack started")
 ll = []
 
 for i, ip in enumerate(ipList):
-    f = open("demofile.txt", "r")
+    f = open(f"distributed_systems-main/noobcash/test/5nodes/transactions{str(i)}.txt", "r")
     lines = f.readlines()
     ll.append(lines)
 
 responses = {}
 
-for lctr in len(ll[0]):
+for lctr in range(len(ll[0])):
     for i, ip in enumerate(ipList):
-        receiver, amount = ll[lctr][i][2:].split()
+        receiver, amount = ll[i][lctr][2:].split()
         payload = {'address': receiver, 'coins': amount}
         response = requests.post(ip + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         if response.text not in responses:

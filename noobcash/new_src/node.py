@@ -120,8 +120,8 @@ class Node:
     def createTransaction(self, receiverID, ammount):
         if minings.isSet():
             minings.wait()
-        #valLock.acquire()
-        # print("Creating transaction.")
+        valLock.acquire()
+        print("Creating transaction.")
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
@@ -129,15 +129,13 @@ class Node:
                                       ammount, prev_tr, amt-ammount)
         # Sign it
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
-        # Broadcast
-        self.broadcastTransaction(new_transaction)
-        # Add to wallet
         self.wallet.addTransaction(new_transaction)
-        #print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
-        #self.blockchain.insert(new_transaction, self.ipList, self.id)
-        #valLock.release()
-        self.buffer.append(new_transaction)
+        self.broadcastTransaction(new_transaction)
         now = time.time() - now
+        print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
+        self.blockchain.insert(new_transaction, self.ipList, self.id)
+        valLock.release()
+
         fd = open('distributed_systems-main/noobcash/times/transactions_t' + str(self.id) +  '.txt', 'a')
         fd.write(str(now) + ' \n')
         fd.close()
@@ -149,12 +147,17 @@ class Node:
         while True:
             if minings.isSet():
                 minings.wait()
-            if len(self.buffer) != 0:
+            if len(self.buffer) != 0 and not minings.isSet():
                 valLock.acquire()
+                print(ctr)
                 ctr+=1
-                tr = self.buffer.pop(0)
+                print(f'Reading transaction from', end="")
+                itm = self.buffer.pop(0)
+                sender, receiver, amt, inputs, amtLeft, tid, signature = itm
+                tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
+                print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
                 # If invalid ignore block
-                if self.validateTransaction(tr) != 'Accepted.':
+                if self.validateTransaction(tr) != 'Accepted.': 
                     print(self.validateTransaction(tr))
                     continue
                 # Insert to block
@@ -215,7 +218,8 @@ class Node:
             return 'Negative Coins.'
         return 'Accepted.'
 
-    def validateBlock(self, block):
+    def validateBlock(self, block, creationTime):
+        self.blockchain.stopMine.set()
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
         newBlock.set(block)
@@ -226,18 +230,24 @@ class Node:
             print(block['current_hash'])
             return False
         valLock.acquire()
-        self.blockchain.stopMine.set()
+        #print('hk;',newBlock.current_hash)
+        #print('pk;',newBlock.previous_hash)
+        #print('lk;',self.blockchain.getLastHash())
+        print('Validating.')
+        print(len(self.buffer))
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
-            print('Validate chain',self.validateChain(), 'Blen:',len(self.blockchain.blockchain), 'len:', len(self.buffer))
+            print('Current length:',len(self.blockchain.blockchain))
+            print('Validate chain',self.validateChain())
             valLock.release()
             return True
         bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
         bcLock.release()
-        print('Validate chain',self.validateChain(), 'Blen:',len(self.blockchain.blockchain), 'len:', len(self.buffer))
+        print('Current length:',len(self.blockchain.blockchain))
+        print('Validate chain',self.validateChain())
         valLock.release()
         return True
 

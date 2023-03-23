@@ -3,7 +3,6 @@ import requests
 from flask import Flask, jsonify, request, session, render_template
 import sys
 from new_src.node import Node, minings, bcLock
-from new_src.transaction import Transaction
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -40,8 +39,7 @@ def info():
 @app.route('/broadcast', methods=['POST'])
 def broadcast():
     res = request.get_json()
-    tr = Transaction(res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature'].encode('ISO-8859-1'))
-    start.buffer.append(tr)
+    start.buffer.append([res['sender'], res['receiver'], res['amount'], res['inputs'], res['amtLeft'], res['tid'], res['signature']])
     #print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}
     return jsonify(response), 200
@@ -50,7 +48,7 @@ def broadcast():
 @app.route('/mine', methods=['POST'])
 def mining():
     res = request.get_json()
-    if start.validateBlock(res['lb']):
+    if start.validateBlock(res['lb'], res['mt']):
         minings.clear()
         response = { 'message': 'Current block successfully inserted.' }
         return jsonify(response), 201
@@ -80,7 +78,7 @@ def cons_data():
     tmp = json.loads(res['chain'][-1])
     if tmp['current_hash'] == start.currentBlock.previous_hash:
         start.allBlockchains[res['pub_key']].append(start.currentBlock.convert_block())
-    #print('Received blockchain from: ', start.getID(res['pub_key']), 'of length:', len(res['chain']))
+    print('Received blockchain from: ', start.getID(res['pub_key']), 'of length:', len(res['chain']))
     response = {'message': 'Consensus Done'}
     return jsonify(response), 200
 

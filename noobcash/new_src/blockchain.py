@@ -44,15 +44,18 @@ class Blockchain:
         newBlock.mine_block(self.stopMine)
         if not self.stopMine.isSet():
             node.valLock.acquire()
+            if not self.stopMine.isSet():
+                node.valLock.release()
+                return
             node.bcLock.acquire()
             self.blockchain.append(newBlock)
             node.bcLock.release()
+            node.valLock.release()
             #fd = open('times/mining' + '.txt', 'a')
             #fd.write(str(time.time() - float(begin)) + '\n')
             #fd.close()
             node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
-            node.valLock.release()
         else:
             print('Stopped mine.')
 

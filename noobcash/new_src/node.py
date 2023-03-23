@@ -143,6 +143,8 @@ class Node:
         while True:
             if minings.isSet():
                 minings.wait()
+            if len(self.buffer) == 0:
+                print('Chain validation:', self.validateChain())
             if len(self.buffer) != 0 and not minings.isSet():
                 valLock.acquire()
                 print(f'Reading transaction from', end="")
@@ -224,9 +226,9 @@ class Node:
             print(block['current_hash'])
             return False
         valLock.acquire()
-        print('hk;',newBlock.current_hash)
-        print('pk;',newBlock.previous_hash)
-        print('lk;',self.blockchain.getLastHash())
+        #print('hk;',newBlock.current_hash)
+        #print('pk;',newBlock.previous_hash)
+        #print('lk;',self.blockchain.getLastHash())
         print('Validating.')
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
@@ -260,3 +262,12 @@ class Node:
         self.blockchain.blockchain = blocks 
         bcLock.release()
         return
+
+    def validateChain(self):
+        for i, bl in enumerate(self.blockchain.blockchain):
+            if i==0:continue
+            if bl.previous_hash != self.blockchain.blockchain[i-1].current_hash:
+                return False
+            if bl.current_hash != bl.hashing():
+                return False
+        return True

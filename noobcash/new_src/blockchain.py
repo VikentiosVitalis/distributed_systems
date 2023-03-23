@@ -61,13 +61,13 @@ class Blockchain:
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('...................................Broadcasting Block...................................................')
-        tmp = {'lb': block.convert_block(), 'mt': startTime}
-        print('hk;',block.current_hash)
-        print('pk;',block.previous_hash)
-        print('hs;',block.hashing())
-        print(type(block.index))
-        print(type(block.nonce))
-        print(type(block.previous_hash))
+#        tmp = {'lb': block.convert_block(), 'mt': startTime}
+#        print('hk;',block.current_hash)
+#        print('pk;',block.previous_hash)
+#        print('hs;',block.hashing())
+#        print(type(block.index))
+#        print(type(block.nonce))
+#        print(type(block.previous_hash))
         for ip in ipList:
             if ip[0] !=  id:
                 requests.post(ip[1] + "/mine", json=tmp, headers={

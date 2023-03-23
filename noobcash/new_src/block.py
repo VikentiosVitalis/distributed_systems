@@ -59,7 +59,7 @@ class Block:
         '''
         x = json.loads(self.convert_block())
         del x['current_hash']
-        res = hasher.sha256(self.convert_block().encode()).hexdigest()
+        res = hasher.sha256(json.dumps(x).encode()).hexdigest()
         return res
 
     def mine_block(self, temp):

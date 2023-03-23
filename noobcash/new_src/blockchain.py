@@ -67,7 +67,6 @@ class Blockchain:
         print('hs;',block.hashing())
         print(type(block.index))
         print(type(block.nonce))
-        print(type(block.current_hash))
         print(type(block.previous_hash))
         for ip in ipList:
             if ip[0] !=  id:

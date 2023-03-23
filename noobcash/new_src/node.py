@@ -143,8 +143,6 @@ class Node:
         while True:
             if minings.isSet():
                 minings.wait()
-            if len(self.buffer) == 0:
-                print('Chain validation:', self.validateChain())
             if len(self.buffer) != 0 and not minings.isSet():
                 valLock.acquire()
                 print(f'Reading transaction from', end="")
@@ -234,14 +232,16 @@ class Node:
             self.currentBlock = newBlock
             self.broadcastConsensus()
             self.resolveConflict()
-            valLock.release()
             print('Current length:',len(self.blockchain.blockchain))
+            print('Validate chain',self.validateChain())
+            valLock.release()
             return True
         bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
         bcLock.release()
-        valLock.release()
         print('Current length:',len(self.blockchain.blockchain))
+        print('Validate chain',self.validateChain())
+        valLock.release()
         return True
 
     def resolveConflict(self):
@@ -259,7 +259,7 @@ class Node:
             block.set(b)
             blocks.append(block)
         bcLock.acquire()
-        self.blockchain.blockchain = blocks 
+        self.blockchain.blockchain = blocks
         bcLock.release()
         return
 

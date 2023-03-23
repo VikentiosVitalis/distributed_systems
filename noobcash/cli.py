@@ -24,10 +24,12 @@ URL = 'http://' + str(IP) + ':' + str(PORT) + "/"
 
 
 ipList = [
-    
+    'http://192.168.0.3:5000',
+    'http://192.168.0.1:5002',
+    'http://192.168.0.5:5003',
+    'http://192.168.0.4:5004',
+    'http://192.168.0.2:5005'
 ]
-
-
 
 
 if len(sys.argv) < 3 or len(sys.argv) > 3:
@@ -36,10 +38,32 @@ if len(sys.argv) < 3 or len(sys.argv) > 3:
 
 print("\n\n\n Welcome to Noobcash!\n\n\n")
 
+print("DDOS Attack started")
+
+ll = []
+
+for i, ip in enumerate(ipList):
+    f = open("demofile.txt", "r")
+    lines = f.readlines()
+    ll.append(lines)
+
+responses = {}
+
+for lctr in len(ll[0]):
+    for i, ip in enumerate(ipList):
+        receiver, amount = ll[lctr][i][2:].split()
+        payload = {'address': receiver, 'coins': amount}
+        response = requests.post(ip + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+        if response.text not in responses:
+            responses[response.text] = 1
+        else:
+            responses[response.text] += 1
+for i in responses.keys():
+    print(f'{i},{responses[i]}')
+
 while (1):
     print("Enter a desired action! Type help if want to know the available actions!")
     choice = input()
-
     # Transaction
     if choice.startswith('t'):
         params = choice.split()
@@ -48,10 +72,10 @@ while (1):
         receiver = params[2]
         coins = params[3]
 
-        payload = {'sender': sender, 'address': receiver, 'coins': coins}
+        payload = {'address': receiver, 'coins': coins}
         payload = json.dumps(payload)
 
-        response = requests.post(URL + "create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+        response = requests.post(ipList[int(sender)] + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         if response.status_code == 200:
             print('Transaction Done!')
         else:

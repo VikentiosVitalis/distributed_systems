@@ -95,11 +95,10 @@ def cons():
 @app.route('/create_transaction', methods=['POST'])
 def newtrans():
     res = request.get_json()
-    sender = res['sender']
     receiver = res['address']
     coins = res['coins']
 
-    if sender == receiver:
+    if start.id == receiver:
         response = { 'message': 'You are not allowed to send coins to yourself! Try again.' }
         print(response['message'])
         return jsonify(response), 400
@@ -107,11 +106,7 @@ def newtrans():
         response = {'message' : 'Invalid receiver'}
         print(response['message'])
         return jsonify(response), 400
-    if not sender.isnumeric() or int(sender) < 0 or int(sender) >= len(start.ipList):
-        response = {'message' : 'Invalid sender'}
-        print(response['message'])
-        return jsonify(response), 400
-    if not coins.isnumeric() or int(coins) <= 0 or int(coins) > start.getBalanceOf(int(sender)):
+    if not coins.isnumeric() or int(coins) <= 0 or int(coins) > start.getBalanceOf(int(start.id)):
         response = { 'message': "Invalid Amount Given." }
         print(response['message'])    
         return jsonify(response), 400
@@ -123,7 +118,7 @@ def newtrans():
     #if not start.mining.isSet():
     #    start.mining.wait()
     print('now.')
-    start.createTransaction(int(sender), int(receiver), int(coins))
+    start.createTransaction(int(receiver), int(coins))
 
 
     response = { 'message': "Transaction Completed" }

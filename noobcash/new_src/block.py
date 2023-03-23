@@ -32,6 +32,7 @@ class Block:
         self.transactions = [i for i in inp['transactions']]
         self.nonce = inp['nonce']
         self.previous_hash = inp['previous_hash']
+        self.current_hash = inp['current_hash']
         self.timestamp = float(inp['timestamp'])
 
     def insertdif(self, dif):

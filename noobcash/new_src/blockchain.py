@@ -49,7 +49,7 @@ class Blockchain:
             #fd = open('times/mining' + '.txt', 'a')
             #fd.write(str(time.time() - float(begin)) + '\n')
             #fd.close()
-            print('Time taken:', time.time()-begin)
+            print('Time taken:', time.time()-begin, 'bc length:', len(self.blockchain))
             node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
         else:

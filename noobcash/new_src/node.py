@@ -7,8 +7,8 @@ import requests
 import json
 import threading
 
-mining = threading.Event()
-mining.set()
+minings = threading.Event()
+minings.set()
 
 valLock = threading.Lock()
 
@@ -115,8 +115,8 @@ class Node:
         return self.ipList[0][2]
 
     def createTransaction(self, receiverID, ammount):
-        if mining.isSet():
-            mining.wait()
+        if minings.isSet():
+            minings.wait()
         valLock.acquire()
         print("Creating transaction.")
         now = time.time()
@@ -141,9 +141,9 @@ class Node:
     def waitThread(self):
         self.nodeFlag.wait()
         while True:
-            if mining.isSet():
-                mining.wait()
-            if len(self.buffer) != 0 and not mining.isSet():
+            if minings.isSet():
+                minings.wait()
+            if len(self.buffer) != 0 and not minings.isSet():
                 valLock.acquire()
                 print(f'Reading transaction from', end="")
                 itm = self.buffer.pop()

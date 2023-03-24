@@ -236,7 +236,6 @@ class Node:
             return False
         self.blockchain.stopMine.set()
         print('Validating.')
-        print(len(self.buffer))
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
             self.broadcastConsensus()
@@ -248,8 +247,6 @@ class Node:
             self.blockchain.blockchain.append(newBlock)
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
-        if self.mineThread.is_alive():
-            print('Mine not dead yet')
         return True
     
     def resolveConflict(self):

@@ -12,7 +12,7 @@ app.debug = True
 
 KEY_ID = '-'
 
-if len(sys.argv) != 5 or len(sys.argv) != 6:
+if len(sys.argv) != 5 and len(sys.argv) != 6:
     print("Usage")
     print("python app.py Port IP number_of_nodes  is_bootstrap_node(true/false) useDefaultNodes(5/10)")
     sys.exit(0)

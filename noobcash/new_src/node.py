@@ -118,8 +118,9 @@ class Node:
         return self.ipList[0][2]
 
     def createTransaction(self, receiverID, ammount):
-        if minings.isSet():
-            minings.wait()
+        self.buffer.append([receiverID, None, ammount, None, None, None, None, True])
+
+    def createTransaction1(self, receiverID, ammount):
         print("Creating transaction.")
         now = time.time()
         # Create transaction
@@ -152,18 +153,21 @@ class Node:
                 ctr+=1
                 print(f'Reading transaction from', end="")
                 itm = self.buffer.pop(0)
-                sender, receiver, amt, inputs, amtLeft, tid, signature = itm
-                tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
-                print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
-                # If invalid ignore block
-                if self.validateTransaction(tr) != 'Accepted.': 
-                    print(self.validateTransaction(tr))
-                    continue
-                # Insert to block
-                valLock.acquire()
-                self.blockchain.insert(tr, self.ipList, self.id)
-                self.wallet.addTransaction(tr)
-                valLock.release()
+                sender, receiver, amt, inputs, amtLeft, tid, signature, create = itm
+                if not create:
+                    tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
+                    print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
+                    # If invalid ignore block
+                    if self.validateTransaction(tr) != 'Accepted.':
+                        print(self.validateTransaction(tr))
+                        continue
+                    # Insert to block
+                    valLock.acquire()
+                    self.blockchain.insert(tr, self.ipList, self.id)
+                    self.wallet.addTransaction(tr)
+                    valLock.release()
+                else:
+                    self.createTransaction1(sender, amt)
 
     def broadcastNodes(self):
         self.nodeFlag.wait()

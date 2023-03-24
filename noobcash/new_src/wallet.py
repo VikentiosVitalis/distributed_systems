@@ -50,7 +50,7 @@ class Wallet:
     def getMoney(self, amount):
         if amount > self.getMyBalance():
             print("Not enough coins! ", self.getMyBalance())
-            return [], amount
+            return [], 0
         tmp = 0
         transactions = []
         while tmp < amount:

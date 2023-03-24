@@ -64,6 +64,10 @@ class Node:
             res = json.dumps(res)
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+            tr = Transaction(self.wallet.get_addr(),
+                             self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
+            tr.signature = self.wallet.sign(tr.tid)
+            self.wallet.addTransaction(tr)
 
     def addNode(self, IP, addr):
         self.ipList.append((self.nodesActive + 1, IP, addr))

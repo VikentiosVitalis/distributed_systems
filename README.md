@@ -19,16 +19,16 @@ between users are registered and consensus (agreement on any subject by a group 
 
 ## Built with:
 The REST API is written in Python 3.8 using the following libraries:
-* Flask 8.1.1
-* Flask-Cors 3.0.10
-* pycryptodome 3.17
-* requests 2.27.1
-* urllib3 1.26.15
+* [Flask 8.1.1](https://flask-cors.readthedocs.io/en/latest/)
+* [Flask-Cors 3.0.10](https://flask-cors.readthedocs.io/en/latest/)
+* [pycryptodome 3.17](https://pycryptodome.readthedocs.io/en/latest/)
+* [requests 2.27.1]()
+* [urllib3 1.26.15]()
 
 The webapp is developed using Django 4.1.7 and:
-* Python 3.8
-* HTML 5
-* CSS 3
+* [Python 3.8](https://www.python.org/)
+* [HTML 5]()
+* [CSS 3]()
 
 ## Usage:
 Inside the folder 'noobcash' install the necessary requirements:

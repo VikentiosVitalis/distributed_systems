@@ -12,6 +12,7 @@ class Blockchain:
         self.blockchain = []
         self.transactions = []                 # Storage of transactions till 
         self.stopMine = threading.Event()
+        self.stopMine.clear()
 
     def genBlock(self):
         return self.blockchain[0]
@@ -34,7 +35,6 @@ class Blockchain:
             node.minings.set()
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []
-            self.stopMine.clear()
             mine = threading.Thread(name='mine', target=self.mine, args=(newBlock,ipList,id,))
             mine.start()
         return
@@ -57,6 +57,7 @@ class Blockchain:
             fd.close()
             node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
+        self.stopMine.clear()
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('...................................Broadcasting Block...................................................')

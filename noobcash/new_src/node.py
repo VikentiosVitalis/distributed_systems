@@ -29,6 +29,7 @@ class Node:
         # For consensus
         self.allBlockchains = {}
         self.currentBlock = None
+        self.validationBlocks = []
         # IPs
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
@@ -149,6 +150,10 @@ class Node:
         ctr = 0
         self.nodeFlag.wait()
         while True:
+            if len(self.validationBlocks) != 0:
+                tmp = self.validationBlocks.pop(0)
+                self.validateBlock(tmp[0], tmp[1])
+                continue
             if minings.isSet():
                 minings.wait()
             if len(self.buffer) != 0:

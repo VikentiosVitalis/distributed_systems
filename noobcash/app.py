@@ -49,15 +49,9 @@ def broadcast():
 @app.route('/mine', methods=['POST'])
 def mining():
     res = request.get_json()
-    if start.validateBlock(res['lb'], res['mt']):
-        # minings.clear()
-        response = { 'message': 'Current block successfully inserted.' }
-        return jsonify(response), 201
-    else:
-        # minings.clear()
-        response = {'message': 'Current block was not inserted.' }
-        return jsonify(response), 400
-
+    start.validationBlocks.append([res['lb'], res['mt']])
+    response = { 'message': 'Block received.' }
+    return jsonify(response), 201
 
 @app.route('/consensus', methods=['POST'])
 def consensus():

@@ -148,7 +148,7 @@ class Node:
             if minings.isSet():
                 minings.wait()
             if len(self.buffer) != 0 and not minings.isSet():
-                valLock.acquire()
+                #valLock.acquire()
                 print(ctr)
                 ctr+=1
                 print(f'Reading transaction from', end="")
@@ -163,7 +163,7 @@ class Node:
                 # Insert to block
                 self.blockchain.insert(tr, self.ipList, self.id)
                 self.wallet.addTransaction(tr)
-                valLock.release()
+                #valLock.release()
 
     def broadcastNodes(self):
         self.nodeFlag.wait()

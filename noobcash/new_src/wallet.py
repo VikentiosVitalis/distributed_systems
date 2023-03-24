@@ -70,13 +70,9 @@ class Wallet:
         for tid in transaction.inputs.previous_output_id:
             w = self.tr_dict[tid]
             tr = self.transactions[w]
-            if tr.sender == transaction.sender:
-                if tr.outputSender.unspent == False:
-                    print("Transaction already used:", tr.tid)    
+            if tr.sender == transaction.sender:   
                 tr.outputSender.unspent = False
             else:
-                if tr.outputReceiver.unspent == False:
-                    print("Transaction already used:", tr.tid)
                 tr.outputReceiver.unspent = False
 
         # If this wallet is in the transaction add the money to my list
@@ -95,6 +91,6 @@ class Wallet:
         self.tr_dict[transaction.tid] = len(self.transactions) - 1
 
         print('Current balance:', self.getMyBalance())
-        return
+        return True
 
 

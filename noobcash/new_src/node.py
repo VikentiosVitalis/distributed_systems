@@ -80,7 +80,10 @@ class Node:
         print('My id:', self.id)
         f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
         lines = f.readlines()
-        
+        f.close()
+        for ll in lines:
+            receiver, amount = ll[2:].split()
+            self.createTransaction(int(receiver), int(amount))
         return
 
     def getSK(self):
@@ -137,6 +140,12 @@ class Node:
 
     def createTransaction1(self, receiverID, ammount):
         now = time.time()
+        if receiverID == self.id:
+            return 'Invalid id'
+        if ammount > self.wallet.getMyBalance() or ammount <= 0:
+            return 'Invalid balance'
+        if receiverID > self.nodeNr:
+            return 'Invalid receiver'
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
         new_transaction = Transaction(self.getAddr(self.id), self.getAddr(receiverID), 
@@ -147,6 +156,7 @@ class Node:
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         self.insertBlockchain(new_transaction)
+        return True
 
     def waitThread(self):
         self.nodeFlag.wait()
@@ -172,7 +182,10 @@ class Node:
                     self.wallet.addTransaction(tr)
                 else:
                     print(f" {self.id} -> {sender}.")
-                    self.createTransaction1(sender, amt)
+                    r = self.createTransaction1(sender, amt)
+                    if r != 'Accepted.':
+                        print(r)
+
 
     def broadcastNodes(self):
         self.nodeFlag.wait()
@@ -192,6 +205,12 @@ class Node:
         time.sleep(2)
         for tup in self.ipList[1:]:
             self.createTransaction(tup[0], 100)
+        f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
+        lines = f.readlines()
+        f.close()
+        for ll in lines:
+            receiver, amount = ll[2:].split()
+            self.createTransaction(int(receiver), int(amount))
         return
 
     def broadcastTransaction(self, transaction):

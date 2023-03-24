@@ -54,5 +54,3 @@ class Blockchain:
                 requests.post(ip[1] + "/mine", json=tmp, headers={
                               'Content-type': 'application/json', 'Accept': 'text/plain'})
         return
-
-

@@ -69,14 +69,12 @@ class Node:
             res = json.dumps(res)
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
-            startBal = 0
             # To actually test the numbers and not ignore all transactions because of balance
             if self.nodeFile != Node:
-                startBal = 10000
-            tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), startBal, [], 0)
-            tr.signature = self.wallet.sign(tr.tid)
-            self.wallet.addTransaction(tr)
+                tr = Transaction(self.wallet.get_addr(),
+                                self.wallet.get_addr(), 10000, [], 0)
+                tr.signature = self.wallet.sign(tr.tid)
+                self.wallet.addTransaction(tr)
 
     def addNode(self, IP, addr):
         self.ipList.append((self.nodesActive + 1, IP, addr))

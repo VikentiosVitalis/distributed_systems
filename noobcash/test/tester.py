@@ -4,13 +4,14 @@ import socket
 import pickle
 import sys
 import time
+import config
 
 from argparse import ArgumentParser
 from texttable import Texttable
 
 # Add config file in our path.
 sys.path.insert(0, '../src')
-import config
+
 
 # Get the IP address of the device
 if config.LOCAL:

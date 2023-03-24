@@ -243,9 +243,9 @@ class Node:
             print('Validate chain',self.validateChain())
             valLock.release()
             return True
-        bcLock.acquire()
+        #bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
-        bcLock.release()
+        #bcLock.release()
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
         valLock.release()
@@ -270,9 +270,9 @@ class Node:
             #    rr = json.loads(i)
             #    tr = Transaction(rr['sender'], rr['receiver'], rr['amount'], rr['inputs'], rr['amtLeft'],rr['tid'],rr['signature'].encode('ISO-8859-1'))
             #    self.wallet.addTransaction(tr)
-        bcLock.acquire()
+        #bcLock.acquire()
         self.blockchain.blockchain = blocks
-        bcLock.release()
+        # bcLock.release()
         return
 
     def validateChain(self):

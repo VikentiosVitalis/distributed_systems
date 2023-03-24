@@ -37,28 +37,26 @@ class Blockchain:
             self.stopMine.clear()
             mine = threading.Thread(name='mine', target=self.mine, args=(newBlock,ipList,id,))
             mine.start()
+        return
 
     def mine(self, newBlock, ipList, id):
         print('Starting to mine.')
         begin = time.time()
         newBlock.mine_block(self.stopMine)
         if not self.stopMine.isSet():
-            node.valLock.acquire()
-            if  self.stopMine.isSet():
-                node.valLock.release()
-                return
+            # node.valLock.acquire()
+            #if  self.stopMine.isSet():
+            #    node.valLock.release()
+            #    return
             # node.bcLock.acquire()
             self.blockchain.append(newBlock)
             # node.bcLock.release()
-            node.valLock.release()
-            
+            #node.valLock.release()
             fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
             fd.write(str(time.time() - float(begin)) + '\n')
             fd.close()
             node.minings.clear()
             self.broadcastBlock(newBlock, time.time(), ipList, id)
-        else:
-            print('Stopped mine.')
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('...................................Broadcasting Block...................................................')

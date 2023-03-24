@@ -81,7 +81,7 @@ class Node:
         self.ipList = ipList
         self.wallet.setOutputs(self.ipList)
         self.id = self.getID(self.wallet.get_addr())
-        self.wallet.balances[self.id] = 1000
+        self.wallet.balances[self.wallet.publicKey] = 1000
         print('My id:', self.id)
         f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
         lines = f.readlines()

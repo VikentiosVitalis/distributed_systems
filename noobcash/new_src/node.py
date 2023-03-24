@@ -127,7 +127,7 @@ class Node:
             minings.set()
             self.blockchain.stopMine.clear()
             newBlock = Block(len(self.blockchain.blockchain), self.blockchain.transactions, 0, self.blockchain.blockchain[-1].current_hash)
-            self.transactions = []
+            self.blockchain.transactions = []
             self.mineThread = threading.Thread(name='miner', target=self.blockchain.mine,
                     args=(newBlock,self.ipList,self.id,))
             self.mineThread.start()

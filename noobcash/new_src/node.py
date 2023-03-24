@@ -147,15 +147,14 @@ class Node:
         self.insertBlockchain(new_transaction)
 
     def waitThread(self):
-        ctr = 0
         self.nodeFlag.wait()
         while True:
             if len(self.validationBlocks) != 0:
                 tmp = self.validationBlocks.pop(0)
                 self.validateBlock(tmp[0], tmp[1])
                 continue
-            if minings.isSet():
-                minings.wait()
+            if self.mineThread.is_alive():
+                continue
             if len(self.buffer) != 0:
                 itm = self.buffer.pop(0)
                 sender, receiver, amt, inputs, amtLeft, tid, signature, create = itm

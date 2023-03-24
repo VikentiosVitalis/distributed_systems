@@ -120,7 +120,6 @@ def newtrans():
 
 @app.route('/view_transactions', methods=['GET'])
 def get_trans():
-    print(len(start.chain.blocks_list))
     last_transactions = start.blockchain.blockchain[-1].transactions
     response = { 'Transactions of the last block (verified)': last_transactions }
     return jsonify(response), 200

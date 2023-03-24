@@ -143,7 +143,7 @@ class Node:
         if receiverID == self.id:
             return 'Invalid id'
         if ammount > self.wallet.getMyBalance() or ammount <= 0:
-            return 'Invalid balance'
+            return f'Invalid balance : {self.wallet.getMyBalance()} <= {ammount}'
         if receiverID > self.nodeNr:
             return 'Invalid receiver'
         # Create transaction

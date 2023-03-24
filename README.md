@@ -39,12 +39,10 @@ Inside the folder 'noobcash' install the necessary requirements:
 
 ## Execution:
 Bootstrap node:
-
-``python <PORT> <IP> <Number of Children in the System> true``
+``python3.8distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> true``
 
 Simple node: 
-
-``python <PORT> <IP> <Number of Children in the System> no``
+``python3.8 distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> no``
 
 Web Interface: ``http://<IP>:<PORT>/``
 
@@ -52,7 +50,7 @@ Run CLI:
 
 ``cli.py <PORT> <IP>``
 
-If you want to run the tests inside the folders 5nodes and 10nodes replace app.py with app_auto.py.
+If you want to run the tests inside the folders 5nodes and 10nodes the last input of every node add 5 or 10 accordingly.
 
 
 ## Evaluation of the system:

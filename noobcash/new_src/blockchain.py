@@ -8,7 +8,7 @@ minings = threading.Event()
 minings.clear()
 
 class Blockchain:
-    def __init__(self, maxTransactions=1):
+    def __init__(self, maxTransactions=5):
         self.maxTransactions = maxTransactions # Max transactions in block
         self.blockchain = []
         self.transactions = []                 # Storage of transactions till 

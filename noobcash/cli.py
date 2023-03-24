@@ -39,33 +39,6 @@ if len(sys.argv) < 3 or len(sys.argv) > 3:
 
 print("\n\n\n Welcome to Noobcash!\n\n\n")
 
-print("DDOS Attack started")
-
-ll = []
-
-for i, ip in enumerate(ipList):
-    f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(i)}.txt", "r")
-    lines = f.readlines()
-    ll.append(lines)
-
-responses = {}
-
-for lctr in range(len(ll[0])):
-    print(lctr)
-    time.sleep(10)
-    for i, ip in enumerate(ipList):
-        receiver, amount = ll[i][lctr][2:].split()
-        payload = {'address': receiver, 'coins': amount}
-        payload = json.dumps(payload)
-        print(payload)
-        response = requests.post(ip + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
-        if response.text not in responses:
-            responses[response.text] = 1
-        else:
-            responses[response.text] += 1
-for i in responses.keys():
-    print(f'{i},{responses[i]}')
-
 while (1):
     print("Enter a desired action! Type help if want to know the available actions!")
     choice = input()

@@ -36,28 +36,19 @@ class Block:
         self.current_hash = inp['current_hash']
         self.timestamp = float(inp['timestamp'])
 
-    def insertdif(self, dif):
-        self.dif = dif
-
     def convert_block(self):
         res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), 
             transactions = self.transactions, nonce = self.nonce, 
             current_hash = self.current_hash, previous_hash=self.previous_hash), sort_keys=True)
         return (res)
-
-    # =================== Mining Process ================= #
     
-    def convert_block(self):
-        res = json.dumps(dict(index = self.index, timestamp = self.timestamp.__str__(), 
-            transactions = self.transactions, nonce = self.nonce, 
-            current_hash = self.current_hash, previous_hash=self.previous_hash), sort_keys=True)
-        return (res)
-
+    # Hashing is the process of transforming any given key or string of
+    # characters into another value.
+    # In encryption, hashing turns a plaintext into a unique hash digest
+    # that cannot be reverted to the original plaintext.
+    # Digest/Hash function
 
     def hashing(self):
-        '''
-        :return: current block's hash
-        '''
         x = json.loads(self.convert_block())
         del x['current_hash']
         res = hasher.sha256(json.dumps(x).encode()).hexdigest()

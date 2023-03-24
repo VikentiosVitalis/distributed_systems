@@ -30,16 +30,6 @@ class Blockchain:
             res.append(bl.convert_block())
         return res
 
-    def insert(self, transaction, ipList, id):
-        self.transactions.append(transaction)
-        if len(self.transactions) == self.maxTransactions:
-            minings.set()
-            newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
-            self.transactions = []
-            mine = threading.Thread(name='mine', target=self.mine, args=(newBlock,ipList,id,))
-            mine.start()
-        return
-
     def mine(self, newBlock, ipList, id):
         print('Starting to mine.')
         begin = time.time()

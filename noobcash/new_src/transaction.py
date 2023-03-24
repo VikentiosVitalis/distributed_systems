@@ -83,12 +83,3 @@ class Transaction:
         # Verify
         return cipher.verify(tmp, self.signature)
 
-    # Hashing is the process of transforming any given key or string of
-    # characters into another value.
-    # In encryption, hashing turns a plaintext into a unique hash digest
-    # that cannot be reverted to the original plaintext.
-    # Digest/Hash function
-
-    def hashing(self):
-        string = self.convert_to_JSON()
-        return SHA256.new(string.encode())

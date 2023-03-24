@@ -140,7 +140,7 @@ class Node:
 
     def createTransaction1(self, receiverID, ammount):
         now = time.time()
-        if ammount > self.wallet.getMyBalance() or ammount <= 0:
+        if (ammount > self.wallet.getMyBalance() or ammount <= 0) and (receiverID != self.id):
             return f'Invalid balance : {self.wallet.getMyBalance()} <= {ammount}'
         if receiverID > self.nodeNr:
             return 'Invalid receiver'

@@ -53,7 +53,7 @@ class Node:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
             tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), 500*(self.nodeNr+1), [], 0)
+                             self.wallet.get_addr(), 1500*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
             genBlock = Block(0, [tr], 0, 1)
@@ -65,7 +65,7 @@ class Node:
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
             tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), 1000, [], 0)
+                             self.wallet.get_addr(), 100000, [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
 
@@ -81,7 +81,7 @@ class Node:
         self.ipList = ipList
         self.wallet.setOutputs(self.ipList)
         self.id = self.getID(self.wallet.get_addr())
-        self.wallet.balances[self.wallet.publicKey] = 1000
+        self.wallet.balances[self.wallet.publicKey] = 100000
         print('My id:', self.id)
         f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
         lines = f.readlines()

@@ -33,7 +33,6 @@ class Blockchain:
     def insert(self, transaction, ipList, id):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:
-            print('Mine started.')
             minings.set()
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []

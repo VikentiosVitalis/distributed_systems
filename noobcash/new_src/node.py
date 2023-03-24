@@ -246,7 +246,7 @@ class Node:
             print('Validate chain',self.validateChain())
             self.blockchain.stopMine.clear()
             minings.clear()
-            #valLock.release()
+            valLock.release()
             return True
         #bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)

@@ -145,7 +145,9 @@ class Node:
 
     def createTransaction1(self, receiverID, ammount):
         begin = time.time()
-        if (ammount > self.wallet.getMyBalance() or ammount <= 0) and (receiverID != self.id):
+        if receiverID == self.id:
+            return 'Nodes to self'
+        if ammount > self.wallet.getMyBalance() or ammount <= 0:
             return f'Invalid balance : {self.wallet.getMyBalance()} <= {ammount}'
         if receiverID > self.nodeNr:
             return 'Invalid receiver'
@@ -162,7 +164,7 @@ class Node:
         fd = open('distributed_systems-main/noobcash/times/transactions_t'+ str(self.id) +'.txt', 'a')
         fd.write(str(end) + '\n')
         fd.close()
-        return True
+        return 'Accepted.'
 
     def waitThread(self):
         self.nodeFlag.wait()

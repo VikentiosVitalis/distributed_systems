@@ -71,7 +71,7 @@ class Node:
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
             startBal = 0
             # To actually test the numbers and not ignore all transactions because of balance
-            if self.nodeFile == '5' or self.nodeFile == '10':
+            if self.nodeFile != Node:
                 startBal = 10000
             tr = Transaction(self.wallet.get_addr(),
                              self.wallet.get_addr(), startBal, [], 0)
@@ -90,7 +90,8 @@ class Node:
         self.ipList = ipList
         self.wallet.setOutputs(self.ipList)
         self.id = self.getID(self.wallet.get_addr())
-        self.wallet.balances[self.wallet.publicKey] = 100000
+        if self.nodeFile != None:
+            self.wallet.balances[self.wallet.publicKey] = 100000
         print('My id:', self.id)
         if self.nodeFile != None:
             f = open(f"distributed_systems-main/noobcash/test/transactions/{self.nodeFile}nodes/transactions{str(self.id)}.txt", "r")

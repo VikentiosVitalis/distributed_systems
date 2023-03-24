@@ -229,7 +229,7 @@ class Node:
             print(tmp)
             print(block['current_hash'])
             return False
-        #valLock.acquire()
+        valLock.acquire()
         #print('hk;',newBlock.current_hash)
         #print('pk;',newBlock.previous_hash)
         #print('lk;',self.blockchain.getLastHash())
@@ -254,8 +254,8 @@ class Node:
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
         self.blockchain.stopMine.clear()
+        valLock.release()
         minings.clear()
-        #valLock.release()
         return True
     
     def resolveConflict(self):

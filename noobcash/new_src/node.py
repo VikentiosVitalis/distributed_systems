@@ -65,7 +65,7 @@ class Node:
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
             tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
+                             self.wallet.get_addr(), 1000, [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
 
@@ -81,6 +81,7 @@ class Node:
         self.ipList = ipList
         self.wallet.setOutputs(self.ipList)
         self.id = self.getID(self.wallet.get_addr())
+        self.wallet.balances[self.id] = 1000
         print('My id:', self.id)
         f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
         lines = f.readlines()

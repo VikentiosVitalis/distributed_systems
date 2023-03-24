@@ -1,6 +1,13 @@
-17:47:13 - 18:14:24  Total: 47 transactions 4-1
-18:21:58 - 18:35:50  Total: 75 transactions 4-5
-18:46:17 - 18:50:47  Total: 70 transactions 4-10
-18:55:34 - 19:10:04  Total: 5 transactions 5-1
-19:14:58 - 19:32:14  Total: 10 transactions
-19:37:08 - 19:42:10  Total: 10 transactions
+27 mins 47 transactions
+14 mins 75 transactions
+4 mins 70 transactions
+15 mins 5 transactions
+18 mins 15 transactions
+15 mins 30 transactions
+
+30 mins 60 transactions
+15 mins 80 transactions
+4 mins 70 transactions
+15 mins 7 transactions
+18 mins 25 transactions
+15 mins 30 transactions

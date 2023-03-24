@@ -50,11 +50,11 @@ def broadcast():
 def mining():
     res = request.get_json()
     if start.validateBlock(res['lb'], res['mt']):
-        minings.clear()
+        # minings.clear()
         response = { 'message': 'Current block successfully inserted.' }
         return jsonify(response), 201
     else:
-        minings.clear()
+        # minings.clear()
         response = {'message': 'Current block was not inserted.' }
         return jsonify(response), 400
 

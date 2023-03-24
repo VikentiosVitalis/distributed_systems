@@ -1,3 +1,4 @@
 17:47:13 - 18:14:24  Total: 47 transactions 4-1
-18:21:58 - 18:35:50  Total: 15 blocks 4-5
+18:21:58 - 18:35:50  Total: 75 transactions 4-5
+
 

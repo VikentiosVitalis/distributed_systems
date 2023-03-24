@@ -56,7 +56,7 @@ If you want to run the tests inside the folders 5nodes and 10nodes replace app.p
 
 
 ## Evaluation of the system:
-We evaluate the performance and the scalability of Noobcash by running the system in Okeanos and perform from each node 100 transcations to the system. The transactions are placed in /test/transactions path and the script for executing them in stored in the /test directory.
+We evaluate the performance and the scalability of Noobcash by running the system in [Okeanos](https://okeanos.grnet.gr/home/) and perform from each node 100 transcations to the system. The transactions are placed in /test/transactions path and the script for executing them in stored in the /test directory.
 
 ## Contributors:
 This project was created by:

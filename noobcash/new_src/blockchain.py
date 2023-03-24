@@ -1,10 +1,11 @@
 from new_src.block import Block
-from new_src.node import minings
 import time
 import requests
 import threading
 # Noobcash Blockchain:
 #  The list of blocks which are verified
+minings = threading.Event()
+minings.clear()
 
 class Blockchain:
     def __init__(self, maxTransactions=2):
@@ -56,7 +57,7 @@ class Blockchain:
             fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
             fd.write(str(time.time() - float(begin)) + '\n')
             fd.close()
-        elf.broadcastBlock(newBlock, time.time(), ipList, id)
+            self.broadcastBlock(newBlock, time.time(), ipList, id)
         self.stopMine.clear()
 
     def broadcastBlock(self, block, startTime, ipList, id):

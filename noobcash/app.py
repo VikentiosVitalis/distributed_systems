@@ -2,7 +2,8 @@ import json
 import requests
 from flask import Flask, jsonify, request, session, render_template
 import sys
-from new_src.node import Node, minings, bcLock
+from new_src.blockchain import minings
+from new_src.node import Node, bcLock
 from flask_cors import CORS
 
 app = Flask(__name__)

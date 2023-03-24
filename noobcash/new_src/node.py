@@ -1,14 +1,12 @@
 from new_src.wallet import Wallet
 from new_src.transaction import Transaction
-from new_src.blockchain import Blockchain
+from new_src.blockchain import Blockchain, minings
 from new_src.block import Block
 import time
 import requests
 import json
 import threading
 
-minings = threading.Event()
-minings.clear()
 
 valLock = threading.Lock()
 
@@ -47,6 +45,8 @@ class Node:
 
         self.waitThread_ = threading.Thread(target=self.waitThread)
         self.waitThread_.start()
+
+        minings.clear()
 
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)

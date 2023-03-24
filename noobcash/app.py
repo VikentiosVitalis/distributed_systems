@@ -49,6 +49,7 @@ def broadcast():
     return jsonify(response), 200
 
 
+
 @app.route('/mine', methods=['POST'])
 def mining():
     res = request.get_json()
@@ -218,7 +219,7 @@ def webapp_transaction():
         payload = json.dumps(payload)
         print(payload)
         URL = 'http://' + str(start.ip) + ':' + str(start.port) + "/"
-        response = requests.post(URL + "create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+        response = requests.post(start.getFullAddr() + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         if response.status_code == 200:
             print('Transaction Done!')
         else:

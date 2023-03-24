@@ -22,4 +22,3 @@ class TransactionInput:
     def __str__(self):
         """Returns a string as a representation of a TransactionOutput object"""
         return json.dumps(self.__dict__)
-

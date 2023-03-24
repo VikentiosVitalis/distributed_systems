@@ -39,7 +39,7 @@ Inside the folder 'noobcash' install the necessary requirements:
 
 ## Execution:
 Bootstrap node:
-``python3.8distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> true``
+``python3.8 distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> true``
 
 Simple node: 
 ``python3.8 distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> no``
@@ -57,7 +57,6 @@ If you want to run the tests inside the folders 5nodes and 10nodes the last inpu
 We evaluate the performance and the scalability of Noobcash by running the system in [Okeanos](https://okeanos.grnet.gr/home/) and perform from each node 100 transcations to the system. The transactions are placed in /test/transactions path and the script for executing them in stored in the /test directory.
 
 ## Contributors:
-This project was created by:
 
 <p align="center">
     <a href="https://github.com/MarkRamosS">

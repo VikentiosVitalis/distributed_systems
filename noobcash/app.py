@@ -12,12 +12,15 @@ app.debug = True
 
 KEY_ID = '-'
 
-if len(sys.argv) != 5:
+if len(sys.argv) != 5 or len(sys.argv) != 6:
     print("Usage")
-    print("python app.py Port IP number_of_nodes  is_bootstrap_node(true/false)")
+    print("python app.py Port IP number_of_nodes  is_bootstrap_node(true/false) useDefaultNodes(5/10)")
     sys.exit(0)
 
-start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4])
+if len(sys.argv) != 5:
+    start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4])
+else:
+    start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4], sys.argv[5])
 
 # Bootstrap node registers child in the blockchain
 @app.route('/bootstrap_register', methods=['POST'])

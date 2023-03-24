@@ -15,7 +15,7 @@ consFlag.set()
 
 bcLock = threading.Lock()
 class Node:
-    def __init__(self, port, IP, nodeNr, bootstrap):
+    def __init__(self, port, IP, nodeNr, bootstrap, nF=None):
         self.port = port
         self.IP = IP
         self.addr = "http://" + self.IP + ":" + str(self.port)
@@ -30,6 +30,7 @@ class Node:
         self.allBlockchains = {}
         self.currentBlock = None
         self.validationBlocks = []
+        self.nodeFile = nF
         # IPs
         self.ipList = [(0, self.bootstrapAddr, self.wallet.get_addr())]
         self.id = 0
@@ -52,8 +53,12 @@ class Node:
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
+            startBal = 100*(self.nodeNr+1)
+            # To actually test the numbers and not ignore all transactions because of balance
+            if self.nodeFile != None:
+                startBal = 10000
             tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), 1500*(self.nodeNr+1), [], 0)
+                             self.wallet.get_addr(), startBal, [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
             genBlock = Block(0, [tr], 0, 1)
@@ -64,8 +69,12 @@ class Node:
             res = json.dumps(res)
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+            startBal = 0
+            # To actually test the numbers and not ignore all transactions because of balance
+            if self.nodeFile == '5' or self.nodeFile == '10':
+                startBal = 10000
             tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), 100000, [], 0)
+                             self.wallet.get_addr(), startBal, [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
 
@@ -83,12 +92,13 @@ class Node:
         self.id = self.getID(self.wallet.get_addr())
         self.wallet.balances[self.wallet.publicKey] = 100000
         print('My id:', self.id)
-        f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
-        lines = f.readlines()
-        f.close()
-        for ll in lines:
-            receiver, amount = ll[2:].split()
-            self.createTransaction(int(receiver), int(amount))
+        if self.nodeFile != None:
+            f = open(f"distributed_systems-main/noobcash/test/transactions/{self.nodeFile}nodes/transactions{str(self.id)}.txt", "r")
+            lines = f.readlines()
+            f.close()
+            for ll in lines:
+                receiver, amount = ll[2:].split()
+                self.createTransaction(int(receiver), int(amount))
         return
 
     def getSK(self):
@@ -208,12 +218,13 @@ class Node:
         time.sleep(2)
         for tup in self.ipList[1:]:
             self.createTransaction(tup[0], 100)
-        f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
-        lines = f.readlines()
-        f.close()
-        for ll in lines:
-            receiver, amount = ll[2:].split()
-            self.createTransaction(int(receiver), int(amount))
+        if self.nodeFile != None:
+            f = open(f"distributed_systems-main/noobcash/test/transactions/{self.nodeFile}nodes/transactions{str(self.id)}.txt", "r")
+            lines = f.readlines()
+            f.close()
+            for ll in lines:
+                receiver, amount = ll[2:].split()
+                self.createTransaction(int(receiver), int(amount))
         return
 
     def broadcastTransaction(self, transaction):

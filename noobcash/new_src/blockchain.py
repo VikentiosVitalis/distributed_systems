@@ -48,12 +48,15 @@ class Blockchain:
             minings.clear()
             print('Quitting mine.')
             exit(1)
+        print('1')
         self.blockchain.append(newBlock)
+        print('2')
+        self.broadcastBlock(newBlock, time.time(), ipList, id)
+        print('3')
+        minings.clear()
         #fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
         #fd.write(str(time.time() - float(begin)) + '\n')
         #fd.close()
-        self.broadcastBlock(newBlock, time.time(), ipList, id)
-        minings.clear()
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('...................................Broadcasting Block...................................................')

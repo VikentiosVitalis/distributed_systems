@@ -1,5 +1,5 @@
 from new_src.block import Block
-import new_src.node as node
+from new_src.node import minings
 import time
 import requests
 import threading
@@ -32,7 +32,7 @@ class Blockchain:
     def insert(self, transaction, ipList, id):
         self.transactions.append(transaction)
         if len(self.transactions) == self.maxTransactions:
-            node.minings.set()
+            minings.set()
             newBlock = Block(len(self.blockchain), self.transactions, 0, self.blockchain[-1].current_hash)
             self.transactions = []
             mine = threading.Thread(name='mine', target=self.mine, args=(newBlock,ipList,id,))
@@ -43,6 +43,7 @@ class Blockchain:
         print('Starting to mine.')
         begin = time.time()
         newBlock.mine_block(self.stopMine)
+        minings.clear()
         if not self.stopMine.isSet():
             # node.valLock.acquire()
             #if  self.stopMine.isSet():
@@ -55,8 +56,7 @@ class Blockchain:
             fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
             fd.write(str(time.time() - float(begin)) + '\n')
             fd.close()
-            node.minings.clear()
-            self.broadcastBlock(newBlock, time.time(), ipList, id)
+        elf.broadcastBlock(newBlock, time.time(), ipList, id)
         self.stopMine.clear()
 
     def broadcastBlock(self, block, startTime, ipList, id):

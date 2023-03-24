@@ -136,9 +136,9 @@ class Node:
         self.blockchain.insert(new_transaction, self.ipList, self.id)
         valLock.release()
 
-        fd = open('distributed_systems-main/noobcash/times/transactions_t' + str(self.id) +  '.txt', 'a')
-        fd.write(str(now) + ' \n')
-        fd.close()
+        #fd = open('distributed_systems-main/noobcash/times/transactions_t' + str(self.id) +  '.txt', 'a')
+        #fd.write(str(now) + ' \n')
+        #fd.close()
         return new_transaction
 
     def waitThread(self):
@@ -184,7 +184,7 @@ class Node:
         for tup in self.ipList[1:]:
             self.createTransaction(tup[0], 100)
         return
-    
+
     def broadcastTransaction(self, transaction):
         # Broadcast Transaction to everyone
         print("Broadcasting Transaction.")
@@ -242,6 +242,7 @@ class Node:
             print('Current length:',len(self.blockchain.blockchain))
             print('Validate chain',self.validateChain())
             self.blockchain.stopMine.clear()
+            minings.clear()
             #valLock.release()
             return True
         #bcLock.acquire()
@@ -250,6 +251,7 @@ class Node:
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
         self.blockchain.stopMine.clear()
+        minings.clear()
         #valLock.release()
         return True
     

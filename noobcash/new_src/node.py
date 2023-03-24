@@ -45,8 +45,8 @@ class Node:
         self.nodeFlag = threading.Event()
         self.nodeFlag.clear()
 
-        waitThread = threading.Thread(target=self.waitThread)
-        waitThread.start()
+        self.waitThread_ = threading.Thread(target=self.waitThread)
+        self.waitThread_.start()
 
         if self.bootstrap:
             bootThread = threading.Thread(target=self.broadcastNodes)
@@ -234,6 +234,9 @@ class Node:
         #print('pk;',newBlock.previous_hash)
         #print('lk;',self.blockchain.getLastHash())
         print('Validating.')
+        if not self.waitThread_.is_alive():
+            print('Dead thread')
+            self.waitThread_.start()
         print(len(self.buffer))
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock

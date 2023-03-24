@@ -124,17 +124,15 @@ class Node:
         self.blockchain.transactions.append(transaction)
         if len(self.blockchain.transactions) == self.blockchain.maxTransactions:
             minings.set()
+            self.blockchain.stopMine.clear()
             newBlock = Block(len(self.blockchain.blockchain), self.blockchain.transactions, 0, self.blockchain.blockchain[-1].current_hash)
             self.transactions = []
-            self.blockchain.stopMine.clear()
             self.mineThread = threading.Thread(name='miner', target=self.blockchain.mine,
                     args=(newBlock,self.ipList,self.id,))
             self.mineThread.start()
-
         return
 
     def createTransaction1(self, receiverID, ammount):
-        print("Creating transaction.")
         now = time.time()
         # Create transaction
         prev_tr, amt = self.wallet.getMoney(ammount)
@@ -145,7 +143,6 @@ class Node:
         self.wallet.addTransaction(new_transaction)
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
-        print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
         self.insertBlockchain(new_transaction)
 
     def waitThread(self):
@@ -157,7 +154,6 @@ class Node:
             if len(self.buffer) != 0:
                 print(ctr)
                 ctr+=1
-                print(f'Reading transaction from', end="")
                 itm = self.buffer.pop(0)
                 sender, receiver, amt, inputs, amtLeft, tid, signature, create = itm
                 valLock.acquire()
@@ -172,6 +168,7 @@ class Node:
                     self.insertBlockchain(tr)
                     self.wallet.addTransaction(tr)
                 else:
+                    print(f" {self.id} -> {self.getID(sender)}.")
                     self.createTransaction1(sender, amt)
                 valLock.release()
 
@@ -227,26 +224,19 @@ class Node:
         if amt < 0:
             return 'Negative Coins.'
         return 'Accepted.'
-    
+
     def validateBlock(self, block, creationTime):
-        self.blockchain.stopMine.set()
         block = json.loads(block)
         newBlock = Block(0,[],0,0)
         newBlock.set(block)
-        tmp = newBlock.hashing()
-        if tmp != block['current_hash']:
+        if newBlock.hashing() != block['current_hash']:
             print('Invalid block with:')
-            print(tmp)
+            print(newBlock.hashing())
             print(block['current_hash'])
             return False
         valLock.acquire()
-        #print('hk;',newBlock.current_hash)
-        #print('pk;',newBlock.previous_hash)
-        #print('lk;',self.blockchain.getLastHash())
+        self.blockchain.stopMine.set()
         print('Validating.')
-        if not self.waitThread_.is_alive():
-            print('Dead thread')
-            self.waitThread_.start()
         print(len(self.buffer))
         if block['previous_hash'] != self.blockchain.getLastHash():
             self.currentBlock = newBlock
@@ -255,17 +245,10 @@ class Node:
             print('Current length:',len(self.blockchain.blockchain))
             print('Validate chain',self.validateChain())
             self.blockchain.stopMine.clear()
-            minings.clear()
-            valLock.release()
-            if self.mineThread.is_alive():
-                print('Mine not dead yet')
-            return True
-        #bcLock.acquire()
-        self.blockchain.blockchain.append(newBlock)
-        #bcLock.release()
+        else :
+            self.blockchain.blockchain.append(newBlock)
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
-        self.blockchain.stopMine.clear()
         valLock.release()
         if self.mineThread.is_alive():
             print('Mine not dead yet')

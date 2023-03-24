@@ -17,7 +17,7 @@ if len(sys.argv) != 5 and len(sys.argv) != 6:
     print("python app.py Port IP number_of_nodes  is_bootstrap_node(true/false) useDefaultNodes(5/10)")
     sys.exit(0)
 
-if len(sys.argv) != 5:
+if len(sys.argv) == 5:
     start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4])
 else:
     start = Node(int(sys.argv[1]), sys.argv[2], int(sys.argv[3]), sys.argv[4], sys.argv[5])

@@ -158,7 +158,6 @@ class Node:
             if len(self.buffer) != 0:
                 itm = self.buffer.pop(0)
                 sender, receiver, amt, inputs, amtLeft, tid, signature, create = itm
-                valLock.acquire()
                 if not create:
                     tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
                     print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
@@ -172,7 +171,6 @@ class Node:
                 else:
                     print(f" {self.id} -> {sender}.")
                     self.createTransaction1(sender, amt)
-                valLock.release()
 
     def broadcastNodes(self):
         self.nodeFlag.wait()
@@ -236,7 +234,6 @@ class Node:
             print(newBlock.hashing())
             print(block['current_hash'])
             return False
-        valLock.acquire()
         self.blockchain.stopMine.set()
         print('Validating.')
         print(len(self.buffer))
@@ -251,7 +248,6 @@ class Node:
             self.blockchain.blockchain.append(newBlock)
         print('Current length:',len(self.blockchain.blockchain))
         print('Validate chain',self.validateChain())
-        valLock.release()
         if self.mineThread.is_alive():
             print('Mine not dead yet')
         return True

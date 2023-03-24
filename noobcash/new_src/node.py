@@ -45,6 +45,7 @@ class Node:
         self.waitThread_ = threading.Thread(target=self.waitThread)
         self.waitThread_.start()
 
+        self.mineThread = threading.Thread(target = self.blockchain.mine)
         minings.clear()
 
         if self.bootstrap:
@@ -119,6 +120,19 @@ class Node:
     def createTransaction(self, receiverID, ammount):
         self.buffer.append([receiverID, None, ammount, None, None, None, None, True])
 
+    def insertBlockchain(self, transaction):
+        self.blockchain.transactions.append(transaction)
+        if len(self.blockchain.transactions) == self.blockchain.maxTransactions:
+            minings.set()
+            newBlock = Block(len(self.blockchain.blockchain), self.blockchain.transactions, 0, self.blockchain.blockchain[-1].current_hash)
+            self.transactions = []
+            self.blockchain.stopMine.clear()
+            self.mineThread = threading.Thread(name='miner', target=self.blockchain.mine,
+                    args=(newBlock,self.ipList,self.id,))
+            self.mineThread.start()
+
+        return
+
     def createTransaction1(self, receiverID, ammount):
         print("Creating transaction.")
         now = time.time()
@@ -132,7 +146,7 @@ class Node:
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
-        self.blockchain.insert(new_transaction, self.ipList, self.id)
+        self.insertBlockchain(new_transaction)
 
     def waitThread(self):
         ctr = 0
@@ -155,7 +169,7 @@ class Node:
                         print(self.validateTransaction(tr))
                         continue
                     # Insert to block
-                    self.blockchain.insert(tr, self.ipList, self.id)
+                    self.insertBlockchain(tr)
                     self.wallet.addTransaction(tr)
                 else:
                     self.createTransaction1(sender, amt)
@@ -243,6 +257,8 @@ class Node:
             self.blockchain.stopMine.clear()
             minings.clear()
             valLock.release()
+            if self.mineThread.is_alive():
+                print('Mine not dead yet')
             return True
         #bcLock.acquire()
         self.blockchain.blockchain.append(newBlock)
@@ -251,7 +267,8 @@ class Node:
         print('Validate chain',self.validateChain())
         self.blockchain.stopMine.clear()
         valLock.release()
-        minings.clear()
+        if self.mineThread.is_alive():
+            print('Mine not dead yet')
         return True
     
     def resolveConflict(self):

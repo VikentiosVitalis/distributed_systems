@@ -45,7 +45,8 @@ class Blockchain:
         begin = time.time()
         newBlock.mine_block(self.stopMine)
         minings.clear()
-        if self.stopMine:
+        if self.stopMine.isSet():
+            print('Quitting mine.')
             exit(1)
         self.blockchain.append(newBlock)
         fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')

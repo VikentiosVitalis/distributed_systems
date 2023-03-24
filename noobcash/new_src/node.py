@@ -144,7 +144,6 @@ class Node:
         return
 
     def createTransaction1(self, receiverID, ammount):
-        begin = time.time()
         if receiverID == self.id:
             return 'Nodes to self'
         if ammount > self.wallet.getMyBalance() or ammount <= 0:
@@ -159,11 +158,7 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.wallet.addTransaction(new_transaction)
         self.broadcastTransaction(new_transaction)
-        end = time.time() - begin
         self.insertBlockchain(new_transaction)
-        fd = open('distributed_systems-main/noobcash/times/transactions_t'+ str(self.id) +'.txt', 'a')
-        fd.write(str(end) + '\n')
-        fd.close()
         return 'Accepted.'
 
     def waitThread(self):

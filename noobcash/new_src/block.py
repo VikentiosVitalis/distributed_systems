@@ -2,7 +2,7 @@ from new_src.transaction import Transaction
 import hashlib as hasher
 import time
 import json
-DIFFICULTY = 1
+DIFFICULTY = 4
 
 # Noobcash Block:
 #
@@ -68,6 +68,5 @@ class Block:
             if temp.isSet():
                 return 0
             self.nonce += 1
-        print('done mining')
         self.current_hash = self.hashing()
         return

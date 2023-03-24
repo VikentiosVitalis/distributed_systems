@@ -17,7 +17,6 @@ consFlag.set()
 
 addLock = threading.Lock()
 bcLock = threading.Lock()
-
 class Node:
     def __init__(self, port, IP, nodeNr, bootstrap):
         self.port = port
@@ -64,6 +63,7 @@ class Node:
             res = json.dumps(res)
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+
 
     def addNode(self, IP, addr):
         self.ipList.append((self.nodesActive + 1, IP, addr))
@@ -184,7 +184,7 @@ class Node:
         for tup in self.ipList[1:]:
             self.createTransaction(tup[0], 100)
         return
-
+    
     def broadcastTransaction(self, transaction):
         # Broadcast Transaction to everyone
         print("Broadcasting Transaction.")
@@ -217,7 +217,7 @@ class Node:
         if amt < 0:
             return 'Negative Coins.'
         return 'Accepted.'
-
+    
     def validateBlock(self, block, creationTime):
         self.blockchain.stopMine.set()
         block = json.loads(block)
@@ -250,7 +250,7 @@ class Node:
         print('Validate chain',self.validateChain())
         valLock.release()
         return True
-
+    
     def resolveConflict(self):
         # Wait for all nodes to send their blockchains
         while len(self.allBlockchains) != self.nodeNr:
@@ -283,3 +283,4 @@ class Node:
             if bl.current_hash != bl.hashing():
                 return False
         return True
+

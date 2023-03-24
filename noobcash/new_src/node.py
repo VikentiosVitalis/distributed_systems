@@ -53,7 +53,7 @@ class Node:
             bootThread = threading.Thread(target=self.broadcastNodes)
             bootThread.start()
             tr = Transaction(self.wallet.get_addr(),
-                             self.wallet.get_addr(), 100*(self.nodeNr+1), [], 0)
+                             self.wallet.get_addr(), 500*(self.nodeNr+1), [], 0)
             tr.signature = self.wallet.sign(tr.tid)
             self.wallet.addTransaction(tr)
             genBlock = Block(0, [tr], 0, 1)
@@ -144,7 +144,7 @@ class Node:
         return
 
     def createTransaction1(self, receiverID, ammount):
-        now = time.time()
+        begin = time.time()
         if (ammount > self.wallet.getMyBalance() or ammount <= 0) and (receiverID != self.id):
             return f'Invalid balance : {self.wallet.getMyBalance()} <= {ammount}'
         if receiverID > self.nodeNr:
@@ -157,8 +157,11 @@ class Node:
         new_transaction.signature = self.wallet.sign(new_transaction.tid)
         self.wallet.addTransaction(new_transaction)
         self.broadcastTransaction(new_transaction)
-        now = time.time() - now
+        end = time.time() - begin
         self.insertBlockchain(new_transaction)
+        fd = open('distributed_systems-main/noobcash/times/transactions_t'+ str(self.id) +'.txt', 'a')
+        fd.write(str(end) + '\n')
+        fd.close()
         return True
 
     def waitThread(self):

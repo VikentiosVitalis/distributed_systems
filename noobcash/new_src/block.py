@@ -24,6 +24,7 @@ class Block:
         self.nonce = nonce                      # Proof-Of-Work solution
         self.previous_hash = previous_hash      # Previous plaintext which is now a unique hash digest that
                                                 # cannot be reverted to the original plaintext
+        self.goal = '0'*DIFFICULTY
         self.timestamp = timestamp
         self.current_hash = '-1'
 
@@ -63,9 +64,10 @@ class Block:
         return res
 
     def mine_block(self, temp):
-        while self.hashing()[:DIFFICULTY] != '0' * DIFFICULTY:
+        while self.hashing()[:DIFFICULTY] != self.goal:
             if temp.isSet():
                 return 0
             self.nonce += 1
+        print('done mining')
         self.current_hash = self.hashing()
-        return self
+        return

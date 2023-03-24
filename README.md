@@ -18,14 +18,14 @@ between users are registered and consensus (agreement on any subject by a group 
 * Web page placed in the frontend directory.
 
 ## Built with:
-The REST API is written in Python 3.8 using the following libraries:
+The REST API is written in [Python 3.8](https://www.python.org/) using the following libraries:
 * [Flask 8.1.1](https://flask-cors.readthedocs.io/en/latest/)
 * [Flask-Cors 3.0.10](https://flask-cors.readthedocs.io/en/latest/)
 * [pycryptodome 3.17](https://pycryptodome.readthedocs.io/en/latest/)
 * [requests 2.27.1](https://requests.readthedocs.io/en/latest/)
 * [urllib3 1.26.15](https://urllib3.readthedocs.io/en/stable/)
 
-The webapp is developed using Django 4.1.7 and:
+The webapp is developed using [Django 4.1.7](https://docs.djangoproject.com/en/4.1/) and:
 * [Python 3.8](https://www.python.org/)
 * [HTML 5](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS 3](https://developer.mozilla.org/en-US/docs/Web/CSS)

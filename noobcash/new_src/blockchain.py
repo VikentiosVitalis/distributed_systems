@@ -44,15 +44,16 @@ class Blockchain:
         print('Starting to mine.')
         begin = time.time()
         newBlock.mine_block(self.stopMine)
-        minings.clear()
         if self.stopMine.isSet():
+            minings.clear()
             print('Quitting mine.')
             exit(1)
         self.blockchain.append(newBlock)
-        fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
-        fd.write(str(time.time() - float(begin)) + '\n')
-        fd.close()
+        #fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
+        #fd.write(str(time.time() - float(begin)) + '\n')
+        #fd.close()
         self.broadcastBlock(newBlock, time.time(), ipList, id)
+        minings.clear()
 
     def broadcastBlock(self, block, startTime, ipList, id):
         print('...................................Broadcasting Block...................................................')

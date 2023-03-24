@@ -152,8 +152,6 @@ class Node:
             if minings.isSet():
                 minings.wait()
             if len(self.buffer) != 0:
-                print(ctr)
-                ctr+=1
                 itm = self.buffer.pop(0)
                 sender, receiver, amt, inputs, amtLeft, tid, signature, create = itm
                 valLock.acquire()

@@ -46,14 +46,7 @@ class Blockchain:
         newBlock.mine_block(self.stopMine)
         minings.clear()
         if not self.stopMine.isSet():
-            # node.valLock.acquire()
-            #if  self.stopMine.isSet():
-            #    node.valLock.release()
-            #    return
-            # node.bcLock.acquire()
             self.blockchain.append(newBlock)
-            # node.bcLock.release()
-            #node.valLock.release()
             fd = open('distributed_systems-main/noobcash/times/mining' + '.txt', 'a')
             fd.write(str(time.time() - float(begin)) + '\n')
             fd.close()

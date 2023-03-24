@@ -13,7 +13,6 @@ valLock = threading.Lock()
 consFlag = threading.Event()
 consFlag.set()
 
-addLock = threading.Lock()
 bcLock = threading.Lock()
 class Node:
     def __init__(self, port, IP, nodeNr, bootstrap):
@@ -133,14 +132,7 @@ class Node:
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
-        valLock.acquire()
         self.blockchain.insert(new_transaction, self.ipList, self.id)
-        valLock.release()
-
-        #fd = open('distributed_systems-main/noobcash/times/transactions_t' + str(self.id) +  '.txt', 'a')
-        #fd.write(str(now) + ' \n')
-        #fd.close()
-        return new_transaction
 
     def waitThread(self):
         ctr = 0
@@ -154,6 +146,7 @@ class Node:
                 print(f'Reading transaction from', end="")
                 itm = self.buffer.pop(0)
                 sender, receiver, amt, inputs, amtLeft, tid, signature, create = itm
+                valLock.acquire()
                 if not create:
                     tr = Transaction(sender, receiver, amt, inputs, amtLeft, tid, signature.encode('ISO-8859-1'))
                     print(f" {self.getID(sender)} -> {self.getID(receiver)}.")
@@ -162,12 +155,11 @@ class Node:
                         print(self.validateTransaction(tr))
                         continue
                     # Insert to block
-                    valLock.acquire()
                     self.blockchain.insert(tr, self.ipList, self.id)
                     self.wallet.addTransaction(tr)
-                    valLock.release()
                 else:
                     self.createTransaction1(sender, amt)
+                valLock.release()
 
     def broadcastNodes(self):
         self.nodeFlag.wait()
@@ -276,14 +268,7 @@ class Node:
             block = Block(0,[],0,0)
             block.set(b)
             blocks.append(block)
-            #for i in block.transactions:
-            #    # if json.loads(i)['tid'] in self.wallet.tr_dict: continue
-            #    rr = json.loads(i)
-            #    tr = Transaction(rr['sender'], rr['receiver'], rr['amount'], rr['inputs'], rr['amtLeft'],rr['tid'],rr['signature'].encode('ISO-8859-1'))
-            #    self.wallet.addTransaction(tr)
-        #bcLock.acquire()
         self.blockchain.blockchain = blocks
-        # bcLock.release()
         return
 
     def validateChain(self):

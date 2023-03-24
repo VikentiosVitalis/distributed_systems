@@ -63,7 +63,9 @@ class Block:
         return res
 
     def mine_block(self, temp):
-        while self.hashing()[:DIFFICULTY] == '0' * DIFFICULTY is False and not temp.isSet():
+        while self.hashing()[:DIFFICULTY] != '0' * DIFFICULTY:
+            if temp.isSet():
+                return 0
             self.nonce += 1
         self.current_hash = self.hashing()
         return self

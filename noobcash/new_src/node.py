@@ -120,7 +120,6 @@ class Node:
     def createTransaction(self, receiverID, ammount):
         if minings.isSet():
             minings.wait()
-        valLock.acquire()
         print("Creating transaction.")
         now = time.time()
         # Create transaction
@@ -133,6 +132,7 @@ class Node:
         self.broadcastTransaction(new_transaction)
         now = time.time() - now
         print(f'Inserting transaction from {self.getID(new_transaction.sender)} to {self.getID(new_transaction.receiver)}.')
+        valLock.acquire()
         self.blockchain.insert(new_transaction, self.ipList, self.id)
         valLock.release()
 
@@ -148,7 +148,6 @@ class Node:
             if minings.isSet():
                 minings.wait()
             if len(self.buffer) != 0:
-                valLock.acquire()
                 print(ctr)
                 ctr+=1
                 print(f'Reading transaction from', end="")
@@ -161,6 +160,7 @@ class Node:
                     print(self.validateTransaction(tr))
                     continue
                 # Insert to block
+                valLock.acquire()
                 self.blockchain.insert(tr, self.ipList, self.id)
                 self.wallet.addTransaction(tr)
                 valLock.release()

@@ -168,7 +168,7 @@ class Node:
                     self.insertBlockchain(tr)
                     self.wallet.addTransaction(tr)
                 else:
-                    print(f" {self.id} -> {self.getID(sender)}.")
+                    print(f" {self.id} -> {sender}.")
                     self.createTransaction1(sender, amt)
                 valLock.release()
 

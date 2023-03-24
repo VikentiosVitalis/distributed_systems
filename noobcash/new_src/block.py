@@ -2,7 +2,7 @@ from new_src.transaction import Transaction
 import hashlib as hasher
 import time
 import json
-DIFFICULTY = 2
+DIFFICULTY = 4
 
 # Noobcash Block:
 #

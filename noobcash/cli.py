@@ -52,10 +52,12 @@ responses = {}
 
 for lctr in range(len(ll[0])):
     print(lctr)
+    time.sleep(10)
     for i, ip in enumerate(ipList):
         receiver, amount = ll[i][lctr][2:].split()
         payload = {'address': receiver, 'coins': amount}
         payload = json.dumps(payload)
+        print(payload)
         response = requests.post(ip + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         if response.text not in responses:
             responses[response.text] = 1

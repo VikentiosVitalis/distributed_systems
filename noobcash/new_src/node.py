@@ -42,7 +42,7 @@ class Node:
         # Flag that indicates that we have all nodes
         self.nodeFlag = threading.Event()
         self.nodeFlag.clear()
-
+        
         self.waitThread_ = threading.Thread(target=self.waitThread)
         self.waitThread_.start()
 
@@ -140,8 +140,6 @@ class Node:
 
     def createTransaction1(self, receiverID, ammount):
         now = time.time()
-        if receiverID == self.id:
-            return 'Invalid id'
         if ammount > self.wallet.getMyBalance() or ammount <= 0:
             return f'Invalid balance : {self.wallet.getMyBalance()} <= {ammount}'
         if receiverID > self.nodeNr:

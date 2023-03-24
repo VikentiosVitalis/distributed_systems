@@ -12,7 +12,9 @@ between users are registered and consensus (agreement on any subject by a group 
 
 ## Deliverables:
 REST API that implements the functionality of Noobcash and it is placed in the new_src directory.
+
 CLI client placed in the cli.py file.
+
 Web page placed in the frontend directory.
 
 ## Built with:

@@ -65,7 +65,6 @@ class Node:
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
 
-
     def addNode(self, IP, addr):
         self.ipList.append((self.nodesActive + 1, IP, addr))
         self.wallet.balances[addr] = 0
@@ -79,6 +78,9 @@ class Node:
         self.wallet.setOutputs(self.ipList)
         self.id = self.getID(self.wallet.get_addr())
         print('My id:', self.id)
+        f = open(f"distributed_systems-main/noobcash/test/transactions/5nodes/transactions{str(self.id)}.txt", "r")
+        lines = f.readlines()
+        
         return
 
     def getSK(self):

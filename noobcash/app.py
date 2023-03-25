@@ -218,7 +218,7 @@ def webapp_transaction():
         payload = {'address': receiver, 'coins': coins}
         payload = json.dumps(payload)
         print(payload)
-        #response = requests.post(start.getFullAddr() + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
+        response = requests.post(start.getFullAddr() + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
         print('Transaction Done!')
     response = 'Transaction succeded.'
     return jsonify(response), 200

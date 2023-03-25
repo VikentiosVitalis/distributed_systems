@@ -11,5 +11,9 @@ Run noobcash:
 python3.8 distributed_systems-main/noobcash/app.py 5000 83.212.81.180 4 true
 python3.8 distributed_systems-main/noobcash/cli.py 5000 83.212.81.180
 
+Run with nodes:
+python3.8 distributed_systems-main/noobcash/app.py 5000 192.168.0.3 4 true 5
+python3.8 distributed_systems-main/noobcash/app.py 5000 192.168.0.3 9 true 10
+
 Get latest Github version:
 ./update.sh

@@ -313,16 +313,15 @@
     method: "POST",
     headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },
     body: JSON.stringify(data)
-  }).then((response) => {
-      console.log(response.json())
-      alert(response.json())
-      document.getElementById('id02').style.display = 'block'
-      return response
-    })
-    .then(function (data) {
-      console.log(data)
-    })
-        });
+  }).then(response =>
+    response.json().then(dat => ({
+      data: dat,
+      status: response.status
+    }).then(res => {
+      console.log(res.status, res.data.title)
+    }))
+  );
+
 
 </script>
 

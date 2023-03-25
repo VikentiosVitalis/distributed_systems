@@ -1,7 +1,7 @@
-from new_src.wallet import Wallet
-from new_src.transaction import Transaction
-from new_src.blockchain import Blockchain, minings
-from new_src.block import Block
+from src.wallet import Wallet
+from src.transaction import Transaction
+from src.blockchain import Blockchain, minings
+from src.block import Block
 import time
 import requests
 import json

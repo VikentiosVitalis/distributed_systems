@@ -2,8 +2,8 @@ from Crypto import PublicKey
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
 from Crypto.Signature import PKCS1_v1_5
-from new_src.transaction import Transaction
-from new_src.transactions_output import TransactionOutput
+from src.transaction import Transaction
+from src.transactions_output import TransactionOutput
 
 # Wallet:
 #   A wallet is associated with a public/private key pair. 

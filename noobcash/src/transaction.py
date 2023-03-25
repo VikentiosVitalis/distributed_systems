@@ -1,8 +1,8 @@
 from Crypto.Signature import PKCS1_v1_5
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
-from new_src.transactions_input import TransactionInput
-from new_src.transactions_output import TransactionOutput
+from src.transactions_input import TransactionInput
+from src.transactions_output import TransactionOutput
 import Crypto
 import json
 

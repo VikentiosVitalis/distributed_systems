@@ -2,7 +2,7 @@ import time
 import sys
 import requests
 import json
-import new_src.node as node
+import src.node as node
 
 help_message = '''
 Usage:

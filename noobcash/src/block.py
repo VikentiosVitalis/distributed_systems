@@ -1,4 +1,4 @@
-from new_src.transaction import Transaction
+from src.transaction import Transaction
 import hashlib as hasher
 import time
 import json

@@ -1,4 +1,4 @@
-from new_src.block import Block
+from src.block import Block
 import time
 import requests
 import threading

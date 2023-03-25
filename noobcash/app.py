@@ -202,18 +202,18 @@ def webapp_transaction():
     print('transaction')
     if not coins.isnumeric():
         response = 'You should provide a number for the coins.'
-        return jsonify(response), 400
+        return jsonify(response), 200
     elif sender == receiver:
         response = 'You can not send money to yourself.'
-        return jsonify(response), 400
+        return jsonify(response), 200
 
     elif start.id != int(sender):
         response = 'This is not your ID.'
-        return jsonify(response), 400
+        return jsonify(response), 200
 
     elif int(sender) != start.id:
         response = 'Your ID is not valid.'
-        return jsonify(response), 400
+        return jsonify(response), 200
     else:
         payload = {'address': receiver, 'coins': coins}
         payload = json.dumps(payload)

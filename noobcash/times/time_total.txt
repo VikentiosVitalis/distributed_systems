@@ -1,15 +1,16 @@
+Throughput of 5 nodes
 27 mins 47 transactions 4 1
 14 mins 75 transactions 4 5
 4 mins 70 transactions 4 10
 15 mins 5 transactions 5 1 
 18 mins 15 transactions 5 5
 15 mins 30 transactions 5 10
-
-30 mins 60 transactions
-15 mins 80 transactions
-4 mins 70 transactions
-15 mins 7 transactions
-18 mins 25 transactions
-15 mins 30 transactions
+Throughput of 10 nodes:
+-- mins -- transactions 4 1
+-- mins -- transactions 4 5
+- mins -- transactions 4 10
+11 mins 36 transactions 5 1
+__ mins __ transactions 5 5
+11 mins 40 transactions 5 10
 
 

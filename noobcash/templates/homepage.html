@@ -315,7 +315,7 @@
     body: JSON.stringify(data)
   }, { mode: 'no-cors' })
     .then(function (response) {
-      console.log(response.json())
+      console.log(response.text())
       document.getElementById('id02').style.display = 'block'
       return response
     })

@@ -199,7 +199,7 @@ def webapp_transaction():
     sender = res['sender']
     receiver = res['receiver']
     coins = res['amount']
-
+    print('transaction')
     if not coins.isnumeric():
         response = 'You should provide a number for the coins.'
         return jsonify(response), 400

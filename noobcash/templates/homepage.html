@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="icon" type="image/x-icon" href="/images/blockchain-logo.png">
 
- <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
   <style>
     body {
       background-image: url("https://wallpapers.com/images/featured/7sfd6znw2ry6hnlt.jpg");
@@ -248,7 +247,10 @@
       </div>
     </div>
   </div>
-  <div class="div1">
+
+
+
+  <!--   <div class="div1">
     {# <h2 style="margin-top: 50px; margin-left: 30px; font-size: 27px">Get ID from Public Key:</h2>#}
     {# <form style="margin-left: 30px" id="transaction_form">#}
       {# <div style="margin-top: 20px">#}
@@ -258,8 +260,10 @@
       {# </form>#}
     {# <button id="searchid" class="button3">Search ID</button>#}
     {# <p>style="margin-top: 50px; margin-left: 30px; font-size: 27px"> ID: {{ data['KEY_ID'] }} </p>#}
+  </div>  -->
 
-  </div>
+
+
   <div class="div1">
     <h2 style="margin-top: 50px; margin-left: 30px; font-size: 27px">Create a transaction:</h2>
 
@@ -291,6 +295,7 @@
     c = document.getElementById("amount").value
     console.log({{ data['bal'] }})
   // checks
+  /*
   if (r > {{ data['NO_OF_NODES'] }}) {
     console.log("Invalid receiver ID")
     document.getElementById('id06').style.display = 'block'
@@ -315,12 +320,12 @@
     console.log("NOOOO ")
     document.getElementById('id07').style.display = 'block'
     return
-  }
+  }*/
 
   data = { 'sender': s, 'receiver': r, 'amount': c }
   console.log(data)
-  console.log('{{ data['ADDRESS']}}')
-  fetch('{{ data['ADDRESS'] }}' + "/create_transaction_webapp", {
+  //console.log('{{ data['ADDRESS']}}')
+  fetch('http://83.212.81.180:5000' + "/create_transaction_webapp", {
     method: "POST",
     headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },
     body: JSON.stringify(data)
@@ -334,30 +339,34 @@
     })
         });
 
-  {#   $("#searchid").click(function (e) {# }
-        {#    e.preventDefault();#}
-        {#     key = document.getElementById("key").value#}
-        {## }
-        {#    //data = $('#transaction_form').serialize()#}
-        {#    data = { 'key': key }#}
-        {#    console.log(data)#}
-        {#    fetch('{{ data['ADDRESS'] }}' + "/search_by_key", {#}
-        {#        method: "POST",#}
-        {#        headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },#}
-        {#        body: JSON.stringify(data)#}
-        {#    })#
-  }
-  {#.then(function (response) {# }
-        {#            $('#myModal').modal('toggle')#}
-        {## }
-        {#            return response#}
-        {#        })#
-  }
-  {#.then(function (data) {# }
-        {#            console.log(data)#}
-        {#        })#
-  }
-  {# });#}
+
+
+  /* {#   $("#searchid").click(function (e) {# }
+          {#    e.preventDefault();#}
+          {#     key = document.getElementById("key").value#}
+          {## }
+          {#    //data = $('#transaction_form').serialize()#}
+          {#    data = { 'key': key }#}
+          {#    console.log(data)#}
+          {#    fetch('{{ data['ADDRESS'] }}' + "/search_by_key", {#}
+          {#        method: "POST",#}
+          {#        headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },#}
+          {#        body: JSON.stringify(data)#}
+          {#    })#
+    }
+    {#.then(function (response) {# }
+          {#            $('#myModal').modal('toggle')#}
+          {## }
+          {#            return response#}
+          {#        })#
+    }
+    {#.then(function (data) {# }
+          {#            console.log(data)#}
+          {#        })#
+    }
+    {# });#}  */
+
+
 
 </script>
 

@@ -248,6 +248,22 @@
     </div>
   </div>
 
+
+
+  <!--   <div class="div1">
+    {# <h2 style="margin-top: 50px; margin-left: 30px; font-size: 27px">Get ID from Public Key:</h2>#}
+    {# <form style="margin-left: 30px" id="transaction_form">#}
+      {# <div style="margin-top: 20px">#}
+        {# <label for="fname" style="font-size: 22px"><b>Insert Public Key </b></label>#}
+        {# <input style="margin-left: 40px" type="text" id="key" name="key" placeholder="Public Key">#}
+        {# </div>#}
+      {# </form>#}
+    {# <button id="searchid" class="button3">Search ID</button>#}
+    {# <p>style="margin-top: 50px; margin-left: 30px; font-size: 27px"> ID: {{ data['KEY_ID'] }} </p>#}
+  </div>  -->
+
+
+
   <div class="div1">
     <h2 style="margin-top: 50px; margin-left: 30px; font-size: 27px">Create a transaction:</h2>
 
@@ -279,7 +295,6 @@
     c = document.getElementById("amount").value
     console.log({{ data['bal'] }})
   // checks
-  /*
   if (r > {{ data['NO_OF_NODES'] }}) {
     console.log("Invalid receiver ID")
     document.getElementById('id06').style.display = 'block'
@@ -304,7 +319,7 @@
     console.log("NOOOO ")
     document.getElementById('id07').style.display = 'block'
     return
-  }*/
+  }
 
   data = { 'sender': s, 'receiver': r, 'amount': c }
   console.log(data)
@@ -313,15 +328,42 @@
     method: "POST",
     headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },
     body: JSON.stringify(data)
-  }).then(response =>
-    response.json().then(dat => ({
-      data: dat,
-      status: response.status
-    }).then(res => {
-      console.log(res.status, res.data.title)
-    }))
-  );
-  });
+  }, { mode: 'no-cors' })
+    .then(function (response) {
+      document.getElementById('id02').style.display = 'block'
+      return response
+    })
+    .then(function (data) {
+      console.log(data)
+    })
+        });
+
+
+
+  /* {#   $("#searchid").click(function (e) {# }
+          {#    e.preventDefault();#}
+          {#     key = document.getElementById("key").value#}
+          {## }
+          {#    //data = $('#transaction_form').serialize()#}
+          {#    data = { 'key': key }#}
+          {#    console.log(data)#}
+          {#    fetch('{{ data['ADDRESS'] }}' + "/search_by_key", {#}
+          {#        method: "POST",#}
+          {#        headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },#}
+          {#        body: JSON.stringify(data)#}
+          {#    })#
+    }
+    {#.then(function (response) {# }
+          {#            $('#myModal').modal('toggle')#}
+          {## }
+          {#            return response#}
+          {#        })#
+    }
+    {#.then(function (data) {# }
+          {#            console.log(data)#}
+          {#        })#
+    }
+    {# });#}  */
 
 
 

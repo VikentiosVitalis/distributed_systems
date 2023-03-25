@@ -313,10 +313,10 @@
     method: "POST",
     headers: { 'Content-type': 'application/json', 'Accept': 'text/plain' },
     body: JSON.stringify(data)
-  }, { mode: 'no-cors' })
+  })
     .then(function (response) {
       // console.log(response.json())
-      alert(response[[PromiseResult]])
+      alert(response)
       document.getElementById('id02').style.display = 'block'
       return response
     })

@@ -9,7 +9,7 @@ DIFFICULTY = 4
 #   index:          Number of Block (1,2,3...)
 #   timestamp:      Time of block creation
 #   transactions:   List of a transactions contained in a Block 
-#   nonce:          Proof-Of-Work' solution
+#   nonce:          Changing variable for the solution of Proof-Of-Work
 #   current_hash:   Current Block's plaintext which is now a unique hash digest that cannot be reverted to original plaintext
 #   previous_hash:  Previous Block's hash digest
 #
@@ -21,7 +21,7 @@ class Block:
         # Blocks's info
         self.index = index
         self.transactions = [tr.toJSON() for tr in transactions]
-        self.nonce = nonce                      # Proof-Of-Work solution
+        self.nonce = nonce                      # Changing variable for the solution of Proof-Of-Work
         self.previous_hash = previous_hash      # Previous plaintext which is now a unique hash digest that
                                                 # cannot be reverted to the original plaintext
         self.goal = '0'*DIFFICULTY

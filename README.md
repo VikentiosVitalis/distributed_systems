@@ -11,11 +11,11 @@ Task of this a project is to create the "Noobcash", a simple blockchain system i
 between users are registered and consensus (agreement on any subject by a group of participants) is certified with Proof-of-Work (a decentralized consensus mechanism that requires network members to expend effort in solving an encrypted hexadecimal number).
 
 ## Deliverables:
-* Backend that implements the functionality of Noobcash and it is placed in the new_src directory.
+* Backend that implements the functionality of Noobcash and it is placed in the 'src' directory.
 
-* CLI client placed in the cli.py file.
+* CLI client placed in the 'cli.py' file.
 
-* Web page placed in the templates directory.
+* Web page placed in the 'templates' directory.
 
 ## Built with:
 The REST API is written in [Python 3.8](https://www.python.org/) using the following libraries:
@@ -39,12 +39,20 @@ Inside the folder 'noobcash' install the necessary requirements:
 
 ## Execution:
 Bootstrap node:
+
 ``python3.8 distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> true``
 
 Simple node: 
+
 ``python3.8 distributed_systems-main/noobcash/app.py <PORT> <IP> <Number of Children in the System> no``
 
-Web Interface: ``http://<IP>:<PORT>/``
+Example: 
+
+``python3.8 distributed_systems-main/noobcash/app.py 5000 83.212.81.180 4 true``
+
+Web Interface: 
+
+``http://<IP>:<PORT>/``
 
 Run CLI: 
 

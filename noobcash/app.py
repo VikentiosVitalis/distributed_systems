@@ -211,20 +211,16 @@ def webapp_transaction():
         response = 'This is not your ID.'
         return jsonify(response), 400
 
-    elif int(sender) != start.ID:
+    elif int(sender) != start.id:
         response = 'Your ID is not valid.'
         return jsonify(response), 400
     else:
         payload = {'address': receiver, 'coins': coins}
         payload = json.dumps(payload)
         print(payload)
-        URL = 'http://' + str(start.ip) + ':' + str(start.port) + "/"
         response = requests.post(start.getFullAddr() + "/create_transaction", data=payload, headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
-        if response.status_code == 200:
-            print('Transaction Done!')
-        else:
-            print(f'Error: {response.text}')
-    response = {'message': 'OKEIII'}
+        print('Transaction Done!')
+    response = 'Transaction succeded.'
     return jsonify(response), 200
 
 if __name__ == '__main__':

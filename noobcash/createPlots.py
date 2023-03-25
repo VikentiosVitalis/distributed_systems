@@ -41,9 +41,11 @@ for i in range(6):
 thr10 = []
 for i in range(6):
     thr10.append(float(s[8+i][2])/float(s[8+i][0]))
-plt.plot([1, 5, 10], t5[:3], ylabel='d=4,n=5')
-plt.plot([1, 5, 10], t5[3:], ylabel='d=5,n=5')
-plt.plot([1, 5, 10], t10[:3], ylabel='d=4,n=10')
-plt.plot([1, 5, 10], t10[3:], ylabel='d=5,n=10')
+plt.figure()
+plt.plot([1, 5, 10], thr5[:3], label='d=4,n=5')
+plt.plot([1, 5, 10], thr5[3:], label='d=5,n=5')
 
-plt.savefig('plots/throughput.pdf')
+plt.plot([1, 5, 10], thr10[:3], label='d=4,n=10')
+plt.plot([1, 5, 10], thr10[3:], label='d=5,n=10')
+
+plt.savefig('plots/throughput10.pdf')

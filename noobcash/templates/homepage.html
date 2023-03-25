@@ -315,8 +315,9 @@
     body: JSON.stringify(data)
   })
     .then(function (response) {
-      // console.log(response.json())
-      alert(response)
+      console.log(response.json())
+      console.log(response.text())
+      alert(response.json())
       document.getElementById('id02').style.display = 'block'
       return response
     })

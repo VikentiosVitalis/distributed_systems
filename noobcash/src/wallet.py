@@ -68,12 +68,13 @@ class Wallet:
             return # No duplicates
 
         for tid in transaction.inputs.previous_output_id:
-            w = self.tr_dict[tid]
-            tr = self.transactions[w]
-            if tr.sender == transaction.sender:   
-                tr.outputSender.unspent = False
-            else:
-                tr.outputReceiver.unspent = False
+            if tid in self.tr_dict: 
+                w = self.tr_dict[tid]
+                tr = self.transactions[w]
+                if tr.sender == transaction.sender:   
+                    tr.outputSender.unspent = False
+                else:
+                    tr.outputReceiver.unspent = False
 
         # If this wallet is in the transaction add the money to my list
         if transaction.sender == self.publicKey and transaction.outputSender.amount > 0:

@@ -9,7 +9,7 @@ Usage:
 $ python app.py HOST PORT NUMBER_OF_CHILDREN_NODES IP     Run as child node, N children nodes, IP
 $ python app.py HOST PORT N IP                            Run as bootstrap node, for N children nodes, IP of bootstrap
 Available commands:
-* `t [recepient_address] [amount]`                        Send `amount` NBC to `recepient` node
+* `t [send_id] [recepient_id] [amount]`                        Send `amount` NBC to `recepient` node
 * `view`                                                  View transactions of the latest block
 * `balance`                                               View balance of each wallet (as of last validated block)
 * `help`                                                  Print this help message

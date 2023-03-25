@@ -70,7 +70,7 @@ class Node:
             requests.post(self.bootstrapAddr + "/bootstrap_register", data=res,
                           headers={'Content-type': 'application/json', 'Accept': 'text/plain'})
             # To actually test the numbers and not ignore all transactions because of balance
-            if self.nodeFile != Node:
+            if self.nodeFile != None:
                 tr = Transaction(self.wallet.get_addr(),
                                 self.wallet.get_addr(), 10000, [], 0)
                 tr.signature = self.wallet.sign(tr.tid)

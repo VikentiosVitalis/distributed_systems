@@ -62,7 +62,7 @@ If you want to run the tests inside the folders 5nodes and 10nodes the last inpu
 
 
 ## Evaluation of the system:
-We evaluate the performance and the scalability of Noobcash by running the system in [Okeanos](https://okeanos.grnet.gr/home/) and perform from each node 100 transcations to the system. The transactions are placed in /test/transactions path and the script of execution is named 'createPlots'.
+We evaluate the performance and the scalability of Noobcash by running the system in [Okeanos](https://okeanos.grnet.gr/home/) and perform from each node 100 transcations to the system. The transactions are placed in /test/transactions path and the script for the evaluation is named 'createPlots.py'.
 
 ## Contributors:
 

@@ -10,7 +10,7 @@ from src.transactions_output import TransactionOutput
 #
 #   The public key acts as an address of the wallet, which a process/user can share with anyone in order to get NBCs. 
 #
-#   The private key is used to sign transactions. With its use it is ensured that only the wallet owner can spend    #   NBCs from the specific wallet. The sign_transaction function implements this functionality.
+#   The private key is used to sign transactions. With its use it is ensured that only the wallet owner can spend NBCs from the specific wallet. The sign_transaction function implements this functionality.
 # 
 #   Anyone who knows the public key of a wallet can verify that a transaction was created by its owner.
 

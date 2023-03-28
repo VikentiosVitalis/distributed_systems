@@ -31,7 +31,6 @@ def register():
     response = { 'message': 'Node registered.' }
     return jsonify(response),200
 
-# Send all children info about the id, ring, public keys, genesis block
 @app.route('/child_inform', methods=['POST'])
 def info():
     res = request.get_json()
@@ -47,7 +46,6 @@ def broadcast():
     #print(f'Buffered transaction from {start.getID(res["sender"])} to {start.getID(res["receiver"])}')
     response = {'message': 'Broadcast finished'}
     return jsonify(response), 200
-
 
 
 @app.route('/mine', methods=['POST'])

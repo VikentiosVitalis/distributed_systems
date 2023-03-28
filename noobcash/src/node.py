@@ -164,7 +164,7 @@ class Node:
         new_transaction = Transaction(self.getAddr(self.id), self.getAddr(receiverID), 
                                       ammount, prev_tr, amt-ammount)
         # Sign it
-        new_transaction.signature = self.wallet.sign(new_transaction.tid)
+        new_transaction.signature = self.wallet.sign(new_transaction.tid) 
         self.wallet.addTransaction(new_transaction)
         self.broadcastTransaction(new_transaction)
         self.insertBlockchain(new_transaction)

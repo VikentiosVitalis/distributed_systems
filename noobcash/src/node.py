@@ -308,4 +308,3 @@ class Node:
             if bl.current_hash != bl.hashing():
                 return False
         return True
-
